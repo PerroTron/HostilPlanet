@@ -28,7 +28,7 @@ def init(g,r,n,facing,*params):
     s.vy = 0
     
     s._prev = None #pygame.Rect(-1,-1,0,0)
-    s.strength = 6
+    s.strength = 12
     
     s.standing = None
     s.ix = 0
