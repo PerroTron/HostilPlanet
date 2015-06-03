@@ -5,10 +5,12 @@ import spiner
 import shoot
 import frog
 import tiles_basic
-import panda
+import parasit
+import parasitshoot
 import door
 import sentinel
-import robo
+import tentactul
+import tentactulshoot
 import brobo
 import laser
 import points

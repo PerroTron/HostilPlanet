@@ -63,16 +63,16 @@ CODES = {
 0x42    :[_pass,], # CODE_FROG_TURN
 0x43    :[_pass,], # CODE_FROG_JUMP
 
-# panda related (8 codes)
-0x48    :[sprites.panda.init,'left',],
-0x49    :[sprites.panda.init,'right',],
+# parasit related (8 codes)
+0x48    :[sprites.parasit.init,],
+0x49    :[_pass,], # CODE_GUARDIAN_TURN
 
 #fally related (8 codes)
 0x50    :[sprites.tiles_basic.fally_init,],
 
-# robo related (8 codes)
-0x58    :[sprites.robo.init,],
-0x59    :[_pass,], # CODE_ROBO_TURN
+# tentactul related (8 codes)
+0x58    :[sprites.tentactul.init,],
+0x59    :[_pass,], # CODE_TENTACTUL_TURN
 
 #door related 
 0x60    :[sprites.door.init,], # CODE_DOOR (press shoot/up to be transported)
