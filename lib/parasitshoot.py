@@ -5,7 +5,7 @@ import player
 import sprite
 
 def init(g,r,p):
-    s = sprite.Sprite3(g,r,'parasitshoot',(0,0,13,7))
+    s = sprite.Sprite3(g,r,'shoots/parasitshoot',(0,0,13,7))
 
     s.rect.centerx = r.centerx
     s.rect.centery = r.centery

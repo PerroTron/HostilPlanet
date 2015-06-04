@@ -5,7 +5,7 @@ import player
 import sprite
 
 def init(g,r,p):
-    s = sprite.Sprite3(g,r,'tentactulshoot',(0,0,8,4))
+    s = sprite.Sprite3(g,r,'shoots/tentactulshoot',(0,0,8,4))
 
     s.rect.centerx = r.centerx
     s.rect.centery = r.centery
@@ -24,9 +24,9 @@ def init(g,r,p):
     
     s.vx = 1
     if p.facing == 'left':
-        s.vx = 10
+        s.vx = -2
     s.vy = 0
-    s.rect.centerx += s.vx*(0+s.rect.width/2)
+    s.rect.centerx += s.vx*(1+s.rect.width/2)
     s.rect.centery -= -7
     
     return s

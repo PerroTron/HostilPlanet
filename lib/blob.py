@@ -7,7 +7,7 @@ import player
 from cnst import *
 
 def init(g,r,n,*params):
-    s = sprite.Sprite3(g,r,'blob',(0,0,13,11))
+    s = sprite.Sprite3(g,r,'blob',(0,0,16,16))
     s.rect.bottom = r.bottom
     s.rect.centerx = r.centerx
     s.groups.add('solid')
@@ -36,8 +36,8 @@ def loop(g,s):
     #print s.vy
 
     if s.next_jump == 0 and s.standing:
-        s.vy = -6.0
-        s.next_jump = FPS * 2
+        s.vy = -3.0
+        s.next_jump = FPS * 1
         sprite.stop_standing(g,s)
     if s.next_jump > 0:
         s.next_jump -= 1

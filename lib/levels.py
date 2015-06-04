@@ -1,5 +1,5 @@
 LEVELS = [
-    ('phil_1.tga',      'Jungle - 1',),
+    ('mine1.tga',      'Mine - 1',),
     ('phil_7.tga',      'Jungle - 2',),
     ('tim_2.tga',       'Jungle - 3',),
     ('phil_2.tga',      'Jungle - 4',),

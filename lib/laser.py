@@ -5,7 +5,7 @@ import player
 import sprite
 
 def init(g,r,p):
-    s = sprite.Sprite3(g,r,'laser',(0,0,4,2))
+    s = sprite.Sprite3(g,r,'shoots/laser',(0,0,4,2))
 
     s.rect.centerx = r.centerx
     s.rect.centery = r.centery

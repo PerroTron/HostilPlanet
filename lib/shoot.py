@@ -12,9 +12,9 @@ def init(g,r,p, big=False):
     g.shoot_count += 1
     #print 'new shoot', g.shoot_count
     if not big:
-        s = sprite.Sprite3(g,r,'shoot',(0,0,7,7))
+        s = sprite.Sprite3(g,r,'shoots/shoot',(0,0,7,7))
     else:
-        s = sprite.Sprite3(g,r,'big-shoot',(0,0,16,16))
+        s = sprite.Sprite3(g,r,'shoots/big-shoot',(0,0,16,16))
     s.big = big
     s.rect.centerx = r.centerx
     s.rect.centery = r.centery
