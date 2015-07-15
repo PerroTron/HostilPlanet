@@ -1,6 +1,6 @@
 LEVELS = [
     ('mine1.tga',      'Mine - 1',),
-    ('phil_7.tga',      'Jungle - 2',),
+    ('mine2.tga',      'Mine - 2',),
     ('tim_2.tga',       'Jungle - 3',),
     ('phil_2.tga',      'Jungle - 4',),
     ('phil_13.tga',     'Jungle - 5',),

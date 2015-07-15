@@ -1,10 +1,10 @@
 #Phil's discount setup script
 #enter your params here....
 cfg = {
-    'name':'barbie',
+    'name':'Hostil Planet',
     'version':'1.0',
     'description':'Barbie Seahorse Adventures',
-    'author':'The Olde Battleaxe',
+    'author':'JauriaStudios',
     'author_email':'philhassey@yahoo.com',
     'url':'http://www.imitationpickles.org/barbie/',
     

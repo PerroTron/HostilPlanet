@@ -19,3 +19,4 @@ import guardian
 import boss
 import fireball
 import capsule
+import zombie

@@ -55,7 +55,7 @@ CODE_EXIT = 0x88
 CODE_GUARDIAN_TURN = 0x99
 CODE_BOSS_TURN = 0xA1
 CODE_BOSS_PHASE2_BLOCK = 0xA2
-
+CODE_ZOMBIE_TURN = 0xA9
 
 # Various constants:
 DOOR_DELAY = 20 # Delay when going through a door

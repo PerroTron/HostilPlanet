@@ -101,6 +101,13 @@ CODES = {
 # boss related
 0xA1    :[_pass,],
 0xA2    :[_pass,],
+
+# zombie related
+
+0xA8    :[sprites.zombie.init,],
+0xA9    :[_pass,], # CODE_ZOMBIE_TURN
+
+
 }
 
 
