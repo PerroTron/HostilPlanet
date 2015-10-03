@@ -33,6 +33,7 @@ def init(g,r,n,*params):
     s.event = event
     s.pan = pan_screen
     s.damage = damage
+    s.damaged_transition = 0
     s.kill = kill
     s.god_mode = False
     s.death_counter = -1
@@ -45,6 +46,10 @@ def init(g,r,n,*params):
     sprite.init_view(g,s)
     sprite.init_codes(g,s)
     s.no_explode = False
+    
+    if hasattr(g.game, 'strength'):
+        s.strength = g.game.strength
+    
     
     return s
     
@@ -189,6 +194,7 @@ def loop(g,s):
             s.walk_frame = 1
     else:
         s.image = 'player/%s'%(s.facing)
+        
     if s.flash_counter > 0:
         if s.flash_timer < 4:
             s.image = None
@@ -196,8 +202,16 @@ def loop(g,s):
             s.flash_timer = 8
             s.flash_counter -= 1
         s.flash_timer -= 1
+        
     if s.image != None:
-        if s.powerup_transition > 0:
+        if s.damaged_transition > 0:
+            if (s.damaged_transition % 10) > 5:
+                s.image = None
+            else :
+                s.image = 'splayer/%s'%(s.facing)
+            s.damaged_transition -= 1
+            
+        elif s.powerup_transition > 0:
             if (s.powerup_transition % 10) > 5:
                 s.image = 's' + s.image
             s.powerup_transition -= 1
@@ -205,6 +219,7 @@ def loop(g,s):
             s.image = 's' + s.image
     
     s.looking = False
+    
     if inpt.up:
         g.view.y -= 2
         s.looking = True
@@ -283,11 +298,16 @@ def damage(g,s):
     
     if s.powered_up:
         g.game.sfx['pop'].play()
-        s.powerup_transition = 100
+        #s.powerup_transition = 100
         s.powered_up = False
         if hasattr(g.game, 'powerup'):
             g.game.powerup = False
-    elif s.powerup_transition == 0 and s.flash_counter == 0:
+    elif s.damaged_transition == 0 and g.game.strength > 0:
+        s.damaged_transition = 100
+        if hasattr(g.game, 'strength'):
+            g.game.strength -= 1
+
+    elif s.powerup_transition == 0 and s.flash_counter == 0 and g.game.strength == 0:
         s.kill(g,s)
         
 def kill(g,s,no_explode = False):

@@ -297,7 +297,7 @@ class Intro2(engine.State):
         screen.blit(self.bkgr,(0,0))
         fnt = self.game.fonts['intro']
         x,y = 8,0
-        for text in ['This is','the year','of the','seahorse!']:
+        for text in ['This is','the year','of the','narwhal!']:
             c = (255,255,255)
             img = fnt.render(text,1,(0,0,0))
             screen.blit(img,(x+2,y+2))
