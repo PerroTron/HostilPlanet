@@ -302,14 +302,16 @@ def damage(g,s):
         s.powered_up = False
         if hasattr(g.game, 'powerup'):
             g.game.powerup = False
-    elif s.damaged_transition == 0 and g.game.strength > 0:
+    elif s.damaged_transition == 0 and s.strength > 0:
         s.damaged_transition = 100
+        
+        s.strength -= 1
         if hasattr(g.game, 'strength'):
             g.game.strength -= 1
 
-    elif s.powerup_transition == 0 and s.flash_counter == 0 and g.game.strength == 0:
+    elif s.powerup_transition == 0 and s.flash_counter == 0 and s.strength == 0:
         s.kill(g,s)
-        
+
 def kill(g,s,no_explode = False):
     if hasattr(g.game, 'powerup'):
         g.game.powerup = False
