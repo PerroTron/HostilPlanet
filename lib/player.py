@@ -208,7 +208,12 @@ def loop(g,s):
             if (s.damaged_transition % 10) > 5:
                 s.image = None
             else :
-                s.image = 'splayer/%s'%(s.facing)
+				if s.vy < 0:
+					s.image = 'player/%s-jump' % (s.facing)
+				elif inpt.right or inpt.left and s.standing:
+					s.image = 'player/%s-walk-%s' % (s.facing, int(s.walk_frame))
+				else:
+					s.image = 'splayer/%s'%(s.facing)
             s.damaged_transition -= 1
             
         elif s.powerup_transition > 0:
