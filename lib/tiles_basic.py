@@ -102,12 +102,22 @@ def hit_life(g,a,b):
     
     #print '1-up'
     tile_explode(g,a)
+
+def hit_def(g,a,b):
+    if not tile_close(g,a,b): return 
     
+    g.game.sfx['coin'].play()
+    
+    #print '+ def'
+    if g.game.strength < 4: 
+        g.game.strength += 1 
+    tile_explode(g,a)
+
 def one_up(g,b):
     g.game.lives += 1
     g.game.sfx['powerup'].play()
 
-    
+
 def hit_item(g,a,b,pts):
     if not tile_close(g,a,b): return 
     
