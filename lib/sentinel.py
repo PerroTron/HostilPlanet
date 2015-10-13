@@ -30,7 +30,7 @@ def init(g,r,n,*params):
     s.vy = 0
     
     s._prev = pygame.Rect(s.rect)
-    s.strength = 3
+    s.strength = 6
     
     s.standing = None
     return s
