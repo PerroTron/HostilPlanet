@@ -29,7 +29,7 @@ def init(g,r,n,facing = 'left',*params):
     s.vy = 0
     
     s._prev = pygame.Rect(-1,-1,0,0)
-    s.strength = 2
+    s.strength = 8
     
     s.standing = None
     return s
@@ -64,7 +64,7 @@ def loop(g,s):
         shot = laser.init(g,s.rect,s)
         #g.sprites.append(shot)
         s.shoot = 120
-        s.shooting = 10
+        s.shooting = 5
 
     if s.shooting > 0:
         s.image = 'guardian/guardian-%s-shoot' % (s.facing)

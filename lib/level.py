@@ -153,6 +153,8 @@ class Level:
         self.status = '_first'
         self.player.image = None
         self.player.exploded = 30
+        
+        self.game.strength = 3
                 
     def set_bkgr(self,fname):
         if self._bkgr_fname == fname:
@@ -411,7 +413,8 @@ class Level:
     def paint_text(self,screen):
         fnt = self.game.fonts['level']
         pad = 4
-        
+        hitpadx = 0
+        hitpady = 20
         top_y = pad
         
         blit = screen.blit
@@ -430,6 +433,12 @@ class Level:
             img = self.images[0x0C] # the extra life tile
             x,y = SW-1.05*img.get_width()*i - img.get_width() - pad, pad
             blit(img, (x, y))
+            
+        for i in xrange(self.game.strength):
+            img = self.images[0x1F] # the extra life tile
+            x,y = SW/2-1.05*img.get_width()*-i - img.get_width() - hitpadx, hitpady
+            blit(img, (x, y))
+            
         #text = '%d . %02d'%(self.game.lives,self.game.coins)
         #c = (0,0,0)
         #img = fnt.render(text,1,c)

@@ -32,6 +32,7 @@ TILES = {
 0x1A    :[t_init,['player'],tiles_basic.hit_item,250], #points
 0x1C    :[t_init,['player'],tiles_basic.hit_item,500], #points
 0x1E    :[t_init,['player'],tiles_basic.hit_item,1000], #points
+0x1F    :[t_init,['player'],tiles_basic.hit_def,], #extra-def
 0x28    :[t_init,['player'],tiles_basic.hit_coin,], #coin
 
 #jungle tiles (0x40...)
@@ -179,11 +180,11 @@ TREPLACE = [
 ]
 
 def t_put(g,pos,n):
-    x,y = pos
-    if n not in TILES:
-        #print 'undefined tile:',x,y,'0x%02x'%n
-        t_init(g,pygame.Rect(x*TW,y*TH,TW,TH),n,[],None)
-        return
-    v = TILES[n]
-    v[0](g,pygame.Rect(x*TW,y*TH,TW,TH),n,*v[1:])
+	x,y = pos
+	if n not in TILES:
+		#print 'undefined tile:',x,y,'0x%02x'%n
+		t_init(g,pygame.Rect(x*TW,y*TH,TW,TH),n,[],None)
+		return
+	v = TILES[n]
+	v[0](g,pygame.Rect(x*TW,y*TH,TW,TH),n,*v[1:])
 
