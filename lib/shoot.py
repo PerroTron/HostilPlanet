@@ -24,10 +24,10 @@ def init(g,r,p, big=False):
     s.hit = hit
     g.sprites.append(s)
     s.loop = loop
-    s.life = 30
+    s.life = 50
     s.strength = 1
     s.deinit = deinit
-    if big: s.strength = 3
+    if big: s.strength = 2
     
     s.vx = 1
     if p.facing == 'left':
@@ -45,7 +45,7 @@ def deinit(g,s):
     g.shoot_count -= 1
     
 def loop(g,s):
-    s.rect.x += s.vx*5
+    s.rect.x += s.vx*4
     s.life -= 1
     if s.life == 0:
         s.active = False
