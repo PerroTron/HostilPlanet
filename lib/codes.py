@@ -113,19 +113,19 @@ CODES = {
 
 
 def c_init(g,pos,n):
-    x,y = pos
-    if n not in INIT_CODES and n not in CODES:
-        print 'undefined code:',x,y,'0x%2x'%n
-        return
-    if n not in INIT_CODES: return
-    v = INIT_CODES[n]
-    return v[0](g,pygame.Rect(x*TW,y*TH,TW,TH),n,*v[1:])
+	x,y = pos
+	if n not in INIT_CODES and n not in CODES:
+		print 'undefined code:',x,y,'0x%2x'%n
+		return
+	if n not in INIT_CODES: return
+	v = INIT_CODES[n]
+	return v[0](g,pygame.Rect(x*TW,y*TH,TW,TH),n,*v[1:])
 
 def c_run(g,pos,n):
-    x,y = pos
-    if n not in INIT_CODES and n not in CODES:
-        print 'undefined code:',x,y,'0x%2x'%n
-        return
-    if n not in CODES: return
-    v = CODES[n]
-    return v[0](g,pygame.Rect(x*TW,y*TH,TW,TH),n,*v[1:])
+	x,y = pos
+	if n not in INIT_CODES and n not in CODES:
+		print 'undefined code:',x,y,'0x%2x'%n
+		return
+	if n not in CODES: return
+	v = CODES[n]
+	return v[0](g,pygame.Rect(x*TW,y*TH,TW,TH),n,*v[1:])
