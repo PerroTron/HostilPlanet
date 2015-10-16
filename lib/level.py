@@ -435,7 +435,7 @@ class Level:
             blit(img, (x, y))
             
         for i in xrange(self.game.strength):
-            img = self.images[0x1F] # the extra life tile
+            img = self.images[0x1C] # the extra life tile
             x,y = SW/2-1.05*img.get_width()*-i - img.get_width() - hitpadx, hitpady
             blit(img, (x, y))
             

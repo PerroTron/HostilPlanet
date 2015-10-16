@@ -46,7 +46,7 @@ class Game(engine.Game):
         self.lives = 2
         self.coins = 0
         self.strength = 3
-        self.powerup = False
+        self.powerup = ''
         
     def init(self):
         self.random = 0

@@ -26,14 +26,14 @@ TILES = {
 0x21    :[t_init,['solid'],tiles_basic.hit_block,1,0,0,0,],
 
 #powerups and bonus items ...
-0x08    :[t_init,['player'],tiles_basic.hit_power,], #power-up
+0x08    :[t_init,['player'],tiles_basic.hit_power,'cannon'], #cannon
 0x0C    :[t_init,['player'],tiles_basic.hit_life,], #extra-life
 0x18    :[t_init,['player'],tiles_basic.hit_item,100], #points
-0x1A    :[t_init,['player'],tiles_basic.hit_item,250], #points
-0x1C    :[t_init,['player'],tiles_basic.hit_item,500], #points
-0x1E    :[t_init,['player'],tiles_basic.hit_item,1000], #points
-0x1F    :[t_init,['player'],tiles_basic.hit_def,], #extra-def
-0x28    :[t_init,['player'],tiles_basic.hit_coin,], #coin
+#0x1A    :[t_init,['player'],tiles_basic.hit_item,250], #points
+#0x1C    :[t_init,['player'],tiles_basic.hit_item,500], #points
+#0x1E    :[t_init,['player'],tiles_basic.hit_item,1000], #points
+0x1C    :[t_init,['player'],tiles_basic.hit_def,], #extra-def
+0x28    :[t_init,['player'],tiles_basic.hit_power, 'shootgun'], #shootgun
 
 #jungle tiles (0x40...)
 0x40	:[tr_init,['solid'],tiles_basic.hit_block,1,0,0,0,],

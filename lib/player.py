@@ -22,7 +22,7 @@ def init(g,r,n,*params):
 	s.flash_counter = 0
 	s.flash_timer = 0
 	s.shooting = 0
-	s.powered_up = False
+	s.powered_up = ''
 	if hasattr(g.game, 'powerup'):
 		s.powered_up = g.game.powerup
 	s.powerup_transition = 0
@@ -50,9 +50,8 @@ def init(g,r,n,*params):
 	if hasattr(g.game, 'strength'):
 		s.strength = g.game.strength
 	
-	
 	return s
-	
+
 def event(g,s,e):
 	#print 'player.event',e
 	if s.door_timer != None or s.exploded > 0:
@@ -84,20 +83,20 @@ def event(g,s,e):
 			#tiles.t_put(g,(x,y), 0x32)
 			#tiles.t_put(g,(x,y-1), 0x22)
 	if e.type is USEREVENT and e.action == 'shoot':
-		if s.powered_up:
-			sprites.shoot.init(g,s.rect,s,big=True)
+		if s.powered_up != '':
+			sprites.shoot.init(g,s.rect,s,weapon = s.powered_up)
 		else:
-			sprites.shoot.init(g,s.rect,s,big=False)
+			sprites.shoot.init(g,s.rect,s,weapon = '')
 		s.shooting = 10
 		
 	if e.type is KEYDOWN and e.key == K_F10:
-		powerup(g,s)
+		powerup(g,s,'shootgun')
 		s.god_mode = True
 		
 	#if e.type is KEYDOWN and e.key == K_F12:
 		#1/0
-		
-		
+
+
 def loop(g,s):
 	s._prev2 = pygame.Rect(s.rect)
 	
@@ -130,7 +129,7 @@ def loop(g,s):
 
 	if s.door_timer != None:
 		if s.door_timer == 0:
-			x,y = s.door_pos#s.rect.centerx/TW,s.rect.centery/TH
+			x,y = s.door_pos #s.rect.centerx/TW,s.rect.centery/TH
 			import door
 			#door.hit(g,g.layer[y][x],s)
 			door.hit(g,(x,y),s)
@@ -221,7 +220,7 @@ def loop(g,s):
 			if (s.powerup_transition % 10) > 5:
 				s.image = 's' + s.image
 			s.powerup_transition -= 1
-		elif not s.powered_up:
+		elif s.powered_up == '':
 			s.image = 's' + s.image
 	
 	s.looking = False
@@ -259,9 +258,10 @@ def loop(g,s):
 			#g.game.music.play('finish',1)
 	
 	s.strength = g.game.strength
-	
-	
+
+
 def pan_screen(g,s):
+
 	# adjust the view 
 	border = pygame.Rect(s.rect)
 	#pad = 100
@@ -291,12 +291,11 @@ def pan_screen(g,s):
 	g.view.y += dy
 	
 
-def powerup(g,s):
-	if not s.powered_up:
-		s.powerup_transition = 100
-		s.powered_up = True
-		if hasattr(g.game, 'powerup'):
-			g.game.powerup = True
+def powerup(g,s,weapon):
+	s.powerup_transition = 100
+	s.powered_up = weapon
+	if hasattr(g.game, 'powerup'):
+		g.game.powerup = weapon
 	
 def damage(g,s):
 	if s.god_mode: return
@@ -304,12 +303,12 @@ def damage(g,s):
 	if s.door_timer != None:
 		return
 	
-	if s.powered_up:
+	if s.powered_up != '':
 		g.game.sfx['pop'].play()
 		#s.powerup_transition = 100
-		s.powered_up = False
+		s.powered_up = ''
 		if hasattr(g.game, 'powerup'):
-			g.game.powerup = False
+			g.game.powerup = ''
 	elif s.damaged_transition == 0 and s.strength > 0:
 		g.game.sfx['hit'].play()
 		s.damaged_transition = 100
@@ -323,7 +322,7 @@ def damage(g,s):
 
 def kill(g,s,no_explode = False):
 	if hasattr(g.game, 'powerup'):
-		g.game.powerup = False
+		g.game.powerup = ''
 	s.flash_counter = 10
 	s.no_explode = no_explode
 	g.game.music_play('death',1)
