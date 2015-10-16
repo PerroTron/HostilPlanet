@@ -29,23 +29,23 @@ def hit_block(g,a,b,top=1,right=1,bottom=1,left=1):
 	if left and prev.right <= r.left and cur.right > r.left:
 		got_hit = True
 		cur.right = r.left
-
+	
 	if got_hit and 'shoot' in b.groups:
 		b.active = False
-		
+	
 	if got_hit and 'laser' in b.groups:
 		b.active = False
-	
+
 def hit_breakable(g,a,b,top=1,right=1,bottom=1,left=1):
 	hit_block(g,a,b,top,right,bottom,left)
 	if 'shoot' in b.groups:
 		tile_explode(g,a)
-	
+
 def hit_replace(g,a,b,r):
 	hit_block(g,a,b,1,1,1,1)
 	if 'shoot' in b.groups:
 		tiles.t_put(g,a.pos,r)
-	
+
 def hit_fally(g,a,b,top=1,right=1,bottom=1,left=1):
 	hit_block(g,a,b,top,right,bottom,left)
 	
@@ -69,20 +69,18 @@ def hit_fally(g,a,b,top=1,right=1,bottom=1,left=1):
 		sprite.apply_gravity(g,s)
 		s.rect.y += s.vy
 	s.loop = loop
-			
-	
+
 def fally_init(g,r,n,*params):
 	x,y = r.centerx/TW,r.centery/TH
 	tiles.t_put(g,(x,y),0x12)
-	
-	
+
 def hit_fire(g,a,b):
 	if hasattr(b,'damage'):
 		if hasattr(b,'kill'):
 			b.kill(g,b,1)
 	#print 'you hit fire oh no!'
 	pass
-	
+
 def hit_coin(g,a,b):
 	if not tile_close(g,a,b): return 
 	
@@ -94,7 +92,7 @@ def hit_coin(g,a,b):
 	#print '1-coin'
 	
 	tile_explode(g,a)
-	
+
 def hit_life(g,a,b):
 	if not tile_close(g,a,b): return 
 	
@@ -111,7 +109,7 @@ def hit_def(g,a,b):
 	#print '+ def'
 	if g.game.strength < 4: 
 		g.game.strength += 1
-
+	
 	tile_explode(g,a)
 
 def one_up(g,b):
@@ -137,7 +135,7 @@ def hit_power(g,a,b,weapon):
 	#print '+ power'
 	player.powerup(g,b,weapon)
 	tile_explode(g,a)
-	
+
 def tile_close(g,a,b):
 	r1 = pygame.Rect(a.rect)
 	r2 = pygame.Rect(b.rect)
@@ -147,7 +145,7 @@ def tile_close(g,a,b):
 	r1.w -= pad *2
 	r1.h -= pad*2
 	return r1.colliderect(r2) 
-	
+
 def tile_explode(g,a):
 	g.game.sfx['explode'].play()
 	tiles.t_put(g,a.pos,0)
@@ -162,7 +160,6 @@ def tile_explode(g,a):
 			#if s in g.sprites:
 				#g.sprites.remove(s)
 	s.loop = loop
-			
 
 
 
