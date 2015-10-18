@@ -28,5 +28,6 @@ change_to_correct_path()
 if '-profile' in sys.argv:
 	import profile
 	profile.run('main.main()')
+
 else:
 	main.main()
