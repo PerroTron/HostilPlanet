@@ -26,14 +26,14 @@ TILES = {
 0x21    :[t_init,['solid'],tiles_basic.hit_block,1,0,0,0,],
 
 #powerups and bonus items ...
-0x08    :[t_init,['player'],tiles_basic.hit_power,], #power-up
+0x08    :[t_init,['player'],tiles_basic.hit_power,'cannon'], #cannon
 0x0C    :[t_init,['player'],tiles_basic.hit_life,], #extra-life
 0x18    :[t_init,['player'],tiles_basic.hit_item,100], #points
-0x1A    :[t_init,['player'],tiles_basic.hit_item,250], #points
-0x1C    :[t_init,['player'],tiles_basic.hit_item,500], #points
-0x1E    :[t_init,['player'],tiles_basic.hit_item,1000], #points
-0x1F    :[t_init,['player'],tiles_basic.hit_def,], #extra-def
-0x28    :[t_init,['player'],tiles_basic.hit_coin,], #coin
+#0x1A    :[t_init,['player'],tiles_basic.hit_item,250], #points
+#0x1C    :[t_init,['player'],tiles_basic.hit_item,500], #points
+#0x1E    :[t_init,['player'],tiles_basic.hit_item,1000], #points
+0x1C    :[t_init,['player'],tiles_basic.hit_def,], #extra-def
+0x28    :[t_init,['player'],tiles_basic.hit_power, 'shootgun'], #shootgun
 
 #jungle tiles (0x40...)
 0x40	:[tr_init,['solid'],tiles_basic.hit_block,1,0,0,0,],
@@ -161,13 +161,13 @@ TILES = {
 
 TANIMATE = [
 #(starting_tile,animated list of frames incs),
-(0x08,[int(v) for v in '00000000000000000000000111222333']), # powerup
+(0x08,[int(v) for v in '00000000000000000000000111222333']), # cannon
 (0x0C,[int(v) for v in '00000001112223330000000000000000']), # extra life
 (0x18,[int(v) for v in '1100000000000000000000000000000000000000000000000000000000000000']), # veggies
 (0x1A,[int(v) for v in '0000000000000000110000000000000000000000000000000000000000000000']),
-(0x1C,[int(v) for v in '0000000000000000000000000000000011000000000000000000000000000000']),
+(0x1C,[int(v) for v in '00000001112223330000000000000000']), # def
 (0x1E,[int(v) for v in '0000000000000000000000000000000000000000000000001100000000000000']),
-(0x28,[int(v) for v in '00001111222233334444555566667777']), # coin
+(0x28,[int(v) for v in '00000000000000000000000111222333']), # cannon
 (0x30,[int(v) for v in '1111111111111111111111111111111111111111111111111111111111111111']), # door
 ]
 
