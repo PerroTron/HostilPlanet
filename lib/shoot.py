@@ -24,7 +24,7 @@ def init(g,r,p,weapon):
         s = sprite.Sprite3(g,r,'shoots/%s-shoot'%(p.facing),(0,0,7,7))
         s.strength = 1
         g.game.sfx['shoot'].play()
-        
+    
     s.weapon = weapon
     s.rect.centerx = r.centerx
     s.rect.centery = r.centery

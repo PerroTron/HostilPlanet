@@ -21,7 +21,7 @@ TILES = {
 0x10    :[t_init,['solid'],tiles_basic.hit_block,1,1,1,1,],
 0x11    :[t_init,['solid'],tiles_basic.hit_block,1,0,0,0,],
 0x12    :[t_init,['solid'],tiles_basic.hit_fally,1,1,1,1,],
-0x14    :[t_init,['bubble'],tiles_basic.hit_replace,0x15,],
+#0x14    :[t_init,['bubble'],tiles_basic.hit_replace,0x15,],
 0x15    :[t_init,['solid'],tiles_basic.hit_block,1,1,1,1,],
 0x21    :[t_init,['solid'],tiles_basic.hit_block,1,0,0,0,],
 
@@ -35,7 +35,7 @@ TILES = {
 0x1C    :[t_init,['player'],tiles_basic.hit_def,], #extra-def
 0x28    :[t_init,['player'],tiles_basic.hit_power, 'shootgun'], #shootgun
 
-#jungle tiles (0x40...)
+#mine tiles (0x40...)
 0x40	:[tr_init,['solid'],tiles_basic.hit_block,1,0,0,0,],
 0x41	:[t_init,['solid'],tiles_basic.hit_block,1,0,0,0,],
 0x42	:[t_init,['solid'],tiles_basic.hit_block,1,0,0,0,],
@@ -90,11 +90,11 @@ TILES = {
 0x81	:[t_init,['solid'],tiles_basic.hit_block,1,0,0,0,],
 0x82	:[t_init,['solid'],tiles_basic.hit_block,1,0,0,0,],
 0x83	:[tl_init,['solid'],tiles_basic.hit_block,1,0,0,0,],
-0x84	:[t_init,['solid'],tiles_basic.hit_block,1,0,0,0,],
+#0x84	:[t_init,['solid'],tiles_basic.hit_block,1,0,0,0,],
 0x85	:[tr_init,['solid'],tiles_basic.hit_block,1,0,0,0,],
 #0x91	:[t_init,['solid'],tiles_basic.hit_block,1,1,1,1,],
 #0x92	:[t_init,['solid'],tiles_basic.hit_block,1,1,1,1,],
-0x94	:[t_init,['solid'],tiles_basic.hit_block,1,0,0,0,],
+#0x94	:[t_init,['solid'],tiles_basic.hit_block,1,0,0,0,],
 0x95	:[tl_init,['solid'],tiles_basic.hit_block,1,0,0,0,],
 #0xa1	:[t_init,['solid'],tiles_basic.hit_block,1,1,1,1,],
 #0xa2	:[t_init,['solid'],tiles_basic.hit_block,1,1,1,1,],
@@ -116,7 +116,7 @@ TILES = {
 0x99    :[t_init,['solid'],tiles_basic.hit_block,1,1,1,1,],
 0xA7    :[t_init,['solid'],tiles_basic.hit_block,1,1,1,1,],
 0xA8    :[t_init,['solid'],tiles_basic.hit_block,1,1,1,1,],
-0xA9    :[t_init,['solid'],tiles_basic.hit_block,1,1,1,1,],
+#0xA9    :[t_init,['solid'],tiles_basic.hit_block,1,1,1,1,],
 0xB7    :[t_init,['solid'],tiles_basic.hit_block,1,1,1,1,],
 0xB8    :[t_init,['solid'],tiles_basic.hit_block,1,1,1,1,],
 0xB9    :[t_init,['solid'],tiles_basic.hit_block,1,1,1,1,],
@@ -134,13 +134,11 @@ TILES = {
 0xd5	:[tl_init,['solid'],tiles_basic.hit_block,1,0,0,0,],
 #0xe1	:[t_init,['solid'],tiles_basic.hit_block,1,1,1,1,],
 #0xe2	:[t_init,['solid'],tiles_basic.hit_block,1,1,1,1,],
-0xe4	:[t_init,['solid'],tiles_basic.hit_block,1,0,0,0,],
 0xe5	:[t_init,['solid'],tiles_basic.hit_block,1,0,0,0,],
 0xf0	:[tr_init,['solid'],tiles_basic.hit_block,1,0,0,0,],
 0xf1	:[t_init,['solid'],tiles_basic.hit_block,1,0,0,0,],
 0xf2	:[t_init,['solid'],tiles_basic.hit_block,1,0,0,0,],
 0xf3	:[tl_init,['solid'],tiles_basic.hit_block,1,0,0,0,],
-0xf4	:[t_init,['solid'],tiles_basic.hit_block,1,0,0,0,],
 0xf5	:[t_init,['solid'],tiles_basic.hit_block,1,0,0,0,],
 
 # moon cave set
@@ -156,6 +154,25 @@ TILES = {
 0xF7    :[t_init,['solid'],tiles_basic.hit_block,1,1,1,1,],
 0xF8    :[t_init,['solid'],tiles_basic.hit_block,1,1,1,1,],
 0xF9    :[t_init,['solid'],tiles_basic.hit_block,1,1,1,1,],
+
+# tile animations
+
+0x4D    :[t_init,[],None,], # torch
+0x4E    :[t_init,[],None,], # torch
+0x4F    :[t_init,[],None,], # torch
+
+0x9D    :[t_init,[],None,], # red light
+0x9E    :[t_init,[],None,], # red light
+
+0xAD    :[t_init,[],None,], # cable
+0xAE    :[t_init,[],None,], # cable
+0xAF    :[t_init,[],None,], # cable
+0xBD    :[t_init,[],None,], # cable
+0xBE    :[t_init,[],None,], # cable
+0xBF    :[t_init,[],None,], # cable
+
+0x9A    :[t_init,['player'],tiles_basic.hit_dmg,],
+
 }
 
 
@@ -169,6 +186,11 @@ TANIMATE = [
 (0x1E,[int(v) for v in '0000000000000000000000000000000000000000000000001100000000000000']),
 (0x28,[int(v) for v in '00000000000000000000000111222333']), # cannon
 (0x30,[int(v) for v in '1111111111111111111111111111111111111111111111111111111111111111']), # door
+(0x4D,[int(v) for v in '0000000000000000111111111111111122222222222222221111111111111111']), #torch
+(0x9D,[int(v) for v in '1111111111111111111111111111111111111111111111111100000000000000']), #torch
+(0xAD,[int(v) for v in '0000000000000000000000000000000000000000000000000112211001100220']), #torch
+(0xBD,[int(v) for v in '0000000000000000000000000000000000000000000000000112211001100220']), #torch
+
 ]
 
 TREPLACE = [

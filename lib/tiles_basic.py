@@ -81,6 +81,11 @@ def hit_fire(g,a,b):
 	#print 'you hit fire oh no!'
 	pass
 
+def hit_dmg(g,a,b):
+	player.damage(g,b)
+	#print 'you hit fire oh no!'
+	pass
+
 def hit_coin(g,a,b):
 	if not tile_close(g,a,b): return 
 	
