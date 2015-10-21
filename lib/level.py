@@ -114,6 +114,9 @@ class Level:
         
         self.size = len(self.data[0][0]),len(self.data[0])
         
+        self._status_bar_fname = None
+        self.set_status_bar('status_bar.png')
+        
         self._bkgr_fname = None
         self.set_bkgr('1.png')
         self.bkgr_scroll = pygame.Rect(0,0,1,1)
@@ -162,6 +165,11 @@ class Level:
         self._bkgr_fname = fname
         self.bkgr = pygame.image.load(data.filepath(os.path.join('bkgr',fname))).convert()
 
+    def set_status_bar(self, fname):
+        if self._status_bar_fname == fname:
+            return
+        self._status_bar_fname = fname
+        self.status_bar = pygame.image.load(data.filepath(fname)).convert_alpha()
                 
     def run_codes(self,r):
         #r.clamp_ip(self.bounds)
@@ -411,13 +419,20 @@ class Level:
             
             
     def paint_text(self,screen):
+        
+        
         fnt = self.game.fonts['level']
         pad = 4
         hitpadx = 0
-        hitpady = 20
+        hitpady = 15
         top_y = pad
         
         blit = screen.blit
+        
+        
+        img = self.status_bar
+        blit(img,(0,0))
+        
         text = '%05d'%self.game.score
         c = (0,0,0)
         img = fnt.render(text,1,c)
@@ -459,10 +474,18 @@ class Level:
         blit(img,(x,y))
 
         textheight = img.get_height()
-
-        img = self.images[0x28] # The coin
-        x,y = x - img.get_width() - pad, y - img.get_height()/2 + textheight/2
-        blit(img,(x,y))
+        
+        # display current weapon
+        weapon = self.game.powerup
+        
+        if weapon != '':
+            if weapon == 'cannon':
+                img = self.images[0x08] # The cannon
+            elif weapon == 'shootgun':
+                img = self.images[0x28] # The cannon
+                
+            x,y = x - img.get_width() - pad, y - img.get_height()/2 + textheight/2
+            blit(img,(x,y))
 
 
         text = self.title
@@ -474,4 +497,4 @@ class Level:
         c = (255,255,255)
         img = fnt.render(text,1,c)
         blit(img,(x,y)) ; blit(img,(x,y))
-
+        

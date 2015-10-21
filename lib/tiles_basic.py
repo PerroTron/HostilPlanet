@@ -81,9 +81,37 @@ def hit_fire(g,a,b):
 	#print 'you hit fire oh no!'
 	pass
 
-def hit_dmg(g,a,b):
+def hit_dmg(g,a,b,top=1,right=1,bottom=1,left=1):
+	r,cur,prev = a.rect,b.rect,b.prev
+	
+	got_hit = False
+	
+	if top and prev.bottom <= r.top and cur.bottom > r.top:
+		got_hit = True
+		cur.bottom = r.top
+		if hasattr(b,'standing'): b.standing = a
+	if right and prev.left >= r.right and cur.left < r.right:
+		got_hit = True
+		cur.left = r.right
+	if bottom and prev.top >= r.bottom and cur.top < r.bottom:
+		got_hit = True
+		cur.top = r.bottom
+		#if hasattr(b,'vy'): b.vy = 0
+		if hasattr(b,'standing') and b.standing != None:
+			import sprite
+			sprite.stop_standing(g,b)
+	if left and prev.right <= r.left and cur.right > r.left:
+		got_hit = True
+		cur.right = r.left
+	
+	if got_hit and 'shoot' in b.groups:
+		b.active = False
+	
+	if got_hit and 'laser' in b.groups:
+		b.active = False
+	
 	player.damage(g,b)
-	#print 'you hit fire oh no!'
+	#print 'you hit a damge thing oh no!'
 	pass
 
 def hit_coin(g,a,b):

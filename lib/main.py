@@ -132,10 +132,14 @@ class Game(engine.Game):
         self._music_name = None
         
         self.sfx = {}
+        # wav files
         for name in ['shoot','capsule','coin','hit','item','powerup',
             'pop','jump','explode','door','fally','boss_explode']:
             self.sfx[name] = Sound(data.filepath(os.path.join('sfx','%s.wav'%name)))
         
+        for name in ['rocket1','shootgun1','armor1']:
+            self.sfx[name] = Sound(data.filepath(os.path.join('sfx','%s.ogg'%name)))
+            
     def tick(self):
         r = self.timer.tick()
         if r != None: print r

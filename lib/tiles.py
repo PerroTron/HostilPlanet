@@ -171,7 +171,32 @@ TILES = {
 0xBE    :[t_init,[],None,], # cable
 0xBF    :[t_init,[],None,], # cable
 
-0x9A    :[t_init,['player'],tiles_basic.hit_dmg,],
+0x7D    :[t_init,['player'],tiles_basic.hit_dmg,1,1,1,1,], # radial
+0x7E    :[t_init,['player'],tiles_basic.hit_dmg,1,1,1,1,], # radial
+0x7F    :[t_init,['player'],tiles_basic.hit_dmg,1,1,1,1,], # radial
+
+0x5D    :[t_init,['player'],tiles_basic.hit_dmg,1,1,1,1,], # lava
+0x5E    :[t_init,['player'],tiles_basic.hit_dmg,1,1,1,1,], # lava
+0x5F    :[t_init,['player'],tiles_basic.hit_dmg,1,1,1,1,], # lava
+
+0xCD    :[t_init,[],None,], # acid
+0xCE    :[t_init,[],None,], # acid
+0xCF    :[t_init,[],None,], # acid
+0xDD    :[t_init,[],None,], # acid
+0xDE    :[t_init,[],None,], # acid
+0xDF    :[t_init,[],None,], # acid
+
+0x6D    :[t_init,['player'],tiles_basic.hit_dmg,1,1,1,1,], # electron
+0x6E    :[t_init,['player'],tiles_basic.hit_dmg,1,1,1,1,], # electron
+0x6F    :[t_init,['player'],tiles_basic.hit_dmg,1,1,1,1,], # electron
+
+0x4A    :[t_init,['player'],tiles_basic.hit_dmg,1,1,1,1,], # pinchos
+0x4B    :[t_init,['player'],tiles_basic.hit_dmg,1,1,1,1,], # pinchos
+0x4C    :[t_init,['player'],tiles_basic.hit_dmg,1,1,1,1,], # pinchos
+
+0x5A    :[t_init,['player'],tiles_basic.hit_dmg,1,1,1,1,], # draco
+0x5B    :[t_init,['player'],tiles_basic.hit_dmg,1,1,1,1,], # draco
+0x5C    :[t_init,['player'],tiles_basic.hit_dmg,1,1,1,1,], # draco
 
 }
 
@@ -190,6 +215,14 @@ TANIMATE = [
 (0x9D,[int(v) for v in '1111111111111111111111111111111111111111111111111100000000000000']), #torch
 (0xAD,[int(v) for v in '0000000000000000000000000000000000000000000000000112211001100220']), #torch
 (0xBD,[int(v) for v in '0000000000000000000000000000000000000000000000000112211001100220']), #torch
+(0x7D,[int(v) for v in '00112211001122110011221100112211']), # radial
+(0x5D,[int(v) for v in '00000000000111111111112222222222']), # lava
+(0xCD,[int(v) for v in '0000000000000000000001111111111111111111112222222222222222222222']), #acid
+(0xDD,[int(v) for v in '0000000000000000000001111111111111111111112222222222222222222222']), #acid
+(0x6D,[int(v) for v in '00000000000111111111112222222222']), # electron
+(0x4A,[int(v) for v in '0000000000000000000001111111111111111111112222222222222222222222']), #pinchos
+(0x5A,[int(v) for v in '00000000000111111111112222222222']), #draco
+
 
 ]
 
