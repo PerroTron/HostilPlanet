@@ -431,7 +431,7 @@ class Level:
         
         
         img = self.status_bar
-        blit(img,(0,0))
+        blit(img,(0,205))
         
         text = '%05d'%self.game.score
         c = (0,0,0)
@@ -444,15 +444,30 @@ class Level:
         blit(img,(x,y)) ; blit(img,(x,y))
         
         #text = 'LIVES: %d'%self.game.lives
+        """
         for i in xrange(self.game.lives):
             img = self.images[0x0C] # the extra life tile
             x,y = SW-1.05*img.get_width()*i - img.get_width() - pad, pad
             blit(img, (x, y))
-            
+            """
+        
+        text = '%01d'%self.game.lives
+        c = (0,0,0)
+        img = fnt.render(text,1,c)
+        x,y = 88,224
+        blit(img,(x+1,y+1))
+        c = (255,255,255)
+        img = fnt.render(text,1,c)
+        blit(img,(x,y)) ; blit(img,(x,y))
+        
+        img = self.images[0x0C]
+        blit(img, (97,218))
+        
         for i in xrange(self.game.strength):
             img = self.images[0x1C] # the extra life tile
-            x,y = SW/2-1.05*img.get_width()*-i - img.get_width() - hitpadx, hitpady
+            x,y = 144-1.02*img.get_width()*-i - img.get_width() - hitpadx, 216
             blit(img, (x, y))
+            
             
         #text = '%d . %02d'%(self.game.lives,self.game.coins)
         #c = (0,0,0)
@@ -484,8 +499,8 @@ class Level:
             elif weapon == 'shootgun':
                 img = self.images[0x28] # The cannon
                 
-            x,y = x - img.get_width() - pad, y - img.get_height()/2 + textheight/2
-            blit(img,(x,y))
+            #x,y = x - img.get_width() - pad, y - img.get_height()/2 + textheight/2
+            blit(img,(211,219))
 
 
         text = self.title

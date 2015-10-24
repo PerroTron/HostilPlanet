@@ -194,9 +194,6 @@ TILES = {
 0x4B    :[t_init,['player'],tiles_basic.hit_dmg,1,1,1,1,], # pinchos
 0x4C    :[t_init,['player'],tiles_basic.hit_dmg,1,1,1,1,], # pinchos
 
-0x5A    :[t_init,['player'],tiles_basic.hit_dmg,1,1,1,1,], # draco
-0x5B    :[t_init,['player'],tiles_basic.hit_dmg,1,1,1,1,], # draco
-0x5C    :[t_init,['player'],tiles_basic.hit_dmg,1,1,1,1,], # draco
 
 }
 
@@ -221,7 +218,7 @@ TANIMATE = [
 (0xDD,[int(v) for v in '0000000000000000000001111111111111111111112222222222222222222222']), #acid
 (0x6D,[int(v) for v in '00000000000111111111112222222222']), # electron
 (0x4A,[int(v) for v in '0000000000000000000001111111111111111111112222222222222222222222']), #pinchos
-(0x5A,[int(v) for v in '00000000000111111111112222222222']), #draco
+
 
 
 ]
