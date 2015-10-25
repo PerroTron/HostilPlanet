@@ -68,9 +68,9 @@ class Menu(engine.State):
         
         fnt = self.font
         
-        text = 'high: %05d'%self.game.high
+        text = 'high: %04d'%self.game.high
         c = (0x00,0x00,0x00)
-        img = fnt.render(text,1,c)
+        img = fnt.render(text,0,c)
         x = (SW-img.get_width())/2
         screen.blit(img,(x+1,y+1))
         c = (0xff,0xff,0xff)

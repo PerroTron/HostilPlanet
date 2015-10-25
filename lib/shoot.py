@@ -1,23 +1,30 @@
 import pygame
 from pygame.locals import *
-
+from time import sleep
 import sprite
 import capsule
 
 def init(g,r,p,weapon):
     
+    
+    if p.canshoot == False:
+        return
+    
+    """   
+    if not hasattr(g,'shoot_count'):
+        g.shoot_count = 0
+    if g.shoot_count >= 10:
+        return None
+    g.shoot_count += 1
+    #print 'new shoot', g.shoot_count
+    """
+    
     if weapon == 'cannon':
-            
-        if not hasattr(g,'shoot_count'):
-            g.shoot_count = 0
-        if g.shoot_count >= 1:
-            return None
-        g.shoot_count += 1
-        #print 'new shoot', g.shoot_count
 
         s = sprite.Sprite3(g,r,'shoots/%s-cannon-shoot'%(p.facing),(0,0,16,16))
             
         s.weapon = weapon
+        s.cooldown = 50
         s.rect.centerx = r.centerx
         s.rect.centery = r.centery
         s.groups.add('solid')
@@ -43,17 +50,11 @@ def init(g,r,p,weapon):
         g.game.sfx['rocket1'].play()
         
     elif weapon == 'shootgun':
-            
-        if not hasattr(g,'shoot_count'):
-            g.shoot_count = 0
-        if g.shoot_count >= 1:
-            return None
-        g.shoot_count += 1
-        #print 'new shoot', g.shoot_count
 
         s = sprite.Sprite3(g,r,'shoots/%s-shootgun-shoot'%(p.facing),(0,0,16,16))
 
         s.weapon = weapon
+        s.cooldown = 25
         s.rect.centerx = r.centerx
         s.rect.centery = r.centery
         s.groups.add('solid')
@@ -78,19 +79,14 @@ def init(g,r,p,weapon):
         s.rect.centery -= 6
         
         g.game.sfx['shootgun1'].play()
+        g.game.canshoot = False
         
     else:
-            
-        if not hasattr(g,'shoot_count'):
-            g.shoot_count = 0
-        if g.shoot_count >= 3:
-            return None
-        g.shoot_count += 1
-        #print 'new shoot', g.shoot_count
 
         s = sprite.Sprite3(g,r,'shoots/%s-shoot'%(p.facing),(0,0,7,7))
         
         s.weapon = weapon
+        s.cooldown = 10
         s.rect.centerx = r.centerx
         s.rect.centery = r.centery
         s.groups.add('solid')
@@ -119,19 +115,26 @@ def init(g,r,p,weapon):
 
     
     
+    g.game.canshoot = False
+        
     
     return s
 
 def deinit(g,s):
     #print "shoot deinit"
-    g.shoot_count -= 1
+    #g.shoot_count -= 1
+    pass
+    
     
 def loop(g,s):
     s.rect.x += s.vx*s.velocityx
     s.rect.y += s.vy*s.velocityy
+    
+    
     s.life -= 1
     if s.life == 0:
         s.active = False
+    
 
 def hit(g,a,b): 
     a.active = False

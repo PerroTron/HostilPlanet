@@ -88,24 +88,24 @@ class Game(engine.Game):
         pygame.font.init()
         
         f_main = data.filepath(os.path.join('fonts','04B_20__.TTF'))
-        f_scale = 0.35
+        f_scale = 0.16
         #f_main = data.filepath(os.path.join('fonts','04B_25__.TTF'))
         #f_scale = 0.75
         #f_main = data.filepath(os.path.join('fonts','04B_11__.TTF'))
         #f_scale = 0.67
         
         self.fonts = {}
-        self.fonts['intro'] = pygame.font.Font(f_main,int(36*f_scale))
+        self.fonts['intro'] = pygame.font.Font(f_main,int(58*f_scale))
         #self.fonts['intro2'] = pygame.font.Font(data.filepath(os.path.join('fonts','vectroid.ttf')),72)
 
         #self.fonts['title'] = pygame.font.Font(data.filepath(os.path.join('fonts','vectroid.ttf')),32)
-        self.fonts['help'] = pygame.font.Font(f_main,int(24*f_scale))
+        self.fonts['help'] = pygame.font.Font(f_main,int(34*f_scale))
         
-        self.font = self.fonts['menu'] = pygame.font.Font(f_main,int(24*f_scale))
+        self.font = self.fonts['menu'] = pygame.font.Font(f_main,int(34*f_scale))
         
-        self.fonts['level'] = pygame.font.Font(f_main,int(24*f_scale))
+        self.fonts['level'] = pygame.font.Font(f_main,int(34*f_scale))
         
-        self.fonts['pause'] = pygame.font.Font(f_main,int(36*f_scale))
+        self.fonts['pause'] = pygame.font.Font(f_main,int(58*f_scale))
         
         import level
         level.pre_load()

@@ -37,6 +37,7 @@ def init(g,r,n,*params):
 	s.kill = kill
 	s.god_mode = False
 	s.death_counter = -1
+	s.canshoot = True
 	
 	s._prev = pygame.Rect(s.rect)
 	s._prev2 = pygame.Rect(s.rect)
@@ -49,6 +50,7 @@ def init(g,r,n,*params):
 	
 	if hasattr(g.game, 'strength'):
 		s.strength = g.game.strength
+	
 	
 	return s
 
@@ -83,11 +85,13 @@ def event(g,s,e):
 			#tiles.t_put(g,(x,y), 0x32)
 			#tiles.t_put(g,(x,y-1), 0x22)
 	if e.type is USEREVENT and e.action == 'shoot':
-		if s.powered_up != '':
-			sprites.shoot.init(g,s.rect,s,weapon = s.powered_up)
-		else:
-			sprites.shoot.init(g,s.rect,s,weapon = '')
-		s.shooting = 10
+		if s.canshoot:
+			if s.powered_up != '':
+				s.shoot = sprites.shoot.init(g,s.rect,s,weapon = s.powered_up)
+			else:
+				s.shoot = sprites.shoot.init(g,s.rect,s,weapon = '')
+			s.shooting = 10
+			s.canshoot = False
 		
 	if e.type is KEYDOWN and e.key == K_F10:
 		powerup(g,s,'shootgun')
@@ -268,7 +272,10 @@ def loop(g,s):
 			#pygame.mixer.music.load("
 			#g.game.music.play('finish',1)
 	
-	s.strength = g.game.strength
+	if hasattr(s, 'shoot'):
+		s.shoot.cooldown -= 1
+		if s.shoot.cooldown == 0:
+			s.canshoot = True
 
 
 def pan_screen(g,s):
