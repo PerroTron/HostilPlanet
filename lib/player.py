@@ -94,7 +94,7 @@ def event(g,s,e):
 			s.canshoot = False
 		
 	if e.type is KEYDOWN and e.key == K_F10:
-		powerup(g,s,'shootgun')
+		powerup(g,s,'laser')
 		s.god_mode = True
 		
 	#if e.type is KEYDOWN and e.key == K_F12:
@@ -109,6 +109,8 @@ def loop(g,s):
 		s.weapon = 'cannon'
 	elif s.powered_up == 'shootgun':
 		s.weapon = 'shootgun'
+	elif s.powered_up == 'laser':
+		s.weapon = 'laser'
 	else:
 		s.weapon = 'player'
 	
@@ -276,7 +278,7 @@ def loop(g,s):
 		s.shoot.cooldown -= 1
 		if s.shoot.cooldown == 0:
 			s.canshoot = True
-
+	s.strength = g.game.strength
 
 def pan_screen(g,s):
 

@@ -21,7 +21,7 @@ def init(g,r,p,weapon):
     
     if weapon == 'cannon':
 
-        s = sprite.Sprite3(g,r,'shoots/%s-cannon-shoot'%(p.facing),(0,0,16,16))
+        s = sprite.Sprite3(g,r,'shoots/%s-cannon-shoot'%(p.facing),(0,0,15,3))
             
         s.weapon = weapon
         s.cooldown = 50
@@ -38,23 +38,23 @@ def init(g,r,p,weapon):
         s.velocityx = 3
         s.velocityy = 0
 
-        s.strength = 1
+        s.strength = 5
         
         s.vx = 1
         if p.facing == 'left':
             s.vx = -1
         s.vy = 0
-        s.rect.centerx += s.vx*(6+s.rect.width/2)
+        s.rect.centerx += s.vx*(10+s.rect.width/2)
         s.rect.centery -= 6
         
-        g.game.sfx['rocket1'].play()
+        g.game.sfx['cannon'].play()
         
     elif weapon == 'shootgun':
 
-        s = sprite.Sprite3(g,r,'shoots/%s-shootgun-shoot'%(p.facing),(0,0,16,16))
+        s = sprite.Sprite3(g,r,'shoots/%s-shootgun-shoot'%(p.facing),(0,0,26,16))
 
         s.weapon = weapon
-        s.cooldown = 25
+        s.cooldown = 30
         s.rect.centerx = r.centerx
         s.rect.centery = r.centery
         s.groups.add('solid')
@@ -63,9 +63,41 @@ def init(g,r,p,weapon):
         s.hit = hit
         g.sprites.append(s)
         s.loop = loop
-        s.life = 10
+        s.life = 12
         s.deinit = deinit
         s.velocityx = 3
+        s.velocityy = 0
+
+
+        s.strength = 5
+        
+        s.vx = 1
+        if p.facing == 'left':
+            s.vx = -1
+        s.vy = 0
+        s.rect.centerx += s.vx*(8+s.rect.width/2)
+        s.rect.centery -= 6
+        
+        g.game.sfx['shootgun1'].play()
+        g.game.canshoot = False
+        
+    elif weapon == 'laser':
+
+        s = sprite.Sprite3(g,r,'shoots/%s-laser-shoot'%(p.facing),(0,0,16,3))
+
+        s.weapon = weapon
+        s.cooldown = 20
+        s.rect.centerx = r.centerx
+        s.rect.centery = r.centery
+        s.groups.add('solid')
+        s.groups.add('shoot')
+        s.hit_groups.add('enemy')
+        s.hit = hit
+        g.sprites.append(s)
+        s.loop = loop
+        s.life = 100
+        s.deinit = deinit
+        s.velocityx = 9
         s.velocityy = 0
 
 
@@ -75,15 +107,15 @@ def init(g,r,p,weapon):
         if p.facing == 'left':
             s.vx = -1
         s.vy = 0
-        s.rect.centerx += s.vx*(10+s.rect.width/2)
-        s.rect.centery -= 6
+        s.rect.centerx += s.vx*(4+s.rect.width/2)
+        s.rect.centery -= 4
         
-        g.game.sfx['shootgun1'].play()
+        g.game.sfx['laser'].play()
         g.game.canshoot = False
         
     else:
 
-        s = sprite.Sprite3(g,r,'shoots/%s-shoot'%(p.facing),(0,0,7,7))
+        s = sprite.Sprite3(g,r,'shoots/%s-shoot'%(p.facing),(0,0,6,3))
         
         s.weapon = weapon
         s.cooldown = 10
@@ -97,7 +129,7 @@ def init(g,r,p,weapon):
         s.loop = loop
         s.life = 50
         s.deinit = deinit
-        s.velocityx = 6
+        s.velocityx = 5
         s.velocityy = 0
 
         

@@ -26,7 +26,7 @@ def init(g,r,p):
     if p.facing == 'left':
         s.vx = -1
     s.vy = 0
-    s.rect.centerx += 3
+    s.rect.centerx += s.vx*(0+s.rect.width/2)
     s.rect.centery -= 3
     
     return s
@@ -40,6 +40,7 @@ def loop(g,s):
 
 def hit(g,a,b): 
     player.damage(g,b)
+    a.active = False
     #die(g,a)
     #a.act
     

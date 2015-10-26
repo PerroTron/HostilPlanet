@@ -40,6 +40,7 @@ def loop(g,s):
 
 def hit(g,a,b): 
     player.damage(g,b)
+    a.active = False
     #die(g,a)
     #a.act
     

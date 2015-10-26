@@ -28,7 +28,7 @@ TILES = {
 #powerups and bonus items ...
 0x08    :[t_init,['player'],tiles_basic.hit_power,'cannon'], #cannon
 0x0C    :[t_init,['player'],tiles_basic.hit_life,], #extra-life
-0x18    :[t_init,['player'],tiles_basic.hit_item,100], #points
+0x18    :[t_init,['player'],tiles_basic.hit_power,'laser'], #laser
 #0x1A    :[t_init,['player'],tiles_basic.hit_item,250], #points
 #0x1C    :[t_init,['player'],tiles_basic.hit_item,500], #points
 #0x1E    :[t_init,['player'],tiles_basic.hit_item,1000], #points
@@ -217,7 +217,7 @@ TANIMATE = [
 (0xCD,[int(v) for v in '0000000000000000000001111111111111111111112222222222222222222222']), #acid
 (0xDD,[int(v) for v in '0000000000000000000001111111111111111111112222222222222222222222']), #acid
 (0x6D,[int(v) for v in '00000000000111111111112222222222']), # electron
-(0x4A,[int(v) for v in '0000000000000000000001111111111111111111112222222222222222222222']), #pinchos
+(0x4A,[int(v) for v in '00000000000111111111112222222222']), #pinchos acido
 
 
 

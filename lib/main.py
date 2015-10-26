@@ -134,10 +134,10 @@ class Game(engine.Game):
         self.sfx = {}
         # wav files
         for name in ['shoot','capsule','coin','hit','item','powerup',
-            'pop','jump','explode','door','fally','boss_explode']:
+            'pop','jump','explode','door','fally','boss_explode', 'laser']:
             self.sfx[name] = Sound(data.filepath(os.path.join('sfx','%s.wav'%name)))
         
-        for name in ['rocket1','shootgun1','armor1']:
+        for name in ['rocket1','shootgun1','armor1','cannon']:
             self.sfx[name] = Sound(data.filepath(os.path.join('sfx','%s.ogg'%name)))
             
     def tick(self):

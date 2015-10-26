@@ -68,13 +68,13 @@ class Menu(engine.State):
         
         fnt = self.font
         
-        text = 'high: %04d'%self.game.high
+        text = 'high: %05d'%self.game.high
         c = (0x00,0x00,0x00)
         img = fnt.render(text,0,c)
         x = (SW-img.get_width())/2
         screen.blit(img,(x+1,y+1))
         c = (0xff,0xff,0xff)
-        img = fnt.render(text,1,c)
+        img = fnt.render(text,0,c)
         screen.blit(img,(x,y))
         #y += 36
         y += 24
@@ -84,12 +84,12 @@ class Menu(engine.State):
             text,value = self.items[n]
             text = text.replace('L',self.levels[self.game.lcur][1])
             c = (0x00,0x00,0x00)
-            img = fnt.render(text,1,c)
+            img = fnt.render(text,0,c)
             x = (SW-img.get_width())/2
             screen.blit(img,(x+1,y+1))
             c = (0xff,0xff,0xff)
             if n == self.cur: c = (0xaa,0xaa,0xaa)
-            img = fnt.render(text,1,c)
+            img = fnt.render(text,0,c)
             screen.blit(img,(x,y))
             #y += 24
             y += 12
@@ -97,12 +97,12 @@ class Menu(engine.State):
             
         text = 'JAURIA STUDIOS'
         c = (0x00,0x00,0x00)
-        img = fnt.render(text,1,c)
+        img = fnt.render(text,0,c)
         x = (SW-img.get_width())/2
         y = SH-(img.get_height()+4)
         screen.blit(img,(x+1,y+1))
         c = (0xff,0xff,0xff)
-        img = fnt.render(text,1,c)
+        img = fnt.render(text,0,c)
         screen.blit(img,(x,y))
 
             
@@ -330,10 +330,10 @@ class Prompt(engine.State):
         text = self.text
         fnt = self.font
         c = (255,255,255)
-        img = fnt.render(text,1,(0,0,0))
+        img = fnt.render(text,0,(0,0,0))
         x,y = (SW-img.get_width())/2,(SH-img.get_height())/2
         screen.blit(img,(x+2,y+2))
-        img = fnt.render(text,1,c)
+        img = fnt.render(text,0,c)
         screen.blit(img,(x,y))
         self.game.flip()
         
@@ -357,10 +357,10 @@ class Pause(engine.State):
         text = self.text
         fnt = self.font
         c = (255,255,255)
-        img = fnt.render(text,1,(0,0,0))
+        img = fnt.render(text,0,(0,0,0))
         x,y = (SW-img.get_width())/2,(SH-img.get_height())/2
         screen.blit(img,(x+2,y+2))
-        img = fnt.render(text,1,c)
+        img = fnt.render(text,0,c)
         screen.blit(img,(x,y))
         self.game.flip()
         
@@ -409,10 +409,10 @@ class Credits(engine.State):
             'Barbie Seahorse Adventures',
             ]:
             c = (255,255,255)
-            img = fnt.render(text,1,(0,0,0))
+            img = fnt.render(text,0,(0,0,0))
             x = (SW-img.get_width())/2
             screen.blit(img,(x+2,y+2))
-            img = fnt.render(text,1,c)
+            img = fnt.render(text,0,c)
             screen.blit(img,(x,y))
             y += 20
         self.game.flip()
@@ -456,15 +456,12 @@ class Help(engine.State):
             'move the Robot.',
             'Button 1 - Jump',
             'Button 2 - Shoot',
-            '',
-            'Enemies take 3 shots unless',
-            'you are powered up!',
             ]:
             c = (255,255,255)
-            img = fnt.render(text,1,(0,0,0))
+            img = fnt.render(text,0,(0,0,0))
             x = (SW-img.get_width())/2
             screen.blit(img,(x+2,y+2))
-            img = fnt.render(text,1,c)
+            img = fnt.render(text,0,c)
             screen.blit(img,(x,y))
             y += 20
         self.game.flip()

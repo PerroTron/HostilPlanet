@@ -447,7 +447,6 @@ class Level:
         
         blit = screen.blit
         
-        
         img = self.status_bar
         blit(img,(SW/2 - img.get_width()/2, 0))
         

@@ -104,11 +104,11 @@ def hit_dmg(g,a,b,top=1,right=1,bottom=1,left=1):
 		got_hit = True
 		cur.right = r.left
 	
-	if got_hit and 'shoot' in b.groups:
-		b.active = False
-	
-	if got_hit and 'laser' in b.groups:
-		b.active = False
+	#if got_hit and 'shoot' in b.groups:
+	#	b.active = False
+	#
+	#if got_hit and 'laser' in b.groups:
+	#	b.active = False
 	
 	player.damage(g,b)
 	#print 'you hit a damge thing oh no!'
