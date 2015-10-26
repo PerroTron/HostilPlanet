@@ -29,6 +29,11 @@ def tr_init(g,r,n,hit_groups,hit,*params):
     t.rect.x += t.rect.w
     #print t.rect
     return t
+    
+def th_init(g,r,n,hit_groups,hit,*params):
+    t = t_init(g,r,n,hit_groups,hit,*params)
+    t.rect.h -= t.rect.h/2
+    return t
 
 def tile_to_sprite(g,s):
     import tiles

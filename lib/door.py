@@ -7,12 +7,11 @@ import sprite
 import player
 
 def init(g,r,n,hidden = False,*params):
-	s = sprite.Sprite3(g,r,'door-1',(0,0,16,24)) #3
+	s = sprite.Sprite3(g,r,'door-close',(0,0,16,32)) #3
 	s.rect.centerx = r.centerx
-	s.rect.centery = r.centery - (24 - 16) / 2
+	s.rect.centery = r.centery - (32 - 16) / 2
 	s.loop = loop
 	s.hit = sprite_hit
-	s.frame = 0
 	s.open = None
 	s.hit_groups.add('player')
 	s.hidden = hidden
@@ -27,17 +26,17 @@ def loop(g,s):
 		s.image = None
 		return
 	if s.open > 0:
-		s.image = 'door-open'
+		if (s.open == 40):
+			s.image = 'door-1'
+		elif (s.open == 30):
+			s.image = 'door-2'
+		elif (s.open == 20):
+			s.image = 'door-3'
+		elif (s.open == 10):
+			s.image = 'door-open'
+			s.open = None
+			return
 		s.open -= 1
-		return
-	elif (s.frame % 128) > 112:
-		s.image = 'door-1'
-	elif (s.frame % 64) > 48:
-		s.image = 'door-2'
-	elif (s.frame % 32) > 16:
-		s.image = 'door-3'
-	s.open = None
-	s.frame += 1
 
 def sprite_hit(g,a,b):
 	b.current_door = a

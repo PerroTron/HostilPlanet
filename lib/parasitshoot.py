@@ -12,7 +12,6 @@ def init(g,r,p):
 
     s.groups.add('solid')
     s.groups.add('parasitshoot')
-    #s.groups.add('enemy')
     s.hit_groups.add('player')
 
     s.hit = hit
@@ -20,7 +19,6 @@ def init(g,r,p):
     s.loop = loop
     s.life = 90
     s.strength = 1
-    #if big: s.strength = 3
     
     s.vx = 1
     if p.facing == 'left':
@@ -36,14 +34,7 @@ def loop(g,s):
     s.life -= 1
     if s.life == 0:
         s.active = False
-        #die(g,s)
 
 def hit(g,a,b): 
     player.damage(g,b)
-    #die(g,a)
-    #a.act
-    
-
-    #b.strength -= a.strength
-    #if b.strength <= 0:
-        #b.active = False
+    a.active = False

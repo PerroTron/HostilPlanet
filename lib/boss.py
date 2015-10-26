@@ -18,7 +18,7 @@ def init(g,r,n,*params):
 	#s.groups.add('solid')
 	s.groups.add('boss')
 	#s.groups.add('enemy')
-	s.hit_groups.add('capsule')
+	#s.hit_groups.add('capsule')
 	s.hit = hit
 	g.sprites.append(s)
 	s.loop = loop

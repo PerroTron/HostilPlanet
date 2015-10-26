@@ -114,6 +114,15 @@ class Level:
         
         self.size = len(self.data[0][0]),len(self.data[0])
         
+        self._status_bar_fname = None
+        self.set_status_bar('status_bar.png')
+        
+        self._shield_fname = None
+        self.set_shield(os.path.join('statusbar', 'shield.png'))
+        
+        self._lives_fname = None
+        self.set_lives(os.path.join('statusbar', 'lives.png'))
+        
         self._bkgr_fname = None
         self.set_bkgr('1.png')
         self.bkgr_scroll = pygame.Rect(0,0,1,1)
@@ -162,7 +171,24 @@ class Level:
         self._bkgr_fname = fname
         self.bkgr = pygame.image.load(data.filepath(os.path.join('bkgr',fname))).convert()
 
+    def set_status_bar(self, fname):
+        if self._status_bar_fname == fname:
+            return
+        self._status_bar_fname = fname
+        self.status_bar = pygame.image.load(data.filepath(fname)).convert_alpha()
                 
+    def set_shield(self, fname):
+        if self._shield_fname == fname:
+            return
+        self._shield_fname = fname
+        self.shield = pygame.image.load(data.filepath(fname)).convert_alpha()
+        
+    def set_lives(self, fname):
+        if self._lives_fname == fname:
+            return
+        self._lives_fname = fname
+        self.lives = pygame.image.load(data.filepath(fname)).convert_alpha()
+        
     def run_codes(self,r):
         #r.clamp_ip(self.bounds)
         for y in xrange(r.top/TH,r.bottom/TH):
@@ -411,33 +437,54 @@ class Level:
             
             
     def paint_text(self,screen):
+        
+        
         fnt = self.game.fonts['level']
-        pad = 4
-        hitpadx = 0
-        hitpady = 20
-        top_y = pad
+        #pad = 4
+        #hitpadx = 0
+        #hitpady = 15
+        #top_y = pad
         
         blit = screen.blit
+        
+        img = self.status_bar
+        blit(img,(SW/2 - img.get_width()/2, 0))
+        
         text = '%05d'%self.game.score
-        c = (0,0,0)
-        img = fnt.render(text,1,c)
-        x,y = 0+pad,top_y
+        c = (0,64,0)
+        img = fnt.render(text,0,c)
+        x,y = SW/2 - img.get_width()/2, 3
         #blit(img,(x-1,y)); blit(img,(x+1,y)) ; blit(img,(x,y-1)); blit(img,(x-1,y+1))
         blit(img,(x+1,y+1))
-        c = (255,255,255)
-        img = fnt.render(text,1,c)
+        c = (0,220,0)
+        img = fnt.render(text,0,c)
         blit(img,(x,y)) ; blit(img,(x,y))
         
         #text = 'LIVES: %d'%self.game.lives
+        """
         for i in xrange(self.game.lives):
             img = self.images[0x0C] # the extra life tile
             x,y = SW-1.05*img.get_width()*i - img.get_width() - pad, pad
             blit(img, (x, y))
-            
+            """
+        
+        text = '%01d'%self.game.lives
+        c = (0,64,0)
+        img = fnt.render(text,0,c)
+        x,y = 105,10
+        blit(img,(x+1,y+1))
+        c = (0,220,0)
+        img = fnt.render(text,0,c)
+        blit(img,(x,y)) ; blit(img,(x,y))
+        
+        img = self.lives
+        blit(img, (114,7))
+        
         for i in xrange(self.game.strength):
-            img = self.images[0x1C] # the extra life tile
-            x,y = SW/2-1.05*img.get_width()*-i - img.get_width() - hitpadx, hitpady
+            img = self.shield # shield
+            x,y = 149-1.10*img.get_width()*-i - img.get_width(), 14
             blit(img, (x, y))
+            
             
         #text = '%d . %02d'%(self.game.lives,self.game.coins)
         #c = (0,0,0)
@@ -448,7 +495,7 @@ class Level:
         #c = (255,255,255)
         #img = fnt.render(text,1,c)
         #blit(img,(x,y)) ; blit(img,(x,y))
-        
+        """
         text = '%02d'%self.game.coins
         c = (0,0,0)
         img = fnt.render(text,1,c)
@@ -457,14 +504,23 @@ class Level:
         c = (255,255,255)
         img = fnt.render(text,1,c)
         blit(img,(x,y))
+        """
 
         textheight = img.get_height()
+        
+        # display current weapon
+        weapon = self.game.powerup
+        
+        if weapon != '':
+            if weapon == 'cannon':
+                img = self.images[0x08] # The cannon
+            elif weapon == 'shootgun':
+                img = self.images[0x28] # The cannon
+                
+            #x,y = x - img.get_width() - pad, y - img.get_height()/2 + textheight/2
+            blit(img,(198,5))
 
-        img = self.images[0x28] # The coin
-        x,y = x - img.get_width() - pad, y - img.get_height()/2 + textheight/2
-        blit(img,(x,y))
-
-
+        """
         text = self.title
         c = (0,0,0)
         img = fnt.render(text,1,c)
@@ -474,4 +530,4 @@ class Level:
         c = (255,255,255)
         img = fnt.render(text,1,c)
         blit(img,(x,y)) ; blit(img,(x,y))
-
+        """

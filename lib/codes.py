@@ -107,6 +107,10 @@ CODES = {
 0xA8    :[sprites.zombie.init,],
 0xA9    :[_pass,], # CODE_ZOMBIE_TURN
 
+# draco related
+0xB8    :[sprites.draco.init,'left'],
+0xB9    :[sprites.draco.init,'right'],
+
 
 }
 

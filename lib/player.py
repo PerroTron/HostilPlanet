@@ -37,6 +37,7 @@ def init(g,r,n,*params):
 	s.kill = kill
 	s.god_mode = False
 	s.death_counter = -1
+	s.canshoot = True
 	
 	s._prev = pygame.Rect(s.rect)
 	s._prev2 = pygame.Rect(s.rect)
@@ -49,6 +50,7 @@ def init(g,r,n,*params):
 	
 	if hasattr(g.game, 'strength'):
 		s.strength = g.game.strength
+	
 	
 	return s
 
@@ -83,14 +85,16 @@ def event(g,s,e):
 			#tiles.t_put(g,(x,y), 0x32)
 			#tiles.t_put(g,(x,y-1), 0x22)
 	if e.type is USEREVENT and e.action == 'shoot':
-		if s.powered_up != '':
-			sprites.shoot.init(g,s.rect,s,weapon = s.powered_up)
-		else:
-			sprites.shoot.init(g,s.rect,s,weapon = '')
-		s.shooting = 10
+		if s.canshoot:
+			if s.powered_up != '':
+				s.shoot = sprites.shoot.init(g,s.rect,s,weapon = s.powered_up)
+			else:
+				s.shoot = sprites.shoot.init(g,s.rect,s,weapon = '')
+			s.shooting = 10
+			s.canshoot = False
 		
 	if e.type is KEYDOWN and e.key == K_F10:
-		powerup(g,s,'shootgun')
+		powerup(g,s,'laser')
 		s.god_mode = True
 		
 	#if e.type is KEYDOWN and e.key == K_F12:
@@ -99,6 +103,58 @@ def event(g,s,e):
 
 def loop(g,s):
 	s._prev2 = pygame.Rect(s.rect)
+	
+	
+	if s.powered_up == 'cannon':
+		s.weapon = 'cannon'
+	elif s.powered_up == 'shootgun':
+		s.weapon = 'shootgun'
+	elif s.powered_up == 'laser':
+		s.weapon = 'laser'
+	else:
+		s.weapon = 'player'
+	
+	
+	inpt = g.game.input
+	
+	if s.vy < 0:
+		s.image = s.weapon + '/%s-jump' % (s.facing)
+	elif s.shooting > 0:
+		if s.shooting > 5:
+			s.image = s.weapon + '/%s-shoot-1' % (s.facing)
+		else:
+			s.image = s.weapon + '/%s-shoot-2' % (s.facing)
+		s.shooting -= 1
+	elif inpt.right or inpt.left and s.standing:
+		s.image = s.weapon + '/%s-walk-%s' % (s.facing, int(s.walk_frame))
+		s.walk_frame += 0.2
+		if s.walk_frame > 4:
+			s.walk_frame = 1
+	else:
+		s.image = s.weapon + '/%s' % (s.facing)
+	
+	if s.image != None:
+		if s.damaged_transition > 0:
+			if (s.damaged_transition % 10) > 5:
+				s.image = None
+			else :
+				if s.vy < 0:
+					s.image = s.weapon + '/%s-jump' % (s.facing)
+					
+				elif inpt.right or inpt.left and s.standing:
+					s.image = s.weapon + '/%s-walk-%s' % (s.facing, int(s.walk_frame))
+				else:
+					s.image = s.weapon + '/%s' % (s.facing)
+			s.damaged_transition -= 1
+		"""
+		elif s.powerup_transition > 0:
+			if (s.powerup_transition % 10) > 5:
+				s.image = s.image
+			s.powerup_transition -= 1
+		elif s.powered_up == '':
+			s.image = s.image
+			"""
+	
 	
 	if s.death_counter > 0:
 		s.groups = set()
@@ -115,10 +171,6 @@ def loop(g,s):
 		return 
 	
 	if s.exploded > 0:
-		if s.powered_up:
-			s.image = 'player/right'
-		else:
-			s.image = 'splayer/right'
 		s.exploded -=1 
 		return
 		
@@ -140,7 +192,6 @@ def loop(g,s):
 			s.door_timer -= 1
 			return
 
-	inpt = g.game.input
 	
 	#if s.standing: s.rect.bottom = s.standing.rect.top
 	
@@ -179,22 +230,6 @@ def loop(g,s):
 	#if keys[K_UP]: vy -= 1
 	#if keys[K_DOWN]: vy += 1
 	
-	if s.vy < 0:
-		s.image = 'player/%s-jump' % (s.facing)
-	elif s.shooting > 0:
-		if s.shooting > 5:
-			s.image = 'player/%s-shoot-1' % (s.facing)
-		else:
-			s.image = 'player/%s-shoot-2' % (s.facing)
-		s.shooting -= 1
-	elif inpt.right or inpt.left and s.standing:
-		s.image = 'player/%s-walk-%s' % (s.facing, int(s.walk_frame))
-		s.walk_frame += 0.2
-		if s.walk_frame > 4:
-			s.walk_frame = 1
-	else:
-		s.image = 'player/%s'%(s.facing)
-		
 	if s.flash_counter > 0:
 		if s.flash_timer < 4:
 			s.image = None
@@ -202,27 +237,9 @@ def loop(g,s):
 			s.flash_timer = 8
 			s.flash_counter -= 1
 		s.flash_timer -= 1
-		
-	if s.image != None:
-		if s.damaged_transition > 0:
-			if (s.damaged_transition % 10) > 5:
-				s.image = None
-			else :
-				if s.vy < 0:
-					s.image = 'splayer/%s-jump' % (s.facing)
-				elif inpt.right or inpt.left and s.standing:
-					s.image = 'splayer/%s-walk-%s' % (s.facing, int(s.walk_frame))
-				else:
-					s.image = 'splayer/%s'%(s.facing)
-			s.damaged_transition -= 1
-			
-		elif s.powerup_transition > 0:
-			if (s.powerup_transition % 10) > 5:
-				s.image = 's' + s.image
-			s.powerup_transition -= 1
-		elif s.powered_up == '':
-			s.image = 's' + s.image
 	
+		
+		
 	s.looking = False
 	
 	if inpt.up:
@@ -257,8 +274,11 @@ def loop(g,s):
 			#pygame.mixer.music.load("
 			#g.game.music.play('finish',1)
 	
+	if hasattr(s, 'shoot'):
+		s.shoot.cooldown -= 1
+		if s.shoot.cooldown == 0:
+			s.canshoot = True
 	s.strength = g.game.strength
-
 
 def pan_screen(g,s):
 
@@ -302,14 +322,14 @@ def damage(g,s):
 	
 	if s.door_timer != None:
 		return
-	
+	"""
 	if s.powered_up != '':
 		g.game.sfx['pop'].play()
 		#s.powerup_transition = 100
 		s.powered_up = ''
 		if hasattr(g.game, 'powerup'):
-			g.game.powerup = ''
-	elif s.damaged_transition == 0 and s.strength > 0:
+			g.game.powerup = ''"""
+	if s.damaged_transition == 0 and s.strength > 0:
 		g.game.sfx['hit'].play()
 		s.damaged_transition = 100
 		
@@ -317,7 +337,7 @@ def damage(g,s):
 		if hasattr(g.game, 'strength'):
 			g.game.strength -= 1
 
-	elif s.powerup_transition == 0 and s.flash_counter == 0 and s.strength == 0:
+	elif s.flash_counter == 0 and s.strength == 0:
 		s.kill(g,s)
 
 def kill(g,s,no_explode = False):
