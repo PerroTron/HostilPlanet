@@ -69,6 +69,7 @@ class Game(engine.Game):
         if '-full' in sys.argv:
             mode ^= FULLSCREEN
         self.screen = pygame.display.set_mode((sw,sh),mode)
+        pygame.mouse.set_visible(False)
         pygame.display.set_caption(TITLE)
         self.timer = timer.Timer(FPS)
         #self.timer = timer.Speedometer()
@@ -137,7 +138,7 @@ class Game(engine.Game):
             'pop','jump','explode','door','fally','boss_explode', 'laser']:
             self.sfx[name] = Sound(data.filepath(os.path.join('sfx','%s.wav'%name)))
         
-        for name in ['rocket1','shootgun1','armor1','cannon']:
+        for name in ['rocket1','shootgun1','armor1','cannon','sboom']:
             self.sfx[name] = Sound(data.filepath(os.path.join('sfx','%s.ogg'%name)))
             
     def tick(self):
@@ -182,7 +183,7 @@ class Game(engine.Game):
                 elif name == 'lvlwin':
                     pygame.mixer.music.set_volume(0.6)
                 else:
-                    pygame.mixer.music.set_volume(0.65)
+                    pygame.mixer.music.set_volume(1)
                 pygame.mixer.music.play(n)
                 ok = True
             except:

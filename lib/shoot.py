@@ -37,6 +37,8 @@ def init(g,r,p,weapon):
         s.deinit = deinit
         s.velocityx = 3
         s.velocityy = 0
+        
+        g.game.weaponsound = 'sboom'
 
         s.strength = 5
         
@@ -67,6 +69,8 @@ def init(g,r,p,weapon):
         s.deinit = deinit
         s.velocityx = 3
         s.velocityy = 0
+        
+        g.game.weaponsound = 'hit'
 
 
         s.strength = 5
@@ -99,6 +103,8 @@ def init(g,r,p,weapon):
         s.deinit = deinit
         s.velocityx = 9
         s.velocityy = 0
+        
+        g.game.weaponsound = 'hit'
 
 
         s.strength = 2
@@ -132,6 +138,7 @@ def init(g,r,p,weapon):
         s.velocityx = 5
         s.velocityy = 0
 
+        g.game.weaponsound = 'hit'
         
         s.strength = 1
         
@@ -181,7 +188,8 @@ def hit(g,a,b):
         #s = capsule.init(g,b.rect)
         #if code != None:
         #    s._code = code
-    else:
-        g.game.sfx['hit'].play()
-        
-    #print 'shoot hit!'
+    
+    sound(g)
+    
+def sound(g):
+    g.game.sfx[g.game.weaponsound].play()

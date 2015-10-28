@@ -112,7 +112,7 @@ class Menu(engine.State):
         return self.paint(screen)
     
     def loop(self):
-        self.game.music_play('title')
+        self.game.music_play('intro')
         self.frame += 1
             
     def event(self,e):

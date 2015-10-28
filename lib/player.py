@@ -94,7 +94,7 @@ def event(g,s,e):
 			s.canshoot = False
 		
 	if e.type is KEYDOWN and e.key == K_F10:
-		powerup(g,s,'laser')
+		powerup(g,s,'cannon')
 		s.god_mode = True
 		
 	#if e.type is KEYDOWN and e.key == K_F12:
