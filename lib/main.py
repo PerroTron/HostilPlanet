@@ -47,6 +47,7 @@ class Game(engine.Game):
         self.coins = 0
         self.strength = 3
         self.powerup = ''
+        self.weapons = []
         
     def init(self):
         self.random = 0
@@ -123,7 +124,10 @@ class Game(engine.Game):
                 except:
                     pygame.mixer.pre_init()
             else:
-                pygame.mixer.pre_init()
+                try:
+                    pygame.mixer.pre_init(44100,-16,1, 512)
+                except:
+                    pygame.mixer.pre_init()
 
             
             pygame.mixer.init()

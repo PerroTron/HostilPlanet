@@ -83,7 +83,6 @@ def init(g,r,p,weapon):
         s.rect.centery -= 6
         
         g.game.sfx['shootgun1'].play()
-        g.game.canshoot = False
         
     elif weapon == 'laser':
 
@@ -117,7 +116,6 @@ def init(g,r,p,weapon):
         s.rect.centery -= 4
         
         g.game.sfx['laser'].play()
-        g.game.canshoot = False
         
     else:
 
@@ -185,6 +183,9 @@ def hit(g,a,b):
         if hasattr(b,'_code'):
             code = b._code
             delattr(b,'_code')
+        
+        
+        
         #s = capsule.init(g,b.rect)
         #if code != None:
         #    s._code = code

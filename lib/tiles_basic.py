@@ -195,9 +195,3 @@ def tile_explode(g,a):
 			#if s in g.sprites:
 				#g.sprites.remove(s)
 	s.loop = loop
-
-
-
-
-
-

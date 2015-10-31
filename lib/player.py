@@ -67,7 +67,7 @@ def event(g,s,e):
 		#s.vy = -1.8
 		s.vy = 0
 		#1.22
-		s.jumping = 1.21
+		s.jumping = 1.23
 		g.game.sfx['jump'].play()
 	if e.type is USEREVENT and e.action == 'stop-jump':
 		s.jumping = 0
@@ -278,7 +278,9 @@ def loop(g,s):
 		s.shoot.cooldown -= 1
 		if s.shoot.cooldown == 0:
 			s.canshoot = True
+	
 	s.strength = g.game.strength
+	s.powered_up = g.game.powerup
 
 def pan_screen(g,s):
 
@@ -317,6 +319,9 @@ def powerup(g,s,weapon):
 	if hasattr(g.game, 'powerup'):
 		g.game.powerup = weapon
 	
+	if weapon not in g.game.weapons:
+		g.game.weapons.append(weapon)
+	
 def damage(g,s):
 	if s.god_mode: return
 	
@@ -347,4 +352,4 @@ def kill(g,s,no_explode = False):
 	s.no_explode = no_explode
 	g.game.music_play('death',1)
 	s.death_counter = int(FPS*2.25)
-	
+
