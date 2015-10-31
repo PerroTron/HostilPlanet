@@ -432,6 +432,10 @@ class Level:
             next = menu.Transition(self.game,self.parent)
             return menu.Prompt(self.game,'quit? y/n',next,self)
         
+        elif e.type is USEREVENT and e.action == 'menu':
+            next = menu.Transition(self.game,self.parent)
+            return menu.Weapon(self.game,next,self)
+        
         if self.player != None:
             self.player.event(self,self.player,e)
             
@@ -440,6 +444,7 @@ class Level:
         
         
         fnt = self.game.fonts['level']
+        
         #pad = 4
         #hitpadx = 0
         #hitpady = 15
@@ -447,8 +452,10 @@ class Level:
         
         blit = screen.blit
         
+        
         img = self.status_bar
         blit(img,(SW/2 - img.get_width()/2, 0))
+        
         
         text = '%05d'%self.game.score
         c = (0,64,0)
@@ -506,7 +513,7 @@ class Level:
         blit(img,(x,y))
         """
 
-        textheight = img.get_height()
+        #textheight = img.get_height()
         
         # display current weapon
         weapon = self.game.powerup
@@ -514,8 +521,10 @@ class Level:
         if weapon != '':
             if weapon == 'cannon':
                 img = self.images[0x08] # The cannon
+            elif weapon == 'laser':
+                img = self.images[0x18] # The laser
             elif weapon == 'shootgun':
-                img = self.images[0x28] # The cannon
+                img = self.images[0x28] # The shootgun
                 
             #x,y = x - img.get_width() - pad, y - img.get_height()/2 + textheight/2
             blit(img,(198,5))
@@ -531,3 +540,4 @@ class Level:
         img = fnt.render(text,1,c)
         blit(img,(x,y)) ; blit(img,(x,y))
         """
+

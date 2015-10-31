@@ -112,7 +112,7 @@ class Menu(engine.State):
         return self.paint(screen)
     
     def loop(self):
-        self.game.music_play('title')
+        self.game.music_play('intro')
         self.frame += 1
             
     def event(self,e):
@@ -466,6 +466,78 @@ class Help(engine.State):
             y += 20
         self.game.flip()
 
+class Weapon(engine.State):
+    def __init__(self,game,next,level):
+        self.game = game
+        self.level = level
+        self.weapon = 0
+        self.next = next
+        
+    def init(self):
+        self.font = self.game.fonts['pause']
+        self.bkgr = self.game.screen.convert()
+        self.cursor = pygame.image.load(data.filepath('cursor.png'))
+        self.window = pygame.image.load(data.filepath('weapon_menu.png'))
+        
+    def update(self,screen):
+        return self.paint(screen)
+        pass
+
+    def event(self,e):
+        if e.type is KEYDOWN or (e.type is USEREVENT and e.action in ('menu')):
+            if len(self.game.weapons) > 0:
+                self.game.powerup = self.game.weapons[self.weapon]
+                return self.level
+        elif e.type is KEYDOWN or (e.type is USEREVENT and e.action in ('exit')):
+            return self.level
+        elif e.type is KEYDOWN or (e.type is USEREVENT and e.action in ('up')):
+            if self.weapon > 0:
+                self.weapon -= 1
+        elif e.type is KEYDOWN or (e.type is USEREVENT and e.action in ('down')):
+            if self.weapon < len(self.game.weapons)-1:
+                self.weapon += 1
+        
+    def paint(self,screen):
+        screen.blit(self.bkgr,(0,0))
+        screen.blit(self.window,((SW - self.window.get_width())/2, (SH - self.window.get_height())/2))
+
+        fnt = self.game.fonts['help']
+        
+        pics_y = (SH-self.cursor.get_height())/2 - 25
+        text_y = (SH-self.cursor.get_height())/2 - 20
+        
+        if self.game.weapons:
+        
+            for text in self.game.weapons:
+                
+                
+                if text == 'cannon':
+                    img = self.level.images[0x08]
+                elif text == 'laser':
+                    img = self.level.images[0x18]
+                elif text == 'shootgun':
+                    img = self.level.images[0x28]
+                
+                
+                x = (SW-img.get_width())/2 - 20
+                screen.blit(img,(x, pics_y))
+                
+                img = fnt.render(text,0,(0,0,0))
+                
+                x = (SW-img.get_width())/2 + 20
+                
+                c = (255,255,255)
+                screen.blit(img,(x+2,text_y+2))
+                img = fnt.render(text,0,c)
+                screen.blit(img,(x,text_y))
+                
+                text_y += 15
+                pics_y += 15
+            
+            x, y =  (SW-self.cursor.get_width())/2 - 45, (SH-self.cursor.get_height())/2 - 25 + self.weapon *15
+            screen.blit(self.cursor,(x, y))
+            
+        self.game.flip()
 
 
 

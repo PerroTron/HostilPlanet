@@ -4,6 +4,7 @@ from cnst import *
 import tiles
 import player
 import shoot
+import sprites
 
 def hit_block(g,a,b,top=1,right=1,bottom=1,left=1):
 	#print 'you hit a block'
@@ -32,6 +33,7 @@ def hit_block(g,a,b,top=1,right=1,bottom=1,left=1):
 	
 	if got_hit and 'shoot' in b.groups:
 		b.active = False
+		sprites.shoot.sound(g)
 	
 	if got_hit and 'laser' in b.groups:
 		b.active = False
@@ -193,9 +195,3 @@ def tile_explode(g,a):
 			#if s in g.sprites:
 				#g.sprites.remove(s)
 	s.loop = loop
-
-
-
-
-
-

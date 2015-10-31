@@ -26,7 +26,8 @@ def init(g,r,n,*params):
 
     s.facing = 'right'
     
-    s.vx = 0
+    s.speed = 2
+    s.vx = s.speed
     s.vy = 0
     
     s._prev = pygame.Rect(s.rect)
@@ -51,7 +52,7 @@ def loop(g,s):
     s.rect.y += s.vy
 
     if s.idling > 0:
-        if s.idling % 120 > 60:
+        if s.idling % 40 > 20:
             s.facing = 'left'
         else:
             s.facing = 'right'
@@ -60,18 +61,23 @@ def loop(g,s):
             s.moving = 90
             #if g.game.random % 2 == 0:
             if random.randint(0,1):
-                s.vx = -1
+                s.vx = -s.speed
                 s.facing = 'left'
             else:
-                s.vx = 1
+                s.vx = s.speed
                 s.facing = 'right'
     elif s.moving > 0:
         s.moving -= 1
         if s.moving == 0:
-            s.idling = 240
+            s.idling = 80
             s.vx = 0
     else:
-        s.idling = 240
+        s.idling = 80
+        
+    if s.vx < 0:
+        s.facing = 'left'
+    else:
+        s.facing = 'right'
         
     s.image = 'sentinel/sentinel-%s-%s' % (s.facing, (s.frame / 5) % 2)
     s.frame += 1

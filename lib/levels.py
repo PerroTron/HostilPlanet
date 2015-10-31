@@ -1,7 +1,7 @@
 LEVELS = [
     ('mine1.tga',      'Mine - 1',),
     ('mine2.tga',      'Mine - 2',),
-    ('tim_2.tga',       'Jungle - 3',),
+
     ('phil_2.tga',      'Jungle - 4',),
     ('phil_13.tga',     'Jungle - 5',),
     
@@ -15,6 +15,8 @@ LEVELS = [
     ('phil_5.tga',      'Moon - 3',),
     ('phil_10.tga',     'Moon - 4',),
     ('boss_1.tga',      'Boss',),
+    
+    ('debug.tga',       'debug',),
     
     #('phil_1.tga',      'Jungle - 1',), # jungle - easy
     #('phil_7.tga',      'Jungle - 2',), # jungle - medium 
