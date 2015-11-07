@@ -162,8 +162,7 @@ class Level:
         self.status = '_first'
         self.player.image = None
         self.player.exploded = 30
-        
-        self.game.strength = 3
+        self.game.strenght = 10
                 
     def set_bkgr(self,fname):
         if self._bkgr_fname == fname:
@@ -489,7 +488,7 @@ class Level:
         
         for i in xrange(self.game.strength):
             img = self.shield # shield
-            x,y = 149-1.10*img.get_width()*-i - img.get_width(), 14
+            x,y = 144-1*img.get_width()*-i - img.get_width(), 15
             blit(img, (x, y))
             
             

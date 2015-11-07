@@ -185,12 +185,16 @@ def hit(g,a,b):
             delattr(b,'_code')
         
         
+        explode(g,b)
         
         #s = capsule.init(g,b.rect)
         #if code != None:
         #    s._code = code
-    
     sound(g)
     
 def sound(g):
     g.game.sfx[g.game.weaponsound].play()
+
+def explode(g,s):
+    pass
+        

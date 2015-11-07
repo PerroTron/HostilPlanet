@@ -104,12 +104,21 @@ CODES = {
 
 # zombie related
 
-0xA8    :[sprites.zombie.init,],
-0xA9    :[_pass,], # CODE_ZOMBIE_TURN
+0xA8    :[sprites.zombie.init,'left'],
+0xA9    :[sprites.zombie.init,'right'],
+0xAA    :[_pass,], # CODE_ZOMBIE_TURN
+0xAB    :[_pass,], # CODE_ZOMBIE_JUMP
 
 # draco related
 0xB8    :[sprites.draco.init,'left'],
 0xB9    :[sprites.draco.init,'right'],
+
+# bat related
+
+0xC8    :[sprites.bat.init,'left'],
+0xC9    :[sprites.bat.init,'right'],
+0xCA    :[_pass,], # CODE_BAT_TURN
+0xCB    :[_pass,], # CODE_BAT_JUMP
 
 
 }
