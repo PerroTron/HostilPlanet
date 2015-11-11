@@ -142,7 +142,7 @@ def hit_def(g,a,b):
 	g.game.sfx['coin'].play()
 	
 	#print '+ def'
-	if g.game.strength < 4: 
+	if g.game.strength < 9: 
 		g.game.strength += 1
 	
 	tile_explode(g,a)

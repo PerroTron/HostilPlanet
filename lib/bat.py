@@ -8,7 +8,7 @@ import tiles
 import player
 
 def init(g,r,n,facing = 'left',*params):
-	s = sprite.Sprite3(g,r,'zombie/walk-%s-0' % facing,(0,0,16,32))
+	s = sprite.Sprite3(g,r,'bat/fly-%s-0' % facing,(0,0,16,16))
 	s.rect.bottom = r.bottom
 	s.rect.centerx = r.centerx
 	s.groups.add('solid')
@@ -21,7 +21,7 @@ def init(g,r,n,facing = 'left',*params):
 	s.frame = 0
 	s.facing = facing
 	
-	s.vx = 1.0
+	s.vx = 1.8
 	
 	if s.facing == 'left':
 		s.vx = -s.vx
@@ -29,13 +29,13 @@ def init(g,r,n,facing = 'left',*params):
 		s.vx = s.vx
 	
 	s.vy = 0
-	s.jumping = False
-	s.walking = True
+	s.attacking = False
+	s.flying = True
 	# make sure this is always different at startup
 	s._prev = None
 	
 	s.strength = 6
-	s.vy_jump = 0
+	s.vy_attack = 0
 	
 	s.standing = None
 	return s
@@ -52,9 +52,9 @@ def loop(g,s):
 			#s.direction = - s.direction
 			#s.next_frame = 1
 	
-	if s.walking:
+	if s.flying:
 		if s._prev != None:
-			if s.rect.x == s._prev.x or sprite.get_code(g,s,sign(s.vx),0) == CODE_ZOMBIE_TURN:
+			if s.rect.x == s._prev.x or sprite.get_code(g,s,sign(s.vx),0) == CODE_BAT_TURN:
 				s.vx = -s.vx
 				s.next_frame=1
 				if s.vx < 0:
@@ -62,18 +62,18 @@ def loop(g,s):
 				else:
 					s.facing = 'right'
 				
-		if s.standing != None and sprite.get_code(g,s,sign(s.vx),1) == CODE_ZOMBIE_JUMP:
-			s.vy_jump = -3.1
+		if s.standing != None and sprite.get_code(g,s,sign(s.vx),1) == CODE_BAT_ATTACK:
+			s.vy_attack = -4
 			"""
-			if sprite.get_code(g,s,sign(s.vx)*2,1) == CODE_ZOMBIE_JUMP:
-				s.vy_jump = -3.0
-				if sprite.get_code(g,s,sign(s.vx)*3,1) == CODE_ZOMBIE_JUMP:
-					s.vy_jump = -4.1
+			if sprite.get_code(g,s,sign(s.vx)*2,1) == CODE_BAT_ATTACK:
+				s.vy_attack = -3.0
+				if sprite.get_code(g,s,sign(s.vx)*3,1) == CODE_BAT_ATTACK:
+					s.vy_attack = -4.1
 			"""
-			s.jumping = True
-			s.walking = False
+			s.attacking = True
+			s.flying = False
 			s.next_frame = 20
-			s.image = 'zombie/prejump-%s' % s.facing
+			s.image = 'bat/preattack-%s' % s.facing
 			
 		s._prev = pygame.Rect(s.rect)
 		
@@ -83,8 +83,8 @@ def loop(g,s):
 		s._prev = pygame.Rect(s.rect)
 		if (s.next_frame <= 0): 
 			if (s.standing != None):
-				s.walking=True
-				s.jumping=False
+				s.flying=True
+				s.attacking=False
 				s.next_frame=1
 			#s.vx*1
 			vx = s.vx
@@ -93,16 +93,16 @@ def loop(g,s):
 			
 	s.next_frame -= 1
 	if s.next_frame == 0:
-		if s.jumping:
+		if s.attacking:
 			sprite.stop_standing(g,s)
-			s.vy = s.vy_jump
-			s.image = 'zombie/jump-%s' % s.facing
+			s.vy = s.vy_attack
+			s.image = 'bat/attack-%s' % s.facing
 		else: 
 			s.next_frame = 6
 			s.frame += 1
-			if s.frame > 3:
+			if s.frame > 2:
 				s.frame = 0
-			s.image = 'zombie/walk-%s-%s' % (s.facing, s.frame)
+			s.image = 'bat/fly-%s-%s' % (s.facing, s.frame)
 
 def hit(g,a,b):
 	#print 'youve been spikeys!'

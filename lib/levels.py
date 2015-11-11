@@ -1,6 +1,8 @@
 LEVELS = [
-    ('mine1.tga',      'Mine - 1',),
-    ('mine2.tga',      'Mine - 2',),
+
+    ('pekuja_1.tga',    'Mine - 1',),
+    ('mine1.tga',      'Mine - 2',),
+    ('mine2.tga',      'Mine - 3',),
 
     ('phil_2.tga',      'Jungle - 4',),
     ('phil_13.tga',     'Jungle - 5',),
@@ -11,7 +13,7 @@ LEVELS = [
     ('phil_8.tga',      'Bonus',),
     
     ('phil_12.tga',     'Moon - 1',),
-    ('pekuja_1.tga',    'Moon - 2',),
+    
     ('phil_5.tga',      'Moon - 3',),
     ('phil_10.tga',     'Moon - 4',),
     ('boss_1.tga',      'Boss',),

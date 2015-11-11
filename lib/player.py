@@ -64,9 +64,8 @@ def event(g,s,e):
 	
 	if e.type is USEREVENT and e.action == 'jump' and s.standing != None and s.jumping == 0 and s.vy == 0:
 		sprite.stop_standing(g,s)
-		#s.vy = -1.8
+				
 		s.vy = 0
-		#1.22
 		s.jumping = 1.23
 		g.game.sfx['jump'].play()
 	if e.type is USEREVENT and e.action == 'stop-jump':
@@ -94,7 +93,9 @@ def event(g,s,e):
 			s.canshoot = False
 		
 	if e.type is KEYDOWN and e.key == K_F10:
-		powerup(g,s,'cannon')
+		g.game.weapons.append('cannon')
+		g.game.weapons.append('laser')
+		g.game.weapons.append('shootgun')
 		s.god_mode = True
 		
 	#if e.type is KEYDOWN and e.key == K_F12:
@@ -206,7 +207,8 @@ def loop(g,s):
 	if s.jumping:
 		#print s.vy
 		s.vy -= s.jumping
-		s.jumping = max(0,s.jumping-0.2)
+		
+		s.jumping = max(0,s.jumping -0.2)
 	
 	inc = 0.5
 	mx = 1.0

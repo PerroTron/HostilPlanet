@@ -503,8 +503,8 @@ class Weapon(engine.State):
 
         fnt = self.game.fonts['help']
         
-        pics_y = (SH-self.cursor.get_height())/2 - 25
-        text_y = (SH-self.cursor.get_height())/2 - 20
+        pics_y = SH/2 - 44
+        #text_y = (SH-self.cursor.get_height())/2 - 20
         
         if self.game.weapons:
         
@@ -519,9 +519,9 @@ class Weapon(engine.State):
                     img = self.level.images[0x28]
                 
                 
-                x = (SW-img.get_width())/2 - 20
+                x = (SW-img.get_width())/2 + 8
                 screen.blit(img,(x, pics_y))
-                
+                """ 
                 img = fnt.render(text,0,(0,0,0))
                 
                 x = (SW-img.get_width())/2 + 20
@@ -530,11 +530,11 @@ class Weapon(engine.State):
                 screen.blit(img,(x+2,text_y+2))
                 img = fnt.render(text,0,c)
                 screen.blit(img,(x,text_y))
-                
-                text_y += 15
-                pics_y += 15
+                """
+                #text_y += 15
+                pics_y += 24
             
-            x, y =  (SW-self.cursor.get_width())/2 - 45, (SH-self.cursor.get_height())/2 - 25 + self.weapon *15
+            x, y =  (SW-self.cursor.get_width())/2 - 15, (SH-self.cursor.get_height())/2 - 36 + self.weapon *24
             screen.blit(self.cursor,(x, y))
             
         self.game.flip()

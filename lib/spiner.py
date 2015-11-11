@@ -26,7 +26,7 @@ def init(g,r,n,vx,*params):
         s.facing = 'left'
     
     s._prev = None # pygame.Rect(s.rect)
-    s.strength = 10
+    s.strength = 4
 
     #s.standing = None
     return s
@@ -41,7 +41,7 @@ def loop(g,s):
             else:        s.facing = 'left'
     s._prev = pygame.Rect(s.rect)
     
-    s.rect.x += s.vx*1
+    s.rect.x += s.vx*2
     s.rect.y += s.vy
     
     s.image = 'spiner/%s-%d'%(s.facing,(g.frame/(FPS/8))%4)

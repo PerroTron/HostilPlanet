@@ -2,7 +2,6 @@ import pygame
 from pygame.locals import *
 from time import sleep
 import sprite
-import capsule
 
 def init(g,r,p,weapon):
     
@@ -40,7 +39,7 @@ def init(g,r,p,weapon):
         
         g.game.weaponsound = 'sboom'
 
-        s.strength = 5
+        s.strength = 4
         
         s.vx = 1
         if p.facing == 'left':
@@ -73,7 +72,7 @@ def init(g,r,p,weapon):
         g.game.weaponsound = 'hit'
 
 
-        s.strength = 5
+        s.strength = 6
         
         s.vx = 1
         if p.facing == 'left':
@@ -178,19 +177,27 @@ def hit(g,a,b):
     
     b.strength -= a.strength
     if b.strength <= 0:
-        b.active = False
+        #b.active = False
         code = None
         if hasattr(b,'_code'):
             code = b._code
             delattr(b,'_code')
         
         
+        explode(g,b)
         
-        #s = capsule.init(g,b.rect)
-        #if code != None:
-        #    s._code = code
-    
     sound(g)
     
 def sound(g):
     g.game.sfx[g.game.weaponsound].play()
+
+def explode(level,sprite):
+	s = sprite
+	s.hit_groups = set()
+	def loop(g,s):
+		s.exploded += 2
+		if s.exploded > 8:
+			s.active = False
+	
+	s.loop = loop
+
