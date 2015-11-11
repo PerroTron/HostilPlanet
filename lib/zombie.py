@@ -34,7 +34,7 @@ def init(g,r,n,facing = 'left',*params):
 	# make sure this is always different at startup
 	s._prev = None
 	
-	s.strength = 3
+	s.strength = 6
 	s.vy_jump = 0
 	
 	s.standing = None

@@ -118,7 +118,7 @@ CODES = {
 0xC8    :[sprites.bat.init,'left'],
 0xC9    :[sprites.bat.init,'right'],
 0xCA    :[_pass,], # CODE_BAT_TURN
-0xCB    :[_pass,], # CODE_BAT_JUMP
+0xCB    :[_pass,], # CODE_BAT_ATTACK
 
 
 }

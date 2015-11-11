@@ -66,7 +66,7 @@ def event(g,s,e):
 		sprite.stop_standing(g,s)
 				
 		s.vy = 0
-		s.jumping = 0.75
+		s.jumping = 1.23
 		g.game.sfx['jump'].play()
 	if e.type is USEREVENT and e.action == 'stop-jump':
 		s.jumping = 0
@@ -208,7 +208,7 @@ def loop(g,s):
 		#print s.vy
 		s.vy -= s.jumping
 		
-		s.jumping = max(0,s.jumping -0.06)
+		s.jumping = max(0,s.jumping -0.2)
 	
 	inc = 0.5
 	mx = 1.0

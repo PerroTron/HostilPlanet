@@ -21,7 +21,7 @@ def init(g,r,n,facing = 'left',*params):
 	s.frame = 0
 	s.facing = facing
 	
-	s.vx = 1.0
+	s.vx = 1.8
 	
 	if s.facing == 'left':
 		s.vx = -s.vx
@@ -34,14 +34,14 @@ def init(g,r,n,facing = 'left',*params):
 	# make sure this is always different at startup
 	s._prev = None
 	
-	s.strength = 3
+	s.strength = 6
 	s.vy_attack = 0
 	
 	s.standing = None
 	return s
 
 def loop(g,s):
-	#sprite.apply_gravity(g,s)
+	sprite.apply_gravity(g,s)
 	sprite.apply_standing(g,s)
 	
 	#if s.standing != None and s.vx != 0:
@@ -62,12 +62,12 @@ def loop(g,s):
 				else:
 					s.facing = 'right'
 				
-		if s.standing != None and sprite.get_code(g,s,sign(s.vx),0) == CODE_BAT_ATTACK:
-			s.vy_attack = -3.1
+		if s.standing != None and sprite.get_code(g,s,sign(s.vx),1) == CODE_BAT_ATTACK:
+			s.vy_attack = -4
 			"""
-			if sprite.get_code(g,s,sign(s.vx)*2,1) == CODE_bat_JUMP:
+			if sprite.get_code(g,s,sign(s.vx)*2,1) == CODE_BAT_ATTACK:
 				s.vy_attack = -3.0
-				if sprite.get_code(g,s,sign(s.vx)*3,1) == CODE_bat_JUMP:
+				if sprite.get_code(g,s,sign(s.vx)*3,1) == CODE_BAT_ATTACK:
 					s.vy_attack = -4.1
 			"""
 			s.attacking = True
@@ -100,7 +100,7 @@ def loop(g,s):
 		else: 
 			s.next_frame = 6
 			s.frame += 1
-			if s.frame > 3:
+			if s.frame > 2:
 				s.frame = 0
 			s.image = 'bat/fly-%s-%s' % (s.facing, s.frame)
 

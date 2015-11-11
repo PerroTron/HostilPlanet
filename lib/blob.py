@@ -23,7 +23,7 @@ def init(g,r,n,*params):
 	s.next_jump = 0#next_jump = 0
 	
 	s._prev = pygame.Rect(s.rect)
-	s.strength = 3
+	s.strength = 4
 	
 	s.standing = None
 	return s
