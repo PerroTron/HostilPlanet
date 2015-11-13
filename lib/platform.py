@@ -4,8 +4,11 @@ from pygame.locals import *
 from cnst import *
 
 import sprite
+import levels
 
 def init(g,r,n,vx,vy):
+    
+    platform_type = levels.LEVELS[g.game.lcur][2]
     
     x,y = r.centerx/TW,r.centery/TH
     code = g.data[2][y][x]
@@ -26,7 +29,7 @@ def init(g,r,n,vx,vy):
     w,h = (max_x-min_x+1)*TW,TH
     r = pygame.Rect(min_x*TW,iy*TH,w,h)
     
-    s = sprite.Sprite3(g,r,'platform/%d'%(max_x-min_x+1),(0,0,w,h))
+    s = sprite.Sprite3(g,r,'platform/%d-%d' % ((max_x-min_x+1), platform_type),(0,0,w,h))
     #s.rect.bottom = r.bottom
     #s.rect.centerx = r.centerx
     s.groups.add('solid')
@@ -43,7 +46,8 @@ def init(g,r,n,vx,vy):
     s.carrying = []
     
     return s
-    
+
+
 def loop(g,s):
     #check if we hit a wall...
     if s._prev != None:
@@ -58,7 +62,7 @@ def loop(g,s):
     for b in s.carrying:
         b.rect.x += s.vx
         b.rect.y += s.vy
-    
+
 
 def hit(g,a,b):
     #print 'youve been platformed!'

@@ -314,9 +314,12 @@ def main():
             
     g = Game()
     g.init()
+    
     import menu
+    
     l = l2 = menu.Menu(g)
     #l = menu.Intro(g,l2)
+    
     if fname != None:
         import level
         l = level.Level(g,fname,engine.Quit(g))
