@@ -72,7 +72,7 @@ def init(g,r,p,weapon):
         g.game.weaponsound = 'hit'
 
 
-        s.strength = 6
+        s.strength = 3
         
         s.vx = 1
         if p.facing == 'left':

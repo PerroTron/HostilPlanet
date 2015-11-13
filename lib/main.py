@@ -46,8 +46,8 @@ class Game(engine.Game):
         self.lives = 2
         self.coins = 0
         self.strength = 10
-        self.powerup = ''
-        self.weapons = []
+        self.powerup = 'gun'
+        self.weapons = ['gun']
         
     def init(self):
         self.random = 0
