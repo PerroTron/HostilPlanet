@@ -503,15 +503,16 @@ class Weapon(engine.State):
 
         fnt = self.game.fonts['help']
         
-        pics_y = SH/2 - 44
+        pics_y = SH/2 - 56
         #text_y = (SH-self.cursor.get_height())/2 - 20
         
         if self.game.weapons:
         
             for text in self.game.weapons:
                 
-                
-                if text == 'cannon':
+                if text == 'gun':
+                    img = self.level.images[0x07]
+                elif text == 'cannon':
                     img = self.level.images[0x08]
                 elif text == 'laser':
                     img = self.level.images[0x18]
@@ -534,7 +535,7 @@ class Weapon(engine.State):
                 #text_y += 15
                 pics_y += 24
             
-            x, y =  (SW-self.cursor.get_width())/2 - 15, (SH-self.cursor.get_height())/2 - 36 + self.weapon *24
+            x, y =  (SW-self.cursor.get_width())/2 - 15, (SH-self.cursor.get_height())/2 - 48 + self.weapon *24
             screen.blit(self.cursor,(x, y))
             
         self.game.flip()

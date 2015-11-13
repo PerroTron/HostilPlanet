@@ -517,16 +517,17 @@ class Level:
         # display current weapon
         weapon = self.game.powerup
         
-        if weapon != '':
+        if weapon != 'gun':
             if weapon == 'cannon':
                 img = self.images[0x08] # The cannon
             elif weapon == 'laser':
                 img = self.images[0x18] # The laser
             elif weapon == 'shootgun':
                 img = self.images[0x28] # The shootgun
-                
+        else:
+            img = self.images[0x07]
             #x,y = x - img.get_width() - pad, y - img.get_height()/2 + textheight/2
-            blit(img,(198,5))
+        blit(img,(198,5))
 
         """
         text = self.title

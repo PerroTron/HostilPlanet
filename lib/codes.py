@@ -120,6 +120,10 @@ CODES = {
 0xCA    :[_pass,], # CODE_BAT_TURN
 0xCB    :[_pass,], # CODE_BAT_ATTACK
 
+# tower related
+0xD8    :[sprites.tower.init,'left'],
+0xD9    :[sprites.tower.init,'right'],
+
 
 }
 
