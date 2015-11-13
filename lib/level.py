@@ -85,7 +85,7 @@ class Level:
         self._tiles = Level._tiles
         fname = self.fname
         if fname == None:
-            fname,self.title = levels.LEVELS[self.game.lcur]
+            fname, self.title, platform_type = levels.LEVELS[self.game.lcur]
             fname = data.filepath(os.path.join('levels',fname))
         else:
             self.title = os.path.basename(self.fname)
@@ -209,7 +209,7 @@ class Level:
         r.w += dist*2
         r.h += dist*2
         return r
-        
+    
     def paint(self,screen):
         self.view.clamp_ip(self.bounds)
         
