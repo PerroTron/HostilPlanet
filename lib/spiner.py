@@ -7,7 +7,7 @@ import sprite
 import player
 
 def init(g,r,n,vx,*params):
-    s = sprite.Sprite3(g,r,'spiner/left-0',(0,0,16,16)) #3
+    s = sprite.Sprite3(g,r,'spiner/left-0',(0,0,16,16)) 
     #s.rect.bottom = r.bottom
     s.rect.centery = r.centery
     s.rect.centerx = r.centerx

@@ -5,7 +5,7 @@ import player
 import sprite
 
 def init(g,r,p):
-    s = sprite.Sprite3(g,r,'shoots/%s-draco-shoot'%(p.facing),(0,0,13,7))
+    s = sprite.Sprite3(g,r,'shoots/%s-draco-shoot'%(p.facing),(0,0,5,5))
 
     s.rect.centerx = r.centerx
     s.rect.centery = r.centery
@@ -18,21 +18,22 @@ def init(g,r,p):
     s.hit = hit
     g.sprites.append(s)
     s.loop = loop
-    s.life = 90
+    s.life = 120
     s.strength = 1
     #if big: s.strength = 3
     
     s.vx = 1
     if p.facing == 'left':
         s.vx = -1
-    s.vy = 0
+    s.vy = 1
     s.rect.centerx += s.vx*(0+s.rect.width/2)
-    s.rect.centery -= 3
+    s.rect.centery += 6 
     
     return s
     
 def loop(g,s):
     s.rect.x += s.vx*2
+    s.rect.y += s.vy
     s.life -= 1
     if s.life == 0:
         s.active = False

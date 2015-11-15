@@ -29,7 +29,7 @@ def init(g,r,n,facing = 'left',*params):
     s.vy = 0
     
     s._prev = pygame.Rect(-1,-1,0,0)
-    s.strength = 8
+    s.strength = 6
     
     s.standing = None
     return s
@@ -87,4 +87,4 @@ def loop(g,s):
 def hit(g,a,b):
     player.damage(g,b)
     #print 'youve been spikeys!'
-    pass
+    

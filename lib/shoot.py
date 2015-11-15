@@ -46,7 +46,7 @@ def init(g,r,p,weapon):
             s.vx = -1
         s.vy = 0
         s.rect.centerx += s.vx*(10+s.rect.width/2)
-        s.rect.centery -= 6
+        s.rect.centery -= 2
         
         g.game.sfx['cannon'].play()
         
@@ -79,7 +79,7 @@ def init(g,r,p,weapon):
             s.vx = -1
         s.vy = 0
         s.rect.centerx += s.vx*(8+s.rect.width/2)
-        s.rect.centery -= 6
+        s.rect.centery -= 2
         
         g.game.sfx['shootgun1'].play()
         
@@ -112,7 +112,7 @@ def init(g,r,p,weapon):
             s.vx = -1
         s.vy = 0
         s.rect.centerx += s.vx*(4+s.rect.width/2)
-        s.rect.centery -= 4
+        s.rect.centery -= 1
         
         g.game.sfx['laser'].play()
         
@@ -144,7 +144,7 @@ def init(g,r,p,weapon):
             s.vx = -1
         s.vy = 0
         s.rect.centerx += s.vx*(6+s.rect.width/2)
-        s.rect.centery -= 6
+        s.rect.centery -= 2
         
         g.game.sfx['shoot'].play()
     
