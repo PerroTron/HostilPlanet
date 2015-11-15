@@ -1,12 +1,7 @@
-Bubble Kong
+Hostil Planet
 ===========
 
-Entry in PyWeek #4  <http://www.pyweek.org/4/>
-Team: The Olde Battleaxe
-Members: philhassey, pekuja, tim, drpetter, gerry
-
-(for the original source, and level editor)
-svn://www.imitationpickles.org/pyweek4/trunk
+http://github.com/JauriaStuios/HostilPlanet
 
 DEPENDENCIES:
 
@@ -52,3 +47,4 @@ or totally broken / reject levels.
 LICENSE:
 
 (c) 2007 The Olde Battleaxe & Friends
+(c) 2015 JauriaStudios
