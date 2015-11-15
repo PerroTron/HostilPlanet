@@ -1,4 +1,5 @@
 geany_run_script.bat
 *.pyc
 build/
+dist/
 _preview.tga
