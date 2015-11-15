@@ -123,6 +123,20 @@ class Level:
         self._lives_fname = None
         self.set_lives(os.path.join('statusbar', 'lives.png'))
         
+        self._green_fname = None
+        self.set_green(os.path.join('chips', 'green.png'))
+        
+        self._yellow_fname = None
+        self.set_yellow(os.path.join('chips', 'yellow.png'))
+        
+        self._red_fname = None
+        self.set_red(os.path.join('chips', 'red.png'))
+        
+        self._blue_fname = None
+        self.set_blue(os.path.join('chips', 'blue.png'))
+        
+        
+        
         self._bkgr_fname = None
         self.set_bkgr('1.png')
         self.bkgr_scroll = pygame.Rect(0,0,1,1)
@@ -187,6 +201,30 @@ class Level:
             return
         self._lives_fname = fname
         self.lives = pygame.image.load(data.filepath(fname)).convert_alpha()
+        
+    def set_green(self, fname):
+        if self._green_fname == fname:
+            return
+        self._green_fname = fname
+        self.green = pygame.image.load(data.filepath(fname)).convert_alpha()
+        
+    def set_yellow(self, fname):
+        if self._yellow_fname == fname:
+            return
+        self._yellow_fname = fname
+        self.yellow = pygame.image.load(data.filepath(fname)).convert_alpha()
+        
+    def set_red(self, fname):
+        if self._red_fname == fname:
+            return
+        self._red_fname = fname
+        self.red = pygame.image.load(data.filepath(fname)).convert_alpha()
+        
+    def set_blue(self, fname):
+        if self._blue_fname == fname:
+            return
+        self._blue_fname = fname
+        self.blue = pygame.image.load(data.filepath(fname)).convert_alpha()
         
     def run_codes(self,r):
         #r.clamp_ip(self.bounds)
@@ -455,7 +493,32 @@ class Level:
         img = self.status_bar
         blit(img,(SW/2 - img.get_width()/2, 0))
         
+        if self.game.chips[0] == True:
         
+            img = self.green # green chip
+            x,y = (SW/2 - img.get_width()/2) - 15, 4
+            blit(img, (x, y))
+        
+        if self.game.chips[1] == True:
+        
+            img = self.yellow # yellow chip
+            x,y = (SW/2 - img.get_width()/2) - 5, 4
+            blit(img, (x, y))
+        
+        if self.game.chips[2] == True:
+        
+            img = self.red # red chip
+            x,y = (SW/2 - img.get_width()/2) + 5, 4
+            blit(img, (x, y))
+        
+        if self.game.chips[3] == True:
+        
+            img = self.blue # blue chip
+            x,y = (SW/2 - img.get_width()/2) + 15, 4
+            blit(img, (x, y))
+            
+        
+        """
         text = '%05d'%self.game.score
         c = (0,64,0)
         img = fnt.render(text,0,c)
@@ -465,7 +528,7 @@ class Level:
         c = (0,220,0)
         img = fnt.render(text,0,c)
         blit(img,(x,y)) ; blit(img,(x,y))
-        
+        """
         #text = 'LIVES: %d'%self.game.lives
         """
         for i in xrange(self.game.lives):

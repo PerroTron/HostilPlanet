@@ -116,14 +116,18 @@ def hit_dmg(g,a,b,top=1,right=1,bottom=1,left=1):
 	#print 'you hit a damge thing oh no!'
 	pass
 
-def hit_coin(g,a,b):
+def hit_chip(g,a,b,n):
 	if not tile_close(g,a,b): return 
 	
 	g.game.sfx['coin'].play()
-	g.game.coins += 1
-	if g.game.coins >= 100:
-		one_up(g,b)
-		g.game.coins -= 100
+	if n == 1:
+		g.game.chips[0] = True
+	elif n == 2:
+		g.game.chips[1] = True
+	elif n == 3:
+		g.game.chips[2] = True
+	elif n == 4:
+		g.game.chips[3] = True
 	#print '1-coin'
 	
 	tile_explode(g,a)

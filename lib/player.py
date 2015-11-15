@@ -253,7 +253,7 @@ def loop(g,s):
 		s.looking = True
 	
 	n = sprite.get_code(g,s,0,0) 
-	if n == CODE_EXIT:
+	if n == CODE_EXIT and (g.game.chips[0] and g.game.chips[1] and g.game.chips[2] and g.game.chips[3]):
 		g.status = 'exit'
 	if n == CODE_DOOR_AUTO:
 		x,y = s.rect.centerx/TW,s.rect.centery/TH

@@ -23,7 +23,7 @@ target = Executable(
 						copyDependentFiles=True,
 						appendScriptToExe=True,
 						appendScriptToLibrary=False,
-						#icon="icon.ico"
+						icon="icon.ico"
 )
 
 setup(	name = "Hostil Planet by Jauria Studios",
