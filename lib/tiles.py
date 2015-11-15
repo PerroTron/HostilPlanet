@@ -33,6 +33,10 @@ TILES = {
 0x28    :[t_init,['player'],tiles_basic.hit_power, 'shootgun'], #shootgun
 0x0C    :[t_init,['player'],tiles_basic.hit_life,], #extra-life
 0x1C    :[t_init,['player'],tiles_basic.hit_def,], #extra-def
+0x2C    :[t_init,['player'],tiles_basic.hit_chip,1,], #chip
+0x2D    :[t_init,['player'],tiles_basic.hit_chip,2,], #chip
+0x2E    :[t_init,['player'],tiles_basic.hit_chip,3,], #chip
+0x2F    :[t_init,['player'],tiles_basic.hit_chip,4,], #chip
 
 
 

@@ -44,7 +44,7 @@ class Game(engine.Game):
         self.score = 0
         self.high = 0
         self.lives = 2
-        self.coins = 0
+        self.chips = [False, False, False, False]
         self.strength = 10
         self.powerup = 'gun'
         self.weapons = ['gun']
