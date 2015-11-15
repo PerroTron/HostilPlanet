@@ -74,7 +74,7 @@ class Game(engine.Game):
         pygame.display.set_caption(TITLE)
         self.timer = timer.Timer(FPS)
         #self.timer = timer.Speedometer()
-		
+        
         pygame.joystick.init()
         joy_count = pygame.joystick.get_count()
         for joynum in range(joy_count):
@@ -87,7 +87,7 @@ class Game(engine.Game):
             self._screen = self.screen
             self.screen = self._screen.convert().subsurface(0,0,SW,SH)
         
-        self.icon = pygame.image.load("icon16.png").convert_alpha()
+        self.icon = pygame.image.load(os.path.join("data", "icon16.png")).convert_alpha()
         pygame.display.set_icon(self.icon)
         
         pygame.font.init()
