@@ -33,16 +33,14 @@ move the seahorse.
 Button 1 - Jump 
 Button 2 - Shoot
             
-Enemies take 3 shots unless
-you are powered up!  You can
-ride enemy bubbles.
-
 
 MISC:
 
 press 'd' on the main menu to enter 'debug' mode and have a list of all
 levels in the data/levels/ folder.  That way you can play in development
 or totally broken / reject levels.
+
+press F10 uring game for enable godmode
 
 LICENSE:
 
