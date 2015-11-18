@@ -19,7 +19,7 @@ def init(g,r,n,facing = 'left',*params):
     s.loop = loop
     s.facing = facing
 
-    s.shoot = 120
+    s.shoot = 100
     s.shooting = 0
 
     if s.facing == 'left':
@@ -63,7 +63,7 @@ def loop(g,s):
     if s.shoot == 0:
         shot = laser.init(g,s.rect,s)
         #g.sprites.append(shot)
-        s.shoot = 120
+        s.shoot = 45
         s.shooting = 5
 
     if s.shooting > 0:

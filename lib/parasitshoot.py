@@ -30,7 +30,7 @@ def init(g,r,p):
     return s
     
 def loop(g,s):
-    s.rect.x += s.vx*2
+    s.rect.x += s.vx*3
     s.life -= 1
     if s.life == 0:
         s.active = False

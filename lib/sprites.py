@@ -24,3 +24,5 @@ import draco
 import dracoshoot
 import bat
 import tower
+import wibert
+import wibertshoot

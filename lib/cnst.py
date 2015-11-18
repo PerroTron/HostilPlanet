@@ -60,6 +60,7 @@ CODE_ZOMBIE_JUMP = 0xAB
 CODE_BAT_TURN = 0xCA
 CODE_BAT_ATTACK = 0xCB
 CODE_BLOB_JUMP = 0xBB
+CODE_WIBERT_TURN = 0xE9
 
 # Various constants:
 DOOR_DELAY = 40 # Delay when going through a door
