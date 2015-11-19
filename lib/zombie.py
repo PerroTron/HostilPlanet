@@ -20,6 +20,7 @@ def init(g,r,n,facing = 'left',*params):
 	s.next_frame = 12 
 	s.frame = 0
 	s.facing = facing
+	s.frame_speed = 24
 	
 	s.vx = 1.0
 	
@@ -98,7 +99,7 @@ def loop(g,s):
 			s.vy = s.vy_jump
 			s.image = 'zombie/jump-%s' % s.facing
 		else: 
-			s.next_frame = 6
+			s.next_frame = s.frame_speed
 			s.frame += 1
 			if s.frame > 3:
 				s.frame = 0

@@ -94,6 +94,7 @@ def event(g,s,e):
 		
 	if e.type is KEYDOWN and e.key == K_F10:
 		g.game.weapons = []
+		g.game.weapons.append('gun')
 		g.game.weapons.append('cannon')
 		g.game.weapons.append('laser')
 		g.game.weapons.append('shootgun')

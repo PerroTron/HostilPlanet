@@ -3,8 +3,8 @@ from cx_Freeze import setup, Executable
 
 # Dependencies are automatically detected, but it might need fine tuning.
 build_exe_options = {
-						"packages": ["os"],
-						"excludes": ["tkinter"],
+						"packages": ["os", "pygame"],
+						"excludes": ['_gtkagg', '_tkagg', 'bsddb', 'curses', 'email', 'pywin.debugger', 'pywin.debugger.dbgcon', 'pywin.dialogs', 'tcl', 'Tkconstants', 'Tkinter'],
 						"include_files" : ["data"]
 					}
 
@@ -23,10 +23,12 @@ target = Executable(
 						copyDependentFiles=True,
 						appendScriptToExe=True,
 						appendScriptToLibrary=False,
-						icon="icon.ico"
+						icon="icon.ico",
+						shortcutName="Hostil Planet",
+						shortcutDir="DesktopFolder",
 )
 
-setup(	name = "Hostil Planet by Jauria Studios",
+setup(	name = "Hostil Planet",
 		version = "0.1",
 		author="Jauria Studios",
 		description = "Hostil Planet by Jauria Studios",
