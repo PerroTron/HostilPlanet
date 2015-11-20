@@ -65,9 +65,9 @@ CODES = {
 
 # parasit related (8 codes)
 0x48    :[sprites.parasit.init,],
-0x49    :[_pass,], # CODE_GUARDIAN_TURN
+0x49    :[_pass,], # CODE_PARASIT_TURN
 
-#fally related (8 codes)
+# fally related (8 codes)
 0x50    :[sprites.tiles_basic.fally_init,],
 
 # tentactul related (8 codes)
@@ -123,6 +123,15 @@ CODES = {
 # tower related
 0xD8    :[sprites.tower.init,'left'],
 0xD9    :[sprites.tower.init,'right'],
+
+# wibert (8 codes)
+0xE8    :[sprites.wibert.init,],
+0xE9    :[_pass,], # CODE_WIBERT_TURN
+
+# rock related (8 codes)
+0x91    :[sprites.rock.init,'left'],
+0x92    :[sprites.rock.init,'right'],
+0x93    :[_pass,], # CODE_ROCK_TURN
 
 
 }

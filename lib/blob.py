@@ -36,7 +36,7 @@ def loop(g,s):
 	#print s.vy
 
 	if s.next_jump == 0 and s.standing:
-		s.vy = -3.0
+		s.vy = -4.0
 		s.next_jump = FPS * 1
 		sprite.stop_standing(g,s)
 	if s.next_jump > 0:

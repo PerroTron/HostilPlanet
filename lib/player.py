@@ -7,7 +7,7 @@ import sprites
 import tiles
 
 def init(g,r,n,*params):
-	s = sprite.Sprite3(g,r,'player/right',(5,10,9,20)) #(0,0,19,25))#(43-14,8,28,48))#left,top,width,height
+	s = sprite.Sprite3(g,r,'player/right',(5,2,9,28)) #left,top,width,height
 	s.rect.bottom = r.bottom
 	s.rect.centerx = r.centerx
 	s.groups.add('player')

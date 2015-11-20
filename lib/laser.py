@@ -18,7 +18,7 @@ def init(g,r,p):
     s.hit = hit
     g.sprites.append(s)
     s.loop = loop
-    s.life = 90
+    s.life = 180
     s.strength = 1
     #if big: s.strength = 3
     
@@ -32,7 +32,7 @@ def init(g,r,p):
     return s
     
 def loop(g,s):
-    s.rect.x += s.vx*2
+    s.rect.x += s.vx
     s.life -= 1
     if s.life == 0:
         s.active = False
