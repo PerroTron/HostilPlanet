@@ -26,3 +26,4 @@ import bat
 import tower
 import wibert
 import wibertshoot
+import rock
