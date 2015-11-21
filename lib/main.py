@@ -214,6 +214,9 @@ class Game(engine.Game):
         elif e.type == KEYDOWN and e.key in SHOOT_KEYS or \
             (e.type == JOYBUTTONDOWN and e.button in SHOOT_BUTTONS):
             action = 'shoot'
+        elif e.type == KEYUP and e.key in SHOOT_KEYS or \
+            (e.type == JOYBUTTONUP and e.button in SHOOT_BUTTONS):
+            action = 'stop-shoot'
         elif e.type == KEYDOWN or e.type == KEYUP:
             if e.type == KEYDOWN:
                 value = True

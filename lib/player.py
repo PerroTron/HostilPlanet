@@ -48,6 +48,8 @@ def init(g,r,n,*params):
 	sprite.init_codes(g,s)
 	s.no_explode = False
 	
+	s.speed = 2
+	s.running = False
 	if hasattr(g.game, 'strength'):
 		s.strength = g.game.strength
 	
@@ -84,6 +86,7 @@ def event(g,s,e):
 			#tiles.t_put(g,(x,y), 0x32)
 			#tiles.t_put(g,(x,y-1), 0x22)
 	if e.type is USEREVENT and e.action == 'shoot':
+		s.running = True
 		if s.canshoot:
 			if s.powered_up != '':
 				s.shoot = sprites.shoot.init(g,s.rect,s,weapon = s.powered_up)
@@ -91,7 +94,8 @@ def event(g,s,e):
 				s.shoot = sprites.shoot.init(g,s.rect,s,weapon = '')
 			s.shooting = 10
 			s.canshoot = False
-		
+	if e.type is USEREVENT and e.action == 'stop-shoot':
+		s.running = False
 	if e.type is KEYDOWN and e.key == K_F10:
 		g.game.weapons = []
 		g.game.weapons.append('gun')
@@ -214,22 +218,42 @@ def loop(g,s):
 	
 	inc = 0.5
 	mx = 1.0
-	if inpt.right and s.vx < mx:
-		s.vx += inc
-		s.facing = 'right'
-	elif not inpt.right and s.vx > 0:    s.vx -= inc
-	if inpt.left  and s.vx > -mx:
-		s.vx -= inc
-		s.facing = 'left'
-	elif not inpt.left and s.vx < 0:    s.vx += inc
-
 	
-	s._prev = pygame.Rect(s.rect)
+	if not s.running:
+		
+		if g.frame % s.speed == 0:
+			if inpt.right and s.vx < mx:
+				s.vx += inc
+				s.facing = 'right'
+			elif not inpt.right and s.vx > 0:    s.vx -= inc
+			if inpt.left  and s.vx > -mx:
+				s.vx -= inc
+				s.facing = 'left'
+			elif not inpt.left and s.vx < 0:    s.vx += inc
 
-	vx,vy = s.vx,s.vy
-	s.rect.x += vx
-	s.rect.y += sprite.myinc(g.frame,s.vy)
-	
+			
+			s._prev = pygame.Rect(s.rect)
+
+			vx,vy = s.vx,s.vy
+			s.rect.x += vx
+			s.rect.y += sprite.myinc(g.frame,s.vy)
+	else:
+		
+		if inpt.right and s.vx < mx:
+			s.vx += inc
+			s.facing = 'right'
+		elif not inpt.right and s.vx > 0:    s.vx -= inc
+		if inpt.left  and s.vx > -mx:
+			s.vx -= inc
+			s.facing = 'left'
+		elif not inpt.left and s.vx < 0:    s.vx += inc
+
+		
+		s._prev = pygame.Rect(s.rect)
+
+		vx,vy = s.vx,s.vy
+		s.rect.x += vx
+		s.rect.y += sprite.myinc(g.frame,s.vy)
 	
 	#if keys[K_UP]: vy -= 1
 	#if keys[K_DOWN]: vy += 1
