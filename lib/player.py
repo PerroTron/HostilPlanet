@@ -48,7 +48,7 @@ def init(g,r,n,*params):
 	sprite.init_codes(g,s)
 	s.no_explode = False
 	
-	s.speed = 2
+	s.speed = 1
 	s.running = False
 	if hasattr(g.game, 'strength'):
 		s.strength = g.game.strength

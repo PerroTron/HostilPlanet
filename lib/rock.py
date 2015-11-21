@@ -35,14 +35,14 @@ def loop(g,s):
     #sprite.apply_gravity(g,s)
     if s.facing == 'left':
         if s.vx > 0:
-            speed = 4
+            speed = 3
         else:
             speed = 1
     else:
         if s.vx > 0:
             speed = 1
         else:
-            speed = 4
+            speed = 3
     
     if g.frame % speed == 0:
         if s._prev != None:
