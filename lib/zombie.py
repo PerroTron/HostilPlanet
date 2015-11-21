@@ -20,7 +20,8 @@ def init(g,r,n,facing = 'left',*params):
 	s.next_frame = 12 
 	s.frame = 0
 	s.facing = facing
-	s.frame_speed = 24
+	s.frame_speed = 10
+	s.speed = 2
 	
 	s.vx = 1.0
 	
@@ -36,7 +37,7 @@ def init(g,r,n,facing = 'left',*params):
 	s._prev = None
 	
 	s.strength = 6
-	s.vy_jump = 0
+	s.vy_jump = -5
 	
 	s.standing = None
 	return s
@@ -53,57 +54,59 @@ def loop(g,s):
 			#s.direction = - s.direction
 			#s.next_frame = 1
 	
-	if s.walking:
-		if s._prev != None:
-			if s.rect.x == s._prev.x or sprite.get_code(g,s,sign(s.vx),0) == CODE_ZOMBIE_TURN:
-				s.vx = -s.vx
-				s.next_frame=1
-				if s.vx < 0:
-					s.facing = 'left'
-				else:
-					s.facing = 'right'
+	
+	if g.frame % s.speed == 0:
+		if s.walking:
+			if s._prev != None:
+				if s.rect.x == s._prev.x or sprite.get_code(g,s,sign(s.vx),0) == CODE_ZOMBIE_TURN:
+					s.vx = -s.vx
+					s.next_frame=1
+					if s.vx < 0:
+						s.facing = 'left'
+					else:
+						s.facing = 'right'
+					
+			if s.standing != None and sprite.get_code(g,s,sign(s.vx),1) == CODE_ZOMBIE_JUMP:
+				#s.vy_jump = -3.1
+				"""
+				if sprite.get_code(g,s,sign(s.vx)*2,1) == CODE_ZOMBIE_JUMP:
+					s.vy_jump = -3.0
+					if sprite.get_code(g,s,sign(s.vx)*3,1) == CODE_ZOMBIE_JUMP:
+						s.vy_jump = -4.1
+				"""
+				s.jumping = True
+				s.walking = False
+				s.next_frame = 20
+				s.image = 'zombie/prejump-%s' % s.facing
 				
-		if s.standing != None and sprite.get_code(g,s,sign(s.vx),1) == CODE_ZOMBIE_JUMP:
-			s.vy_jump = -3.1
-			"""
-			if sprite.get_code(g,s,sign(s.vx)*2,1) == CODE_ZOMBIE_JUMP:
-				s.vy_jump = -3.0
-				if sprite.get_code(g,s,sign(s.vx)*3,1) == CODE_ZOMBIE_JUMP:
-					s.vy_jump = -4.1
-			"""
-			s.jumping = True
-			s.walking = False
-			s.next_frame = 20
-			s.image = 'zombie/prejump-%s' % s.facing
+			s._prev = pygame.Rect(s.rect)
 			
-		s._prev = pygame.Rect(s.rect)
-		
-		s.rect.x += s.vx
-		s.rect.y += s.vy
-	else:
-		s._prev = pygame.Rect(s.rect)
-		if (s.next_frame <= 0): 
-			if (s.standing != None):
-				s.walking=True
-				s.jumping=False
-				s.next_frame=1
-			#s.vx*1
-			vx = s.vx
-			s.rect.x += sprite.myinc(g.frame,vx)
-			s.rect.y += sprite.myinc(g.frame,s.vy)
+			s.rect.x += s.vx
+			s.rect.y += s.vy
+		else:
+			s._prev = pygame.Rect(s.rect)
+			if (s.next_frame <= 0): 
+				if (s.standing != None):
+					s.walking=True
+					s.jumping=False
+					s.next_frame=1
+				#s.vx*1
+				vx = s.vx
+				s.rect.x += sprite.myinc(g.frame,vx)
+				s.rect.y += sprite.myinc(g.frame,s.vy)
 			
-	s.next_frame -= 1
-	if s.next_frame == 0:
-		if s.jumping:
-			sprite.stop_standing(g,s)
-			s.vy = s.vy_jump
-			s.image = 'zombie/jump-%s' % s.facing
-		else: 
-			s.next_frame = s.frame_speed
-			s.frame += 1
-			if s.frame > 3:
-				s.frame = 0
-			s.image = 'zombie/walk-%s-%s' % (s.facing, s.frame)
+		s.next_frame -= 1
+		if s.next_frame == 0:
+			if s.jumping:
+				sprite.stop_standing(g,s)
+				s.vy = s.vy_jump
+				s.image = 'zombie/jump-%s' % s.facing
+			else: 
+				s.next_frame = s.frame_speed
+				s.frame += 1
+				if s.frame > 3:
+					s.frame = 0
+				s.image = 'zombie/walk-%s-%s' % (s.facing, s.frame)
 
 def hit(g,a,b):
 	#print 'youve been spikeys!'
