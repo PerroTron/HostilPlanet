@@ -28,12 +28,12 @@ MENU_KEYS = (K_RETURN,)
 EXIT_KEYS = (K_ESCAPE,)
 
 # Input for joystick/gamepad: (indexing start at zero)
-JUMP_BUTTONS = (1,)
-SHOOT_BUTTONS = (0,)
+JUMP_BUTTONS = (2,)
+SHOOT_BUTTONS = (3,)
 HORIZONTAL_AXIS = (0,)
 VERTICAL_AXIS = (1,)
-MENU_BUTTONS = ()
-EXIT_BUTTONS = ()
+MENU_BUTTONS = (0,)
+EXIT_BUTTONS = (1,)
 
 #Codes and codes and more codes!
 CODE_BOUNDS = 0x13
