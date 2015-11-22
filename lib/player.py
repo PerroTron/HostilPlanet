@@ -49,7 +49,9 @@ def init(g,r,n,*params):
 	s.no_explode = False
 	
 	s.speed = 1
-	s.running = False
+	
+	
+	
 	if hasattr(g.game, 'strength'):
 		s.strength = g.game.strength
 	
@@ -66,9 +68,9 @@ def event(g,s,e):
 	
 	if e.type is USEREVENT and e.action == 'jump' and s.standing != None and s.jumping == 0 and s.vy == 0:
 		sprite.stop_standing(g,s)
-				
-		s.vy = 0
-		s.jumping = 1.23
+		 
+		#s.vy = 0
+		s.jumping = 1.21
 		g.game.sfx['jump'].play()
 	if e.type is USEREVENT and e.action == 'stop-jump':
 		s.jumping = 0
@@ -86,7 +88,6 @@ def event(g,s,e):
 			#tiles.t_put(g,(x,y), 0x32)
 			#tiles.t_put(g,(x,y-1), 0x22)
 	if e.type is USEREVENT and e.action == 'shoot':
-		s.running = True
 		if s.canshoot:
 			if s.powered_up != '':
 				s.shoot = sprites.shoot.init(g,s.rect,s,weapon = s.powered_up)
@@ -94,8 +95,7 @@ def event(g,s,e):
 				s.shoot = sprites.shoot.init(g,s.rect,s,weapon = '')
 			s.shooting = 10
 			s.canshoot = False
-	if e.type is USEREVENT and e.action == 'stop-shoot':
-		s.running = False
+			
 	if e.type is KEYDOWN and e.key == K_F10:
 		g.game.weapons = []
 		g.game.weapons.append('gun')
@@ -124,6 +124,7 @@ def loop(g,s):
 	
 	inpt = g.game.input
 	
+	
 	if s.vy < 0:
 		s.image = s.weapon + '/%s-jump' % (s.facing)
 	elif s.shooting > 0:
@@ -139,7 +140,11 @@ def loop(g,s):
 			s.walk_frame = 1
 	else:
 		s.image = s.weapon + '/%s' % (s.facing)
-	
+	if s.vx > 0:
+		s.facing = 'right'
+	elif s.vx < 0:
+		s.facing = 'left'
+		
 	if s.image != None:
 		if s.damaged_transition > 0:
 			if (s.damaged_transition % 10) > 5:
@@ -215,40 +220,26 @@ def loop(g,s):
 		s.vy -= s.jumping
 		
 		s.jumping = max(0,s.jumping -0.2)
-	
-	inc = 0.5
-	mx = 1.0
-	
-	if not s.running:
 		
-		if g.frame % s.speed == 0:
-			if inpt.right and s.vx < mx:
-				s.vx += inc
-				s.facing = 'right'
-			elif not inpt.right and s.vx > 0:    s.vx -= inc
-			if inpt.left  and s.vx > -mx:
-				s.vx -= inc
-				s.facing = 'left'
-			elif not inpt.left and s.vx < 0:    s.vx += inc
 
-			
-			s._prev = pygame.Rect(s.rect)
-
-			vx,vy = s.vx,s.vy
-			s.rect.x += vx
-			s.rect.y += sprite.myinc(g.frame,s.vy)
-	else:
-		
-		if inpt.right and s.vx < mx:
-			s.vx += inc
-			s.facing = 'right'
-		elif not inpt.right and s.vx > 0:    s.vx -= inc
-		if inpt.left  and s.vx > -mx:
-			s.vx -= inc
+	if g.frame % s.speed == 0:
+		if inpt.right:
+			#if s.jumping:
+				#s.vx = 2.0
+			#else:
+			s.vx = 1.0
+			s.fancing = 'right'
+		elif not inpt.right and s.vx > 0:
+			s.vx = 0
+		if inpt.left:
+			#if s.vy != 0:
+				#s.vx = -2.0
+			#else:
+			s.vx = -1.0
 			s.facing = 'left'
-		elif not inpt.left and s.vx < 0:    s.vx += inc
+		elif not inpt.left and s.vx < 0:
+			s.vx = 0
 
-		
 		s._prev = pygame.Rect(s.rect)
 
 		vx,vy = s.vx,s.vy

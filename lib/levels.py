@@ -14,7 +14,7 @@ LEVELS = [
     
     #('boss_1.tga',      'Boss',),
     
-    #('debug.tga',       'debug', 2,),
+    ('debug.tga',       'debug', 2,),
     
     
     

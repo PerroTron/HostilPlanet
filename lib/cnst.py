@@ -6,11 +6,10 @@ FPS = 60
 IROTATE = 64
 #FPS = 10
 
-TITLE = "Hostil Planet" #"Barbie Seahorse Adventures" #"Bubble Kong" # #"The Volcanic Rollercoaster Ride!"
-
+TITLE = "Hostil Planet" 
 SCALE2X = False  #use the scale2x scaler to make things look hi-res
 LOWRES = False #keep it in 320x240 mode
-FULL = True #
+FULL = True 
 
 #INIT_BORDER = 100
 #DEINIT_BORDER = 200
