@@ -176,7 +176,8 @@ class Level:
         self.status = '_first'
         self.player.image = None
         self.player.exploded = 30
-        self.game.strenght = 10
+        self.game.strength = 10
+        self.game.powerup = 'gun'
                 
     def set_bkgr(self,fname):
         if self._bkgr_fname == fname:

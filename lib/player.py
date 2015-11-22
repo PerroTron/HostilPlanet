@@ -366,7 +366,7 @@ def damage(g,s):
 
 def kill(g,s,no_explode = False):
 	if hasattr(g.game, 'powerup'):
-		g.game.powerup = ''
+		g.game.powerup = 'gun'
 	s.flash_counter = 10
 	s.no_explode = no_explode
 	g.game.music_play('death',1)
