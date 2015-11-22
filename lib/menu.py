@@ -40,7 +40,7 @@ class Menu(engine.State):
         self.levels = []
         for fname in os.listdir(data.filepath('levels')):
             if fname[0]=='.': continue
-            self.levels.append((fname,fname.replace('.tga','')))
+            self.levels.append((fname,fname.replace('.tga',''),1))
         self.levels.sort()
         levels.LEVELS = self.levels
         #print levels.LEVELS
@@ -320,9 +320,9 @@ class Prompt(engine.State):
         self.bkgr = self.game.screen.convert()
         
     def event(self,e):
-        if e.type is KEYDOWN and e.key == K_y:
+        if (e.type is KEYDOWN and e.key == K_y) or (e.type is USEREVENT and e.action in ('menu')):
             return self.yes
-        if e.type is KEYDOWN and e.key == K_n:
+        if (e.type is KEYDOWN and e.key == K_n) or (e.type is USEREVENT and e.action in ('exit')):
             return self.no
         
     def paint(self,screen):
