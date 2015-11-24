@@ -5,9 +5,13 @@ from cnst import *
 
 import sprite
 import player
+import levels
 
 def init(g,r,n,hidden = False,*params):
-	s = sprite.Sprite3(g,r,'door-close',(0,0,16,32)) #3
+	
+	door_type = levels.LEVELS[g.game.lcur][2]
+	
+	s = sprite.Sprite3(g,r,'doors/door-close-%d' % door_type,(0,0,16,32)) #3
 	s.rect.centerx = r.centerx
 	s.rect.centery = r.centery - (32 - 16) / 2
 	s.loop = loop
@@ -19,6 +23,9 @@ def init(g,r,n,hidden = False,*params):
 		s.image = None
 	#s.hit = hit
 	g.sprites.insert(0,s)
+	
+	s.door_type = door_type
+	
 	return s
 
 def loop(g,s):
@@ -27,13 +34,13 @@ def loop(g,s):
 		return
 	if s.open > 0:
 		if (s.open == 40):
-			s.image = 'door-1'
+			s.image = 'doors/door-1-%d' % s.door_type
 		elif (s.open == 30):
-			s.image = 'door-2'
+			s.image = 'doors/door-2-%d' % s.door_type
 		elif (s.open == 20):
-			s.image = 'door-3'
+			s.image = 'doors/door-3-%d' % s.door_type
 		elif (s.open == 10):
-			s.image = 'door-open'
+			s.image = 'doors/door-open-%d' % s.door_type
 			s.open = None
 			return
 		s.open -= 1
