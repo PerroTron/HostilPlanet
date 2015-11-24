@@ -18,7 +18,7 @@ def init(g,r,p):
     s.hit = hit
     g.sprites.append(s)
     s.loop = loop
-    s.life = 100
+    s.life = 50
     s.strength = 1
     #if big: s.strength = 3
     
