@@ -13,9 +13,4 @@ LEVELS = [
     #('Laboratory3.tga',      'Laboratory - 3', '3',),
     
     #('boss_1.tga',      'Boss',),
-    
-    ('debug.tga',       'debug', 2,),
-    
-    
-    
-    ]
+]
