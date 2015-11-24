@@ -68,6 +68,7 @@ class Menu(engine.State):
         
         fnt = self.font
         
+        """
         text = 'high: %05d'%self.game.high
         c = (0x00,0x00,0x00)
         img = fnt.render(text,0,c)
@@ -76,6 +77,8 @@ class Menu(engine.State):
         c = (0xff,0xff,0xff)
         img = fnt.render(text,0,c)
         screen.blit(img,(x,y))
+        """
+        
         #y += 36
         y += 24
         
