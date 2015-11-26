@@ -1,9 +1,8 @@
-Hostil Planet
-===========
+# Hostil Planet
 
 http://github.com/JauriaStuios/HostilPlanet
 
-DEPENDENCIES:
+### Dependencies:
 
 You might need to install some of these before running the game:
 
@@ -11,13 +10,15 @@ You might need to install some of these before running the game:
   PyGame:     http://www.pygame.org/
 
 
-RUNNING THE GAME:
+### Running the game:
 
 On Windows or Mac OS X, locate the "run_game.pyw" file and double-click it.
 
 Othewise open a terminal / console and "cd" to the game directory and run:
 
-  python run_game.py
+```
+
+python run_game.pyw
 
 -full : to run in windows mode
 -scale2x : use the scale2x scaler
@@ -26,7 +27,9 @@ Othewise open a terminal / console and "cd" to the game directory and run:
 
 level.tga : to play a certain level
 
-HOW TO PLAY THE GAME:
+```
+
+### How to play:
 
 Use your arrow keys to
 move the seahorse.
@@ -34,7 +37,7 @@ Button 1 - Jump
 Button 2 - Shoot
             
 
-MISC:
+### Misc:
 
 press 'd' on the main menu to enter 'debug' mode and have a list of all
 levels in the data/levels/ folder.  That way you can play in development
@@ -42,7 +45,7 @@ or totally broken / reject levels.
 
 press F10 uring game for enable godmode
 
-LICENSE:
+### License:
 
-(c) 2007 The Olde Battleaxe & Friends
 (c) 2015 JauriaStudios
+(c) 2007 The Olde Battleaxe & Friends
