@@ -133,6 +133,10 @@ CODES = {
 0x92    :[sprites.rock.init,'right'],
 0x93    :[_pass,], # CODE_ROCK_TURN
 
+# raider ralated
+0xF8    :[sprites.raider.init,],
+0xF9    :[_pass,], # CODE_RAIDER_TURN
+
 
 }
 
