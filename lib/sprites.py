@@ -27,3 +27,4 @@ import tower
 import wibert
 import wibertshoot
 import rock
+import raider

@@ -64,7 +64,7 @@ def loop(g,s):
     if s.shoot == 0:
         
         #g.sprites.append(shot)
-        s.shoot = 250
+        s.shoot = 200
         s.shooting = 18
 
     if s.shooting > 0:
