@@ -440,7 +440,8 @@ class Level:
             if self.game.lcur == 0:
                 # you really won!!!
                 self.game.music_play('finish')
-                next = menu.Transition(self.game,self.parent)
+                #next = menu.Transition(self.game,self.parent)
+                next = menu.Ending(self.game,self.parent)
                 return menu.Pause(self.game,'CONGRATULATIONS!',next)
                 
             else:
