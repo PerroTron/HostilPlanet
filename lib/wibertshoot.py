@@ -5,7 +5,7 @@ import player
 import sprite
 
 def init(g,r,p):
-    s = sprite.Sprite3(g,r,'shoots/%s-wibertshoot'%(p.facing),(0,0,5,5))
+    s = sprite.Sprite3(g,r,'shoots/%s-wibertshoot' % p.facing,(0,0,5,5))
 
     s.rect.centerx = r.centerx
     s.rect.centery = r.centery
