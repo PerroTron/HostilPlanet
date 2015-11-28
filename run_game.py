@@ -4,14 +4,6 @@ import sys
 import os
 
 from lib import main
-#try:
-	#libdir = os.path.abspath(os.path.join(os.path.dirname(__file__), 'lib'))
-	#sys.path.insert(0, libdir)
-	#import main
-#except:
-	## probably running inside py2exe which doesn't set __file__
-	#from lib import main
-	#pass
 
 def change_to_correct_path():
 	import os, sys

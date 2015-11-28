@@ -341,27 +341,21 @@ def powerup(g,s,weapon):
 	if weapon not in g.game.weapons:
 		g.game.weapons.append(weapon)
 	
-def damage(g,s):
+def damage(g,s,a):
 	if s.god_mode: return
 	
 	if s.door_timer != None:
 		return
-	"""
-	if s.powered_up != '':
-		g.game.sfx['pop'].play()
-		#s.powerup_transition = 100
-		s.powered_up = ''
-		if hasattr(g.game, 'powerup'):
-			g.game.powerup = ''"""
+
 	if s.damaged_transition == 0 and s.strength > 0:
 		g.game.sfx['hit'].play()
 		s.damaged_transition = 100
 		
 		s.strength -= 1
 		if hasattr(g.game, 'strength'):
-			g.game.strength -= 1
+			g.game.strength -= a.damage
 
-	elif s.flash_counter == 0 and s.strength == 0:
+	elif s.flash_counter == 0 and s.strength <= 0:
 		s.kill(g,s)
 
 def kill(g,s,no_explode = False):

@@ -56,4 +56,4 @@ def loop(g,s):
 		s.active = False
 
 def hit(g,a,b):
-	player.damage(g,b)
+	player.damage(g,b,a)

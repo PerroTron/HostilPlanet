@@ -26,6 +26,7 @@ def init(g,r,n,facing,*params):
 	
 	s._prev = None # pygame.Rect(s.rect)
 	s.strength = 4
+	s.damage = 1
 
 	#s.standing = None
 	return s
@@ -58,5 +59,4 @@ def loop(g,s):
 	
 
 def hit(g,a,b):
-	player.damage(g,b)
-	#print 'youve been spikeys!'
+	player.damage(g,b,a)
