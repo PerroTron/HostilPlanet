@@ -60,7 +60,7 @@ CODE_BAT_TURN = 0xCA
 CODE_BAT_ATTACK = 0xCB
 CODE_WIBERT_TURN = 0xE9
 CODE_ROCK_TURN = 0x93
-
+CODE_RAIDER_TURN = 0xF9
 
 # Various constants:
 DOOR_DELAY = 40 # Delay when going through a door
