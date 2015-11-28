@@ -37,7 +37,7 @@ def init(g,r,n,facing = 'left',*params):
 	s._prev = None
 	
 	s.strength = 7
-	s.damage = 1
+	s.damage = 2
 	s.vy_jump = -5
 	
 	s.standing = None
