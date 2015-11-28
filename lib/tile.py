@@ -7,6 +7,7 @@ import sprite
         
 def t_init(g,r,n,hit_groups,hit,*params):
     t = sprite.Sprite(r,n)
+    t.damage = 1
     for grp in hit_groups: t.hit_groups.add(grp)
     def _hit(g,a,b):
         return hit(g,a,b,*params)
@@ -20,18 +21,21 @@ def t_init(g,r,n,hit_groups,hit,*params):
 # tile that takes up half the space it normally would, and is on the left side
 def tl_init(g,r,n,hit_groups,hit,*params):
     t = t_init(g,r,n,hit_groups,hit,*params)
+    t.damage = 1
     t.rect.w = t.rect.w / 2
     return t
 
 # same as tl_init, but on the right side
 def tr_init(g,r,n,hit_groups,hit,*params):
     t = tl_init(g,r,n,hit_groups,hit,*params)
+    t.damage = 1
     t.rect.x += t.rect.w
     #print t.rect
     return t
     
 def th_init(g,r,n,hit_groups,hit,*params):
     t = t_init(g,r,n,hit_groups,hit,*params)
+    t.damage = 1
     t.rect.h -= t.rect.h/2
     return t
 

@@ -37,6 +37,7 @@ def init(g,r,n,facing = 'left',*params):
 	s._prev = None
 	
 	s.strength = 7
+	s.damage = 2
 	s.vy_jump = -5
 	
 	s.standing = None
@@ -109,6 +110,4 @@ def loop(g,s):
 				s.image = 'zombie/walk-%s-%s' % (s.facing, s.frame)
 
 def hit(g,a,b):
-	#print 'youve been spikeys!'
-	player.damage(g,b)
-	pass
+	player.damage(g,b,a)
