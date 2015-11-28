@@ -3,7 +3,7 @@ from pygame.locals import *
 from time import sleep
 import sprite
 
-def init(g,r,p,weapon):
+def init(g, r, p, weapon, projectile = False):
     
     
     if p.canshoot == False:
@@ -111,6 +111,51 @@ def init(g,r,p,weapon):
         if p.facing == 'left':
             s.vx = -1
         s.vy = 0
+        s.rect.centerx += s.vx*(4+s.rect.width/2)
+        s.rect.centery -= 1
+        
+        g.game.sfx['laser'].play()
+        
+        
+    elif weapon == 'tshoot':
+
+        s = sprite.Sprite3(g,r,'shoots/%s-tshoot-shoot'%(p.facing),(0,0,5,5))
+
+        s.weapon = weapon
+        s.cooldown = 10
+        s.rect.centerx = r.centerx
+        s.rect.centery = r.centery
+        s.groups.add('solid')
+        s.groups.add('shoot')
+        s.hit_groups.add('enemy')
+        s.hit = hit
+        g.sprites.append(s)
+        s.loop = loop
+        s.life = 100
+        s.deinit = deinit
+        s.velocityx = 6
+        s.velocityy = 1
+        
+        g.game.weaponsound = 'hit'
+
+
+        s.strength = 2
+        
+        if p.facing == 'left':
+            s.vx = -1
+        else:
+            s.vx = 1
+        
+        s.vy = 0
+        
+        if projectile == "top":
+            s.vy = -1
+        elif projectile == "mid":
+            s.vy = 0
+        elif projectile == "bot":
+            s.vy = +1
+            
+            
         s.rect.centerx += s.vx*(4+s.rect.width/2)
         s.rect.centery -= 1
         
