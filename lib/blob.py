@@ -24,6 +24,7 @@ def init(g,r,n,*params):
 	
 	s._prev = pygame.Rect(s.rect)
 	s.strength = 4
+	s.damage = 1
 	
 	s.standing = None
 	return s
@@ -50,6 +51,6 @@ def loop(g,s):
 	s.rect.y += sprite.myinc(g.frame,s.vy)
 
 def hit(g,a,b):
-	player.damage(g,b)
+	player.damage(g,b,a)
 	#print 'youve been spikeys!'
 	pass

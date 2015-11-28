@@ -45,6 +45,7 @@ def init(g,r,n,*params):
 	
 	s._prev = None # pygame.Rect(s.rect)
 	s.strength = 6
+	s.damage = 1
 	
 	#s.standing = None
 	return s
@@ -130,8 +131,6 @@ def hit(g,a,b):
 		a.phase_frames = 0
 	if a.strength == 0:
 		a.dying = 0
-	#player.damage(g,b)
-	#print 'youve been spikeys!'
 
 def bub_init(g,r):
 	s = sprite.Sprite3(g,r,'big-shoot', (0,0,16,16))

@@ -392,7 +392,7 @@ class Ending(engine.State):
 		
 		fnt = self.game.fonts['intro']
 		
-		x,y = 160,12 -self.counter
+		x,y = 160,72 -self.counter
 		
 		for text in [	'Weapons','Gun','Shootgun','Cannon','Laser','',
 						'Items','Life','Shield','',
@@ -408,18 +408,18 @@ class Ending(engine.State):
 			
 		
 		
-		screen.blit(self.gun,(48,60 - self.counter))
-		screen.blit(self.shootgun,(48,120 - self.counter))
-		screen.blit(self.cannon,(48,180 - self.counter))
-		screen.blit(self.laser,(48,240 - self.counter))
+		screen.blit(self.gun,(48,120 - self.counter))
+		screen.blit(self.shootgun,(48,180 - self.counter))
+		screen.blit(self.cannon,(48,240 - self.counter))
+		screen.blit(self.laser,(48,300 - self.counter))
 		
-		screen.blit(self.life,(48,420 - self.counter))
-		screen.blit(self.shield,(48,480 - self.counter))
+		screen.blit(self.life,(48,480 - self.counter))
+		screen.blit(self.shield,(48,540 - self.counter))
 		
-		screen.blit(self.green,(48,660 - self.counter))
-		screen.blit(self.red,(48,720 - self.counter))
-		screen.blit(self.yellow,(48,780 - self.counter))
-		screen.blit(self.blue,(48,840 - self.counter))
+		screen.blit(self.green,(48,720 - self.counter))
+		screen.blit(self.red,(48,780 - self.counter))
+		screen.blit(self.yellow,(48,840 - self.counter))
+		screen.blit(self.blue,(48,900 - self.counter))
 		
 		
 		self.game.flip()

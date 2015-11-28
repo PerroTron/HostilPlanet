@@ -27,6 +27,7 @@ def init(g,r,n,vx,*params):
 	s._prev = None
 	
 	s.strength = 3
+	s.damage = 1
 	s.vy_jump = 0
 	
 	s.standing = None
@@ -103,6 +104,4 @@ def loop(g,s):
 				s.image = 'frog/walk-left-' + str(s.frame)
 
 def hit(g,a,b):
-	#print 'youve been spikeys!'
-	player.damage(g,b)
-	pass
+	player.damage(g,b,a)
