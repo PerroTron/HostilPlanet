@@ -1,7 +1,10 @@
 import pygame
 from pygame.locals import *
+
 from time import sleep
+
 import sprite
+import explosion
 
 def init(g, r, p, weapon, projectile = False):
     
@@ -20,14 +23,14 @@ def init(g, r, p, weapon, projectile = False):
     
     if weapon == 'cannon':
 
-        s = sprite.Sprite3(g,r,'shoots/%s-cannon-shoot'%(p.facing),(0,0,15,3))
+        s = sprite.Sprite3(g, r, 'shoots/%s-cannon-shoot' % p.facing,(0,0,15,3))
             
         s.weapon = weapon
         s.cooldown = 50
         s.rect.centerx = r.centerx
         s.rect.centery = r.centery
         s.groups.add('solid')
-        s.groups.add('shoot')
+        s.groups.add('cannon')
         s.hit_groups.add('enemy')
         s.hit = hit
         g.sprites.append(s)
@@ -52,7 +55,7 @@ def init(g, r, p, weapon, projectile = False):
         
     elif weapon == 'shootgun':
 
-        s = sprite.Sprite3(g,r,'shoots/%s-shootgun-shoot'%(p.facing),(0,0,26,16))
+        s = sprite.Sprite3(g, r, 'shoots/%s-shootgun-shoot' % p.facing, (0,0,26,16))
 
         s.weapon = weapon
         s.cooldown = 30
@@ -85,7 +88,7 @@ def init(g, r, p, weapon, projectile = False):
         
     elif weapon == 'laser':
 
-        s = sprite.Sprite3(g,r,'shoots/%s-laser-shoot'%(p.facing),(0,0,16,3))
+        s = sprite.Sprite3(g, r, 'shoots/%s-laser-shoot' % p.facing, (0,0,16,3))
 
         s.weapon = weapon
         s.cooldown = 20
@@ -119,7 +122,7 @@ def init(g, r, p, weapon, projectile = False):
         
     elif weapon == 'tshoot':
 
-        s = sprite.Sprite3(g,r,'shoots/%s-tshoot-shoot'%(p.facing),(0,0,5,5))
+        s = sprite.Sprite3(g, r, 'shoots/%s-tshoot-shoot' % p.facing, (0,0,5,5))
 
         s.weapon = weapon
         s.cooldown = 10
@@ -163,7 +166,7 @@ def init(g, r, p, weapon, projectile = False):
         
     else:
 
-        s = sprite.Sprite3(g,r,'shoots/%s-shoot'%(p.facing),(0,0,6,3))
+        s = sprite.Sprite3(g, r, 'shoots/%s-shoot' % p.facing, (0,0,6,3))
         
         s.weapon = weapon
         s.cooldown = 10
@@ -202,8 +205,6 @@ def init(g, r, p, weapon, projectile = False):
     return s
 
 def deinit(g,s):
-    #print "shoot deinit"
-    #g.shoot_count -= 1
     pass
     
     
@@ -217,8 +218,14 @@ def loop(g,s):
         s.active = False
     
 
-def hit(g,a,b): 
+def hit(g,a,b):
+    
+    sound(g)
+    
     a.active = False
+    
+    if a.weapon == "cannon":
+        explosion.init(g,a.rect,a)
     
     b.strength -= a.strength
     if b.strength <= 0:
@@ -231,18 +238,17 @@ def hit(g,a,b):
         
         explode(g,b)
         
-    sound(g)
     
 def sound(g):
     g.game.sfx[g.game.weaponsound].play()
 
 def explode(level,sprite):
-	s = sprite
-	s.hit_groups = set()
-	def loop(g,s):
-		s.exploded += 2
-		if s.exploded > 8:
-			s.active = False
-	
-	s.loop = loop
+    s = sprite
+    s.hit_groups = set()
+    def loop(g,s):
+        s.exploded += 2
+        if s.exploded > 8:
+            s.active = False
+    
+    s.loop = loop
 
