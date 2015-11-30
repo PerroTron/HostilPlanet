@@ -3,3 +3,4 @@ geany_run_script.bat
 build/
 dist/
 _preview.tga
+.idea/
