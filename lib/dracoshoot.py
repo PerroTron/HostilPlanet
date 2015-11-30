@@ -11,7 +11,7 @@ def init(g,r,p):
 	s.rect.centery = r.centery
 
 	s.groups.add('solid')
-	s.groups.add('dracoshoot')
+	s.groups.add('enemyshoot')
 	s.hit_groups.add('player')
 
 	s.hit = hit

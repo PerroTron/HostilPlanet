@@ -41,7 +41,7 @@ def loop(g,s):
     
 def hit(g,a,b):
     player.damage(g,b,a)
-    a.active = False
+    #a.active = False
     
     b.strength -= a.strength
     if b.strength <= 0:
