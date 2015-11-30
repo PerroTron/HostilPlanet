@@ -324,9 +324,7 @@ def main():
 	import menu
 	
 	l = l2 = menu.Menu(g)
-	#l = menu.Intro(g,l2)
-	
-	#l = menu.Ending(g,l2)
+	l = menu.Intro(g,l2)
 	
 	if fname != None:
 		import level
