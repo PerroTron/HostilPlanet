@@ -228,22 +228,21 @@ def loop(g,s):
         s.vy -= s.jumping
         
         s.jumping = max(0,s.jumping -0.2)
-        
 
     if g.frame % s.speed == 0:
         if inpt.right:
-            #if s.jumping:
-                #s.vx = 2.0
-            #else:
-            s.vx = 1.0
+            if s.jumping:
+                s.vx = 2.0
+            else:
+                s.vx = 1.0
             s.fancing = 'right'
         elif not inpt.right and s.vx > 0:
             s.vx = 0
         if inpt.left:
-            #if s.vy != 0:
-                #s.vx = -2.0
-            #else:
-            s.vx = -1.0
+            if s.jumping:
+                s.vx = -2.0
+            else:
+                s.vx = -1.0
             s.facing = 'left'
         elif not inpt.left and s.vx < 0:
             s.vx = 0
@@ -357,7 +356,7 @@ def damage(g,s,a):
 
     if s.damaged_transition == 0 and s.strength > 0:
         
-        s.got_hit = 16
+        s.got_hit = 12
         
         g.game.sfx['hit'].play()
         s.damaged_transition = 100
