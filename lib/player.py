@@ -38,6 +38,7 @@ def init(g,r,n,*params):
     s.god_mode = False
     s.death_counter = -1
     s.canshoot = True
+    s.got_hit = 0
     
     s._prev = pygame.Rect(s.rect)
     s._prev2 = pygame.Rect(s.rect)
@@ -157,6 +158,7 @@ def loop(g,s):
                     s.image = s.weapon + '/%s-walk-%s' % (s.facing, int(s.walk_frame))
                 else:
                     s.image = s.weapon + '/%s' % (s.facing)
+            
             s.damaged_transition -= 1
         """
         elif s.powerup_transition > 0:
@@ -167,6 +169,12 @@ def loop(g,s):
             s.image = s.image
             """
     
+    if s.got_hit:
+        if s.facing == "right":
+            s.rect.x -= 2
+        else:
+            s.rect.x += 2
+        s.got_hit -= 1
     
     if s.death_counter > 0:
         s.groups = set()
@@ -348,6 +356,9 @@ def damage(g,s,a):
         return
 
     if s.damaged_transition == 0 and s.strength > 0:
+        
+        s.got_hit = 16
+        
         g.game.sfx['hit'].play()
         s.damaged_transition = 100
         
@@ -357,6 +368,8 @@ def damage(g,s,a):
 
     elif s.flash_counter == 0 and s.strength <= 0:
         s.kill(g,s)
+    
+    
 
 def kill(g,s,no_explode = False):
     if hasattr(g.game, 'powerup'):
