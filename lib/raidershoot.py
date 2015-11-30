@@ -5,7 +5,7 @@ import player
 import sprite
 
 def init(g,r,p):
-    s = sprite.Sprite3(g,r,'shoots/right-raider-shoot',(0,0,2,6))
+    s = sprite.Sprite3(g,r,'shoots/right-raider-shoot',(0,0,2,20))
 
     s.rect.centerx = r.centerx
     s.rect.centery = r.centery
