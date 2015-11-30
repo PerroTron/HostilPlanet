@@ -220,7 +220,10 @@ class Intro(engine.State):
 	def init(self):
 		self.frame = FPS
 		
-		self.moon = pygame.image.load(data.filepath(os.path.join('intro','moon2.png'))).convert()
+		self.moon = pygame.image.load(data.filepath(os.path.join('intro','intro.png'))).convert()
+		img = pygame.image.load(data.filepath(os.path.join('images','logo.png')))
+		w = 120
+		self.logo = pygame.transform.scale(img,(w,img.get_height()*w/img.get_width()))
 		self.black = self.moon.convert()
 		self.black.fill((0,0,0))
 		
@@ -256,8 +259,8 @@ class Intro(engine.State):
 				screen.blit(self.black,(0,0))
 
 			fnt = self.game.fonts['intro']
-			x,y = 8,0
-			for text in ['... July 20, 1969','man first','walked on','the moon.']:
+			x,y = 8,16
+			for text in ['Jauria Studios', 'presents']:
 				c = (255,255,255)
 				img = fnt.render(text,1,(0,0,0))
 				screen.blit(img,(x+2,y+2))
@@ -268,6 +271,8 @@ class Intro(engine.State):
 				a = 255-(f*255/FPS)
 				self.black.set_alpha(a)
 				screen.blit(self.black,(0,0))
+			
+			screen.blit(self.logo,(180,0))
 		
 		self.game.flip()
 		
@@ -277,7 +282,7 @@ class Intro2(engine.State):
 		self.next = next
 		
 	def init(self):
-		self.moon = pygame.image.load(data.filepath(os.path.join('intro','moon2.png'))).convert()
+		self.moon = pygame.image.load(data.filepath(os.path.join('intro','intro.png'))).convert()
 		img = pygame.image.load(data.filepath(os.path.join('images','player','right.png')))
 		w = 160
 		self.player = pygame.transform.scale(img,(w,img.get_height()*w/img.get_width()))
@@ -299,14 +304,15 @@ class Intro2(engine.State):
 		#screen.fill((0,0,0))
 		screen.blit(self.bkgr,(0,0))
 		fnt = self.game.fonts['intro']
-		x,y = 8,0
-		for text in ['This is','the year','of the','narwhal!']:
+		x,y = 8,16
+		for text in ['Hostil Planet']:
 			c = (255,255,255)
 			img = fnt.render(text,1,(0,0,0))
 			screen.blit(img,(x+2,y+2))
 			img = fnt.render(text,1,c)
 			screen.blit(img,(x,y))
 			y += 36
+		
 		screen.blit(self.player,(130,0))
 			
 		self.game.flip()

@@ -13,7 +13,7 @@ def init(g,r,n,facing,*params):
     s.rect.centery = r.centery
     s.rect.centerx = r.centerx
     s.groups.add('solid')
-    s.groups.add('enemy')
+    #s.groups.add('enemy')
     s.hit_groups.add('player')
     s.hit = hit
     g.sprites.append(s)
