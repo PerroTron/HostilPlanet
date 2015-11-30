@@ -25,7 +25,7 @@ def init(g,r,n,facing,*params):
 	s.facing = facing
 	
 	s._prev = None # pygame.Rect(s.rect)
-	s.strength = 4
+	s.strength = -1
 	s.damage = 1
 
 	#s.standing = None
