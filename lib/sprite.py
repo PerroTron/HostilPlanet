@@ -43,16 +43,19 @@ def Sprite3(g, r, n, shape):
     return s
 
 
-def apply_gravity(g, s):
-    if s.standing != None:
+def apply_gravity(g, s, negative = False):
+    if s.standing is not None:
         s.vy = 0
         return
-    s.vy += 0.2
+    if negative is True:
+        s.vy -= 0.2
+    else:
+        s.vy += 0.2
     s.vy = min(s.vy, 6)
 
 
 def apply_standing(g, s):
-    if s.standing == None: return
+    if s.standing is None: return
     if not s.standing.active:
         stop_standing(g, s)
         return
