@@ -1,6 +1,7 @@
 import pygame
-from pygame.locals import *
+
 from cnst import *
+
 import sprite
 import sprites
 import tiles
@@ -61,13 +62,13 @@ def init(g, r, n, *params):
 
 def event(g, s, e):
     # print 'player.event',e
-    if s.door_timer != None or s.exploded > 0:
+    if s.door_timer is not None or s.exploded > 0:
         return
 
     if s.death_counter >= 0:
         return
 
-    if e.type is USEREVENT and e.action == 'jump' and s.standing != None and s.jumping == 0 and s.vy == 0:
+    if e.type is USEREVENT and e.action == 'jump' and s.standing is not None and s.jumping == 0 and s.vy == 0:
         sprite.stop_standing(g, s)
 
         # s.vy = 0
@@ -81,7 +82,7 @@ def event(g, s, e):
             s.vx = 0
             s.vy = 0
             s.door_timer = DOOR_DELAY
-            if s.current_door != None:  # It should never be None actually...
+            if s.current_door is not None:  # It should never be None actually...
                 # print "door!"
                 s.current_door.open = DOOR_DELAY
             s.image = None
@@ -194,7 +195,7 @@ def loop(g, s):
     sprite.apply_gravity(g, s)
     sprite.apply_standing(g, s)
 
-    if s.door_timer != None:
+    if s.door_timer is not None:
         if s.door_timer == 0:
             x, y = s.door_pos  # s.rect.centerx/TW,s.rect.centery/TH
             import door
@@ -344,7 +345,7 @@ def powerup(g, s, weapon):
 def damage(g, s, a):
     if s.god_mode: return
 
-    if s.door_timer != None:
+    if s.door_timer is not None:
         return
 
     if s.damaged_transition == 0 and s.strength > 0:
