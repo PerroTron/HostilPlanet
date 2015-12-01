@@ -71,7 +71,7 @@ def event(g,s,e):
         sprite.stop_standing(g,s)
          
         #s.vy = 0
-        s.jumping = 1.21
+        s.jumping = 1.17
         g.game.sfx['jump'].play()
     if e.type is USEREVENT and e.action == 'stop-jump':
         s.jumping = 0
