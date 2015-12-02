@@ -29,6 +29,7 @@ def loop(g, s):
     if s.hidden:
         s.image = None
         return
+
     if s.open > 0:
         if (s.open == 40):
             s.image = 'doors/door-1-%d' % s.door_type
