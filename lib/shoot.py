@@ -116,7 +116,7 @@ def init(g, r, p, weapon, projectile=False):
         s = sprite.Sprite3(g, r, 'shoots/%s-tshoot-shoot' % p.facing, (0, 0, 5, 5))
 
         s.weapon = weapon
-        s.cooldown = 10
+        s.cooldown = 1
         s.rect.centerx = r.centerx
         s.rect.centery = r.centery
         s.groups.add('solid')
@@ -125,9 +125,9 @@ def init(g, r, p, weapon, projectile=False):
         s.hit = hit
         g.sprites.append(s)
         s.loop = loop
-        s.life = 100
+        s.life = 50
         s.deinit = deinit
-        s.velocityx = 6
+        s.velocityx = 2
         s.velocityy = 1
 
         g.game.weaponsound = 'hit'
@@ -141,7 +141,9 @@ def init(g, r, p, weapon, projectile=False):
 
         s.vy = 0
 
-        if projectile == "top":
+        if projectile == "uptop":
+            s.vy = -2
+        elif projectile == "top":
             s.vy = -1
         elif projectile == "mid":
             s.vy = 0

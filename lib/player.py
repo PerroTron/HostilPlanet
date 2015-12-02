@@ -75,7 +75,7 @@ def event(g, s, e):
         sprite.stop_standing(g, s)
 
         # s.vy = 0
-        s.jumping = 1.17
+        s.jumping = 1.21
         g.game.sfx['jump'].play()
     if e.type is USEREVENT and e.action == 'stop-jump':
         s.jumping = 0
@@ -98,6 +98,7 @@ def event(g, s, e):
     if e.type is USEREVENT and e.action == 'shoot':
         if s.canshoot:
             if s.powered_up == 'tshoot':
+                s.shoot = sprites.shoot.init(g, s.rect, s, weapon=s.powered_up, projectile="uptop")
                 s.shoot = sprites.shoot.init(g, s.rect, s, weapon=s.powered_up, projectile="top")
                 s.shoot = sprites.shoot.init(g, s.rect, s, weapon=s.powered_up, projectile="mid")
                 s.shoot = sprites.shoot.init(g, s.rect, s, weapon=s.powered_up, projectile="bot")
@@ -226,7 +227,7 @@ def loop(g, s):
     # keys = pygame.key.get_pressed()
 
     if s.jumping:
-        s.jump_timer += 4
+        s.jump_timer += 2
         # print s.vy
         s.vy -= s.jumping
 
