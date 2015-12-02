@@ -1,11 +1,9 @@
 import pygame
 
 import sprite
-from cnst import *
-
 
 def init(g, r, n):
-    s = sprite.Sprite3(g, r, "drone/drone-0", (0, 0, 16, 16))
+    s = sprite.Sprite3(g, r, "drone/drone-0", (0, 0, 10, 12))
 
     s.rect.bottom = r.bottom - 32
     s.rect.centerx = r.centerx
@@ -28,6 +26,12 @@ def init(g, r, n):
     return s
 
 
+def deinit(g, s):
+
+    if g.game.drone is True:
+        print("se piro")
+        s.init(g, s.rect, s,)
+
 def loop(g, s):
 
     sprite.apply_standing(g, s)
@@ -35,14 +39,14 @@ def loop(g, s):
     s._prev = pygame.Rect(s.rect)
 
     if g.player.rect.centerx > s.rect.centerx:
-        s.vx += 1.0
+        s.vx += 0.5
     elif g.player.rect.centerx < s.rect.centerx:
-        s.vx -= 1.0
+        s.vx -= 0.5
 
-    if g.player.rect.centery > s.rect.centery + 32:
-        s.vy += 1.0
-    elif g.player.rect.centery < s.rect.centery + 32:
-        s.vy -= 1.0
+    if g.player.rect.centery > s.rect.centery + 24:
+        s.vy += 0.5
+    elif g.player.rect.centery < s.rect.centery + 24:
+        s.vy -= 0.5
 
     s.vx = min(1.0, s.vx)
     s.vx = max(-1.0, s.vx)
@@ -52,3 +56,4 @@ def loop(g, s):
 
     s.rect.x += sprite.myinc(g.frame, s.vx)
     s.rect.y += sprite.myinc(g.frame, s.vy)
+
