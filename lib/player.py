@@ -1,6 +1,7 @@
 import pygame
-from pygame.locals import *
+
 from cnst import *
+
 import sprite
 import sprites
 import tiles
@@ -42,6 +43,9 @@ def init(g, r, n, *params):
     s.jump_timer = 0
     s.keep_jump = False
 
+
+    s.drone = g.game.drone
+
     s._prev = pygame.Rect(s.rect)
     s._prev2 = pygame.Rect(s.rect)
     s.looking = False
@@ -61,13 +65,13 @@ def init(g, r, n, *params):
 
 def event(g, s, e):
     # print 'player.event',e
-    if s.door_timer != None or s.exploded > 0:
+    if s.door_timer is not None or s.exploded > 0:
         return
 
     if s.death_counter >= 0:
         return
 
-    if e.type is USEREVENT and e.action == 'jump' and s.standing != None and s.jumping == 0 and s.vy == 0:
+    if e.type is USEREVENT and e.action == 'jump' and s.standing is not None and s.jumping == 0 and s.vy == 0:
         sprite.stop_standing(g, s)
 
         # s.vy = 0
@@ -81,13 +85,16 @@ def event(g, s, e):
             s.vx = 0
             s.vy = 0
             s.door_timer = DOOR_DELAY
-            if s.current_door != None:  # It should never be None actually...
+            if s.current_door is not None:  # It should never be None actually...
                 # print "door!"
                 s.current_door.open = DOOR_DELAY
             s.image = None
             s.door_pos = s.rect.centerx / TW, s.rect.centery / TH
             # tiles.t_put(g,(x,y), 0x32)
             # tiles.t_put(g,(x,y-1), 0x22)
+            if s.drone is True:
+                s.drone = False
+
     if e.type is USEREVENT and e.action == 'shoot':
         if s.canshoot:
             if s.powered_up == 'tshoot':
@@ -107,6 +114,7 @@ def event(g, s, e):
         g.game.weapons.append('laser')
         g.game.weapons.append('shootgun')
         g.game.weapons.append('tshoot')
+        s.drone = True
         s.god_mode = True
 
 
@@ -195,7 +203,7 @@ def loop(g, s):
     sprite.apply_gravity(g, s)
     sprite.apply_standing(g, s)
 
-    if s.door_timer != None:
+    if s.door_timer is not None:
         if s.door_timer == 0:
             x, y = s.door_pos  # s.rect.centerx/TW,s.rect.centery/TH
             import door
@@ -298,6 +306,13 @@ def loop(g, s):
         if s.shoot.cooldown == 0:
             s.canshoot = True
 
+    if s.drone is True and g.game.drone is False:
+        g.game.drone = True
+        sprites.drone.init(g, s.rect, s,)
+    elif s.drone is False and g.game.drone is True:
+        s.drone = True
+        sprites.drone.init(g, s.rect, s,)
+
     s.strength = g.game.strength
     s.powered_up = g.game.powerup
 
@@ -345,7 +360,7 @@ def powerup(g, s, weapon):
 def damage(g, s, a):
     if s.god_mode: return
 
-    if s.door_timer != None:
+    if s.door_timer is not None:
         return
 
     if s.damaged_transition == 0 and s.strength > 0:
@@ -364,8 +379,10 @@ def damage(g, s, a):
 
 
 def kill(g, s, no_explode=False):
+
     if hasattr(g.game, 'powerup'):
         g.game.powerup = 'gun'
+
     s.flash_counter = 10
     s.no_explode = no_explode
     g.game.music_play('death', 1)
