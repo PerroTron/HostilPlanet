@@ -45,6 +45,7 @@ def init(g, r, n, *params):
 
 
     s.drone = g.game.drone
+    s.drone_sprite = None
 
     s._prev = pygame.Rect(s.rect)
     s._prev2 = pygame.Rect(s.rect)
@@ -94,6 +95,8 @@ def event(g, s, e):
             # tiles.t_put(g,(x,y-1), 0x22)
             if s.drone is True:
                 s.drone = False
+                s.drone_sprite.active = False
+
 
     if e.type is USEREVENT and e.action == 'shoot':
         if s.canshoot:
@@ -308,10 +311,10 @@ def loop(g, s):
 
     if s.drone is True and g.game.drone is False:
         g.game.drone = True
-        sprites.drone.init(g, s.rect, s,)
+        s.drone_sprite = sprites.drone.init(g, s.rect, s,)
     elif s.drone is False and g.game.drone is True:
         s.drone = True
-        sprites.drone.init(g, s.rect, s,)
+        s.drone_sprite = sprites.drone.init(g, s.rect, s,)
 
     s.strength = g.game.strength
     s.powered_up = g.game.powerup
