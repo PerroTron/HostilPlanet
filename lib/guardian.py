@@ -36,7 +36,7 @@ def init(g,r,n,facing = 'left',*params):
 	return s
 	
 def loop(g,s):
-	sprite.apply_gravity(g,s)
+	#sprite.apply_gravity(g,s)
 	sprite.apply_standing(g,s)
 	
 	#if s.rect.x == s._prev.x: # or sprite.get_code(g,s,sign(s.vx),0) == CODE_GUARDIAN_TURN:
