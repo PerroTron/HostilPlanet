@@ -35,14 +35,14 @@ def loop(g, s):
     s._prev = pygame.Rect(s.rect)
 
     if g.player.rect.centerx > s.rect.centerx:
-        s.vx += 0.5
+        s.vx += 1.0
     elif g.player.rect.centerx < s.rect.centerx:
-        s.vx -= 0.5
+        s.vx -= 1.0
 
     if g.player.rect.centery > s.rect.centery + 32:
-        s.vy += 0.5
+        s.vy += 1.0
     elif g.player.rect.centery < s.rect.centery + 32:
-        s.vy -= 0.5
+        s.vy -= 1.0
 
     s.vx = min(1.0, s.vx)
     s.vx = max(-1.0, s.vx)
