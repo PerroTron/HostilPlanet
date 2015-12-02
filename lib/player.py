@@ -43,6 +43,9 @@ def init(g, r, n, *params):
     s.jump_timer = 0
     s.keep_jump = False
 
+
+    s.drone = g.game.drone
+
     s._prev = pygame.Rect(s.rect)
     s._prev2 = pygame.Rect(s.rect)
     s.looking = False
@@ -89,6 +92,9 @@ def event(g, s, e):
             s.door_pos = s.rect.centerx / TW, s.rect.centery / TH
             # tiles.t_put(g,(x,y), 0x32)
             # tiles.t_put(g,(x,y-1), 0x22)
+            if s.drone is True:
+                s.drone = False
+
     if e.type is USEREVENT and e.action == 'shoot':
         if s.canshoot:
             if s.powered_up == 'tshoot':
@@ -107,6 +113,7 @@ def event(g, s, e):
         g.game.weapons.append('laser')
         g.game.weapons.append('shootgun')
         g.game.weapons.append('tshoot')
+        s.drone = True
         s.god_mode = True
 
 
@@ -298,6 +305,13 @@ def loop(g, s):
         if s.shoot.cooldown == 0:
             s.canshoot = True
 
+    if s.drone is True and g.game.drone is False:
+        g.game.drone = True
+        sprites.drone.init(g, s.rect, s,)
+    elif s.drone is False and g.game.drone is True:
+        s.drone = True
+        sprites.drone.init(g, s.rect, s,)
+
     s.strength = g.game.strength
     s.powered_up = g.game.powerup
 
@@ -364,8 +378,10 @@ def damage(g, s, a):
 
 
 def kill(g, s, no_explode=False):
+
     if hasattr(g.game, 'powerup'):
         g.game.powerup = 'gun'
+
     s.flash_counter = 10
     s.no_explode = no_explode
     g.game.music_play('death', 1)
