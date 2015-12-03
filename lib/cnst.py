@@ -31,8 +31,8 @@ JUMP_BUTTONS = (2,)
 SHOOT_BUTTONS = (3,)
 HORIZONTAL_AXIS = (0,)
 VERTICAL_AXIS = (1,)
-MENU_BUTTONS = (0,)
-EXIT_BUTTONS = (1,)
+MENU_BUTTONS = (9,)
+EXIT_BUTTONS = (8,)
 
 # Codes and codes and more codes!
 CODE_BOUNDS = 0x13
