@@ -8,6 +8,8 @@ import codes
 import data
 import levels
 import menu
+import drone
+
 from cnst import *
 
 
@@ -400,6 +402,8 @@ class Level:
             border = self.get_border(DEINIT_BORDER)
             for s in sprites:
                 if s.auto_gc and not border.colliderect(s.rect):
+                    if s.image == "drone/drone-0":
+                        self.player.drone = False
                     s.active = False
                 if not s.active:
                     self.sprites.remove(s)  # this removes 'em from the real list!
