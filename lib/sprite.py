@@ -1,5 +1,4 @@
 import pygame
-
 from cnst import *
 
 
@@ -43,7 +42,7 @@ def Sprite3(g, r, n, shape):
     return s
 
 
-def apply_gravity(g, s, negative = False):
+def apply_gravity(g, s, negative=False):
     if s.standing is not None:
         s.vy = 0
         return
