@@ -4,7 +4,7 @@ import sprite
 import droneshoot
 
 def init(g, r, n):
-    s = sprite.Sprite3(g, r, "drone/drone-0", (0, 0, 10, 12))
+    s = sprite.Sprite3(g, r, "drone/drone-0", (0, 0, 7, 7))
 
     s.rect.bottom = r.bottom - 32
     s.rect.centerx = r.centerx
@@ -71,7 +71,7 @@ def loop(g, s):
 
             if s.shoot == 0:
                 shot = droneshoot.init(g, s.rect, s)
-                s.shoot = 45
+                s.shoot = 100
                 s.shooting = 5
 
             if s.shooting > 0:
