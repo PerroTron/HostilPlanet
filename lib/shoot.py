@@ -225,7 +225,6 @@ def loop(g, s):
 
     if s.weapon == "cannon" and s.enemy:
 
-
         s.x_pid.setPoint(s.enemy.rect.centerx)
         s.y_pid.setPoint(s.enemy.rect.centery)
 
@@ -241,6 +240,11 @@ def loop(g, s):
         s.vy = min(s.auto_velocityy, s.vy)
         s.vy = max(-s.auto_velocityy, s.vy)
 
+        if s.vx > 0:
+            s.image = "shoots/right-cannon-shoot"
+        elif s.vx < 0:
+            s.image = "shoots/left-cannon-shoot"
+
     elif s.weapon == "cannon" and not s.enemy:
 
         if s.facing == "right":
@@ -252,6 +256,9 @@ def loop(g, s):
 
     s.rect.x += s.vx
     s.rect.y += s.vy
+
+    if s.vx == 0 and s.vy == 0:
+        s.active = False
 
     s.life -= 1
     if s.life == 0:
