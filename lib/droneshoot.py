@@ -24,14 +24,13 @@ def init(g, r, p, enemy):
 
     s.enemy = enemy
 
-
     g.game.weaponsound = 'hit'
 
     s.vx = 0
     s.vy = 0
 
-    s.max_speed_x = 2
-    s.max_speed_y = 0.1
+    s.max_speed_x = 2.0
+    s.max_speed_y = 2.0
 
 
     s.rect.centerx += s.vx * (s.rect.width / 2) -2

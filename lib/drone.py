@@ -21,12 +21,14 @@ def init(g, r, n):
     s.shoot = 100
     s.shooting = 0
 
-
     s.x_pid = PID(3.0, 0.4, 1.2)
     s.y_pid = PID(3.0, 0.4, 1.2)
 
     s.vx = 0
     s.vy = 0
+
+    s.max_speed_x = 1.0
+    s.max_speed_y = 1.0
 
     s._prev = pygame.Rect(-1, -1, 0, 0)
 
@@ -54,11 +56,11 @@ def loop(g, s):
     s.vx = pid_x
     s.vy = pid_y
 
-    s.vx = min(1.0, s.vx)
-    s.vx = max(-1.0, s.vx)
+    s.vx = min(s.max_speed_x, s.vx)
+    s.vx = max(-s.max_speed_x, s.vx)
 
-    s.vy = min(1.0, s.vy)
-    s.vy = max(-1.0, s.vy)
+    s.vy = min(s.max_speed_y, s.vy)
+    s.vy = max(-s.max_speed_y, s.vy)
 
     s.rect.x += sprite.myinc(g.frame, s.vx)
     s.rect.y += sprite.myinc(g.frame, s.vy)
