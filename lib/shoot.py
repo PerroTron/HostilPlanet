@@ -1,8 +1,10 @@
 import sprite
 import explosion
 
+from pid import PID
 
-def init(g, r, p, weapon, projectile=False):
+
+def init(g, r, p, weapon, enemy, projectile=False):
     if p.canshoot == False:
         return
 
@@ -19,7 +21,10 @@ def init(g, r, p, weapon, projectile=False):
 
         s = sprite.Sprite3(g, r, 'shoots/%s-cannon-shoot' % p.facing, (0, 0, 15, 3))
 
+        s.player = p
+        s.facing = s.player.facing
         s.weapon = weapon
+        s.enemy = enemy
         s.cooldown = 50
         s.rect.centerx = r.centerx
         s.rect.centery = r.centery
@@ -29,18 +34,23 @@ def init(g, r, p, weapon, projectile=False):
         s.hit = hit
         g.sprites.append(s)
         s.loop = loop
-        s.life = 100
+        s.life = 500
         s.deinit = deinit
-        s.velocityx = 3
-        s.velocityy = 0
+        s.auto_velocityx = 1.0
+        s.auto_velocityy = 1.0
+        s.start_following = 20
+        s.frame = 0
+        s.velocityx = 1.0
+        s.velocityy = 0.0
 
         g.game.weaponsound = 'sboom'
 
         s.strength = 4
 
-        s.vx = 1
-        if p.facing == 'left':
-            s.vx = -1
+        s.x_pid = PID(3.0, 0.4, 1.2)
+        s.y_pid = PID(3.0, 0.4, 1.2)
+
+        s.vx = 0
         s.vy = 0
         s.rect.centerx += s.vx * (10 + s.rect.width / 2)
         s.rect.centery -= 2
@@ -51,7 +61,10 @@ def init(g, r, p, weapon, projectile=False):
 
         s = sprite.Sprite3(g, r, 'shoots/%s-shootgun-shoot' % p.facing, (0, 0, 26, 16))
 
+        s.player = p
+        s.facing = s.player.facing
         s.weapon = weapon
+        s.enemy = enemy
         s.cooldown = 30
         s.rect.centerx = r.centerx
         s.rect.centery = r.centery
@@ -65,6 +78,7 @@ def init(g, r, p, weapon, projectile=False):
         s.deinit = deinit
         s.velocityx = 3
         s.velocityy = 0
+        s.frame = 0
 
         g.game.weaponsound = 'hit'
 
@@ -83,7 +97,10 @@ def init(g, r, p, weapon, projectile=False):
 
         s = sprite.Sprite3(g, r, 'shoots/%s-laser-shoot' % p.facing, (0, 0, 16, 3))
 
+        s.player = p
+        s.facing = s.player.facing
         s.weapon = weapon
+        s.enemy = enemy
         s.cooldown = 20
         s.rect.centerx = r.centerx
         s.rect.centery = r.centery
@@ -97,6 +114,7 @@ def init(g, r, p, weapon, projectile=False):
         s.deinit = deinit
         s.velocityx = 9
         s.velocityy = 0
+        s.frame = 0
 
         g.game.weaponsound = 'hit'
 
@@ -115,7 +133,10 @@ def init(g, r, p, weapon, projectile=False):
 
         s = sprite.Sprite3(g, r, 'shoots/%s-tshoot-shoot' % p.facing, (0, 0, 5, 5))
 
+        s.player = p
+        s.facing = s.player.facing
         s.weapon = weapon
+        s.enemy = enemy
         s.cooldown = 1
         s.rect.centerx = r.centerx
         s.rect.centery = r.centery
@@ -129,6 +150,7 @@ def init(g, r, p, weapon, projectile=False):
         s.deinit = deinit
         s.velocityx = 2
         s.velocityy = 1
+        s.frame = 0
 
         g.game.weaponsound = 'hit'
 
@@ -159,7 +181,10 @@ def init(g, r, p, weapon, projectile=False):
 
         s = sprite.Sprite3(g, r, 'shoots/%s-shoot' % p.facing, (0, 0, 6, 3))
 
+        s.player = p
+        s.facing = s.player.facing
         s.weapon = weapon
+        s.enemy = enemy
         s.cooldown = 10
         s.rect.centerx = r.centerx
         s.rect.centery = r.centery
@@ -173,6 +198,7 @@ def init(g, r, p, weapon, projectile=False):
         s.deinit = deinit
         s.velocityx = 5
         s.velocityy = 0
+        s.frame = 0
 
         g.game.weaponsound = 'hit'
 
@@ -197,8 +223,59 @@ def deinit(g, s):
 
 
 def loop(g, s):
-    s.rect.x += s.vx * s.velocityx
-    s.rect.y += s.vy * s.velocityy
+    s.frame += 1
+
+    if s.weapon == "cannon" and s.enemy:
+
+        if s.frame > s.start_following:
+            s.x_pid.setPoint(s.enemy.rect.centerx)
+            s.y_pid.setPoint(s.enemy.rect.centery)
+
+            pid_x = s.x_pid.update(s.rect.centerx)
+            pid_y = s.y_pid.update(s.rect.centery)
+
+            s.vx = pid_x
+            s.vy = pid_y
+        else:
+            if s.facing == "right":
+                s.vx = s.velocityx
+                s.vy = s.velocityy
+            else:
+                s.vx = -s.velocityx
+                s.vy = -s.velocityy
+
+        s.vx = min(s.auto_velocityx, s.vx)
+        s.vx = max(-s.auto_velocityx, s.vx)
+
+        s.vy = min(s.auto_velocityy, s.vy)
+        s.vy = max(-s.auto_velocityy, s.vy)
+
+        s.rect.x += s.vx * s.auto_velocityx
+        s.rect.y += s.vy * s.auto_velocityy
+
+        if s.vx > 0:
+            s.image = "shoots/right-cannon-shoot"
+        elif s.vx < 0:
+            s.image = "shoots/left-cannon-shoot"
+
+    elif s.weapon == "cannon" and not s.enemy:
+
+        if s.facing == "right":
+            s.vx = s.velocityx
+            s.vy = s.velocityy
+        elif s.facing == "left":
+            s.vx = -s.velocityx
+            s.vy = -s.velocityy
+
+        s.rect.x += s.vx * s.velocityx
+        s.rect.y += s.vy * s.velocityy
+
+    else:
+        s.rect.x += s.vx * s.velocityx
+        s.rect.y += s.vy * s.velocityy
+
+    if s.vx == 0 and s.vy == 0:
+        s.active = False
 
     s.life -= 1
     if s.life == 0:
