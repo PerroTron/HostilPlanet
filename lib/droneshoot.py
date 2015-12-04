@@ -59,6 +59,9 @@ def loop(g, s):
     s.rect.x += s.vx
     s.rect.y += s.vy
 
+    if s.vx == 0 and s.vy == 0:
+        s.active = False
+
     s.life -= 1
     if s.life == 0:
         s.active = False

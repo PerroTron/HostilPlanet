@@ -41,12 +41,9 @@ def init(g, r, p, weapon, enemy, projectile=False):
         s.velocityx = 1.0
         s.velocityy = 0.0
 
-
-
         g.game.weaponsound = 'sboom'
 
         s.strength = 4
-
 
         s.x_pid = PID(3.0, 0.4, 1.2)
         s.y_pid = PID(3.0, 0.4, 1.2)
@@ -57,8 +54,6 @@ def init(g, r, p, weapon, enemy, projectile=False):
         s.rect.centery -= 2
 
         g.game.sfx['cannon'].play()
-
-
 
     elif weapon == 'shootgun':
 
@@ -254,8 +249,8 @@ def loop(g, s):
             s.vx = -s.velocityx
             s.vy = -s.velocityy
 
-    s.rect.x += s.vx
-    s.rect.y += s.vy
+    s.rect.x += s.vx * s.velocityx
+    s.rect.y += s.vy * s.velocityy
 
     if s.vx == 0 and s.vy == 0:
         s.active = False
