@@ -68,9 +68,8 @@ def loop(g, s):
 
     for enemy in sprites:
         if "enemy" in enemy.groups:
-
             if s.shoot == 0:
-                shot = droneshoot.init(g, s.rect, s)
+                shot = droneshoot.init(g, s.rect, s, enemy)
                 s.shoot = 100
                 s.shooting = 5
 
