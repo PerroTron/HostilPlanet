@@ -235,6 +235,9 @@ def loop(g, s):
         s.vy = min(s.auto_velocityy, s.vy)
         s.vy = max(-s.auto_velocityy, s.vy)
 
+        s.rect.x += s.vx * s.auto_velocityx
+        s.rect.y += s.vy * s.auto_velocityy
+
         if s.vx > 0:
             s.image = "shoots/right-cannon-shoot"
         elif s.vx < 0:
@@ -249,8 +252,12 @@ def loop(g, s):
             s.vx = -s.velocityx
             s.vy = -s.velocityy
 
-    s.rect.x += s.vx * s.velocityx
-    s.rect.y += s.vy * s.velocityy
+        s.rect.x += s.vx * s.velocityx
+        s.rect.y += s.vy * s.velocityy
+
+    else:
+        s.rect.x += s.vx * s.velocityx
+        s.rect.y += s.vy * s.velocityy
 
     if s.vx == 0 and s.vy == 0:
         s.active = False
