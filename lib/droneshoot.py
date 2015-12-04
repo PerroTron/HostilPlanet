@@ -18,6 +18,7 @@ def init(g, r, p, enemy):
     s.life = 180
     s.strength = 1
     s.damage = 1
+    s.frame = 0
 
     s.x_pid = PID(3.0, 0.4, 1.2)
     s.y_pid = PID(3.0, 0.4, 1.2)
@@ -26,12 +27,15 @@ def init(g, r, p, enemy):
 
     g.game.weaponsound = 'hit'
 
-    s.vx = 0
-    s.vy = 0
 
     s.max_speed_x = 2.0
     s.max_speed_y = 2.0
 
+    if p.facing == "right":
+        s.vx = s.max_speed_x
+    else:
+        s.vx = -s.max_speed_x
+    s.vy = 0
 
     s.rect.centerx += s.vx * (s.rect.width / 2) -2
     s.rect.centery -= 0

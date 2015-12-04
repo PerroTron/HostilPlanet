@@ -38,6 +38,8 @@ def init(g, r, p, weapon, enemy, projectile=False):
         s.deinit = deinit
         s.auto_velocityx = 1.0
         s.auto_velocityy = 1.0
+        s.start_following = 20
+        s.frame = 0
         s.velocityx = 1.0
         s.velocityy = 0.0
 
@@ -76,6 +78,7 @@ def init(g, r, p, weapon, enemy, projectile=False):
         s.deinit = deinit
         s.velocityx = 3
         s.velocityy = 0
+        s.frame = 0
 
         g.game.weaponsound = 'hit'
 
@@ -111,6 +114,7 @@ def init(g, r, p, weapon, enemy, projectile=False):
         s.deinit = deinit
         s.velocityx = 9
         s.velocityy = 0
+        s.frame = 0
 
         g.game.weaponsound = 'hit'
 
@@ -146,6 +150,7 @@ def init(g, r, p, weapon, enemy, projectile=False):
         s.deinit = deinit
         s.velocityx = 2
         s.velocityy = 1
+        s.frame = 0
 
         g.game.weaponsound = 'hit'
 
@@ -193,6 +198,7 @@ def init(g, r, p, weapon, enemy, projectile=False):
         s.deinit = deinit
         s.velocityx = 5
         s.velocityy = 0
+        s.frame = 0
 
         g.game.weaponsound = 'hit'
 
@@ -217,17 +223,26 @@ def deinit(g, s):
 
 
 def loop(g, s):
+    s.frame += 1
 
     if s.weapon == "cannon" and s.enemy:
 
-        s.x_pid.setPoint(s.enemy.rect.centerx)
-        s.y_pid.setPoint(s.enemy.rect.centery)
+        if s.frame > s.start_following:
+            s.x_pid.setPoint(s.enemy.rect.centerx)
+            s.y_pid.setPoint(s.enemy.rect.centery)
 
-        pid_x = s.x_pid.update(s.rect.centerx)
-        pid_y = s.y_pid.update(s.rect.centery)
+            pid_x = s.x_pid.update(s.rect.centerx)
+            pid_y = s.y_pid.update(s.rect.centery)
 
-        s.vx = pid_x
-        s.vy = pid_y
+            s.vx = pid_x
+            s.vy = pid_y
+        else:
+            if s.facing == "right":
+                s.vx = s.velocityx
+                s.vy = s.velocityy
+            else:
+                s.vx = -s.velocityx
+                s.vy = -s.velocityy
 
         s.vx = min(s.auto_velocityx, s.vx)
         s.vx = max(-s.auto_velocityx, s.vx)
