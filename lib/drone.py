@@ -1,5 +1,7 @@
 import pygame
 
+from pid import PID
+
 import sprite
 import droneshoot
 
@@ -19,6 +21,10 @@ def init(g, r, n):
     s.shoot = 100
     s.shooting = 0
 
+
+    s.x_pid = PID(3.0, 0.4, 1.2)
+    s.y_pid = PID(3.0, 0.4, 1.2)
+
     s.vx = 0
     s.vy = 0
 
@@ -37,18 +43,16 @@ def loop(g, s):
         s.image = "drone/drone-0"
 
     sprite.apply_standing(g, s)
-
     s._prev = pygame.Rect(s.rect)
 
-    if g.player.rect.centerx > s.rect.centerx:
-        s.vx += 0.5
-    elif g.player.rect.centerx < s.rect.centerx:
-        s.vx -= 0.5
+    s.x_pid.setPoint(g.player.rect.centerx)
+    s.y_pid.setPoint(g.player.rect.centery)
 
-    if g.player.rect.centery > s.rect.centery + 16:
-        s.vy += 0.5
-    elif g.player.rect.centery < s.rect.centery + 16:
-        s.vy -= 0.5
+    pid_x = s.x_pid.update(s.rect.centerx + 16)
+    pid_y = s.y_pid.update(s.rect.centery + 16)
+
+    s.vx = pid_x
+    s.vy = pid_y
 
     s.vx = min(1.0, s.vx)
     s.vx = max(-1.0, s.vx)

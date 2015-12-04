@@ -1,5 +1,5 @@
-import player
 import sprite
+from pid import PID
 
 
 def init(g, r, p, enemy):
@@ -19,13 +19,20 @@ def init(g, r, p, enemy):
     s.strength = 1
     s.damage = 1
 
+    s.x_pid = PID(3.0, 0.4, 1.2)
+    s.y_pid = PID(3.0, 0.4, 1.2)
+
     s.enemy = enemy
+
 
     g.game.weaponsound = 'hit'
 
     s.vx = 0
     s.vy = 0
-    s.max_speed = 2
+
+    s.max_speed_x = 2
+    s.max_speed_y = 0.1
+
 
     s.rect.centerx += s.vx * (s.rect.width / 2) -2
     s.rect.centery -= 0
@@ -35,26 +42,24 @@ def init(g, r, p, enemy):
 
 def loop(g, s):
 
+    s.x_pid.setPoint(s.enemy.rect.centerx)
+    s.y_pid.setPoint(s.enemy.rect.centery)
 
-    if s.enemy.rect.centerx > s.rect.centerx:
-        s.vx += 0.5
-    elif s.enemy.rect.centerx < s.rect.centerx:
-        s.vx -= 0.5
+    pid_x = s.x_pid.update(s.rect.centerx)
+    pid_y = s.y_pid.update(s.rect.centery)
 
-    if s.enemy.rect.centery > s.rect.centery:
-        s.vy += 0.5
-    elif s.enemy.rect.centery < s.rect.centery:
-        s.vy -= 0.5
+    s.vx = pid_x
+    s.vy = pid_y
 
-    s.vx = min(s.max_speed, s.vx)
-    s.vx = max(-s.max_speed, s.vx)
+    s.vx = min(s.max_speed_x, s.vx)
+    s.vx = max(-s.max_speed_x, s.vx)
 
-    s.vy = min(s.max_speed, s.vy)
-    s.vy = max(-s.max_speed, s.vy)
-
+    s.vy = min(s.max_speed_y, s.vy)
+    s.vy = max(-s.max_speed_y, s.vy)
 
     s.rect.x += s.vx
     s.rect.y += s.vy
+
     s.life -= 1
     if s.life == 0:
         s.active = False
