@@ -66,6 +66,9 @@ def init(g, r, n, *params):
 
 def event(g, s, e):
     # print 'player.event',e
+
+    enemy_sprites = g.sprites[:]
+
     if s.door_timer is not None or s.exploded > 0:
         return
 
@@ -99,14 +102,19 @@ def event(g, s, e):
 
 
     if e.type is USEREVENT and e.action == 'shoot':
+        enemy_objective = None
+        for enemy in enemy_sprites:
+            if "enemy" in enemy.groups:
+                enemy_objective = enemy
         if s.canshoot:
+
             if s.powered_up == 'tshoot':
-                s.shoot = sprites.shoot.init(g, s.rect, s, weapon=s.powered_up, projectile="uptop")
-                s.shoot = sprites.shoot.init(g, s.rect, s, weapon=s.powered_up, projectile="top")
-                s.shoot = sprites.shoot.init(g, s.rect, s, weapon=s.powered_up, projectile="mid")
-                s.shoot = sprites.shoot.init(g, s.rect, s, weapon=s.powered_up, projectile="bot")
+                s.shoot = sprites.shoot.init(g, s.rect, s, s.powered_up, enemy_objective, projectile="uptop")
+                s.shoot = sprites.shoot.init(g, s.rect, s, s.powered_up, enemy_objective, projectile="top")
+                s.shoot = sprites.shoot.init(g, s.rect, s, s.powered_up, enemy_objective, projectile="mid")
+                s.shoot = sprites.shoot.init(g, s.rect, s, s.powered_up, enemy_objective, projectile="bot")
             else:
-                s.shoot = sprites.shoot.init(g, s.rect, s, weapon=s.powered_up)
+                s.shoot = sprites.shoot.init(g, s.rect, s, s.powered_up, enemy_objective)
             s.shooting = 10
             s.canshoot = False
 
