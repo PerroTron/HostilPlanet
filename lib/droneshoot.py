@@ -1,8 +1,8 @@
-import player
 import sprite
+from pid import PID
 
 
-def init(g, r, p):
+def init(g, r, p, enemy):
     s = sprite.Sprite3(g, r, 'shoots/right-drone-shoot', (0, 0, 4, 2))
 
     s.rect.centerx = r.centerx
@@ -18,13 +18,23 @@ def init(g, r, p):
     s.life = 180
     s.strength = 1
     s.damage = 1
+    s.frame = 0
+
+    s.x_pid = PID(3.0, 0.4, 1.2)
+    s.y_pid = PID(3.0, 0.4, 1.2)
+
+    s.enemy = enemy
 
     g.game.weaponsound = 'hit'
 
-    s.vx = 4
 
-    if p.facing == 'left':
-        s.vx = -4
+    s.max_speed_x = 2.0
+    s.max_speed_y = 2.0
+
+    if p.facing == "right":
+        s.vx = s.max_speed_x
+    else:
+        s.vx = -s.max_speed_x
     s.vy = 0
 
     s.rect.centerx += s.vx * (s.rect.width / 2) -2
@@ -34,8 +44,28 @@ def init(g, r, p):
 
 
 def loop(g, s):
+
+    s.x_pid.setPoint(s.enemy.rect.centerx)
+    s.y_pid.setPoint(s.enemy.rect.centery)
+
+    pid_x = s.x_pid.update(s.rect.centerx)
+    pid_y = s.y_pid.update(s.rect.centery)
+
+    s.vx = pid_x
+    s.vy = pid_y
+
+    s.vx = min(s.max_speed_x, s.vx)
+    s.vx = max(-s.max_speed_x, s.vx)
+
+    s.vy = min(s.max_speed_y, s.vy)
+    s.vy = max(-s.max_speed_y, s.vy)
+
     s.rect.x += s.vx
     s.rect.y += s.vy
+
+    if s.vx == 0 and s.vy == 0:
+        s.active = False
+
     s.life -= 1
     if s.life == 0:
         s.active = False
