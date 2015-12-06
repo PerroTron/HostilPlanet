@@ -5,6 +5,7 @@ from cnst import *
 import sprite
 import sprites
 import tiles
+import explosion
 
 
 def init(g, r, n, *params):
@@ -81,6 +82,7 @@ def event(g, s, e):
         # s.vy = 0
         s.jumping = 1.21
         g.game.sfx['jump'].play()
+
     if e.type is USEREVENT and e.action == 'stop-jump':
         s.jumping = 0
 
@@ -110,6 +112,12 @@ def event(g, s, e):
             s.shoot = sprites.shoot.init(g, s.rect, s, s.powered_up, enemy_objective)
             s.shooting = 10
             s.canshoot = False
+
+    if e.type is USEREVENT and e.action == 'stop-shoot':
+        if s.powered_up == "tshoot" and s.shoot.active is True:
+            explosion.init(g, s.shoot.rect, s.shoot)
+            s.shoot.active = False
+
 
     if e.type is KEYDOWN and e.key == K_F10:
         g.game.weapons = []

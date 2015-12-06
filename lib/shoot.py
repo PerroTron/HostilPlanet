@@ -137,7 +137,7 @@ def init(g, r, p, weapon, enemy):
         s.facing = s.player.facing
         s.weapon = weapon
         s.enemy = enemy
-        s.cooldown = 10
+        s.cooldown = 50
         s.rect.centerx = r.centerx
         s.rect.centery = r.centery
         s.groups.add('solid')
@@ -148,13 +148,13 @@ def init(g, r, p, weapon, enemy):
         s.loop = loop
         s.life = 50
         s.deinit = deinit
-        s.velocityx = 2
+        s.velocityx = 3
         s.velocityy = 1
         s.frame = 0
 
         g.game.weaponsound = 'hit'
 
-        s.strength = 1
+        s.strength = 3
 
         s.vx = 1
         if p.facing == 'left':
