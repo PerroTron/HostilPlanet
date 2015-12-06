@@ -107,14 +107,7 @@ def event(g, s, e):
             if "enemy" in enemy.groups:
                 enemy_objective = enemy
         if s.canshoot:
-
-            if s.powered_up == 'tshoot':
-                s.shoot = sprites.shoot.init(g, s.rect, s, s.powered_up, enemy_objective, projectile="uptop")
-                s.shoot = sprites.shoot.init(g, s.rect, s, s.powered_up, enemy_objective, projectile="top")
-                s.shoot = sprites.shoot.init(g, s.rect, s, s.powered_up, enemy_objective, projectile="mid")
-                s.shoot = sprites.shoot.init(g, s.rect, s, s.powered_up, enemy_objective, projectile="bot")
-            else:
-                s.shoot = sprites.shoot.init(g, s.rect, s, s.powered_up, enemy_objective)
+            s.shoot = sprites.shoot.init(g, s.rect, s, s.powered_up, enemy_objective)
             s.shooting = 10
             s.canshoot = False
 
