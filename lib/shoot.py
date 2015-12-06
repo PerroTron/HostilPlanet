@@ -156,6 +156,7 @@ def init(g, r, p, weapon, enemy):
 
         s.strength = 3
 
+
         s.vx = 1
         if p.facing == 'left':
             s.vx = -1
