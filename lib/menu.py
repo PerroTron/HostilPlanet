@@ -616,6 +616,7 @@ class Weapon(engine.State):
                 self.weapon += 1
 
     def paint(self, screen):
+
         screen.blit(self.bkgr, (0, 0))
         screen.blit(self.window, ((SW - self.window.get_width()) / 2, (SH - self.window.get_height()) / 2))
 
@@ -631,6 +632,8 @@ class Weapon(engine.State):
 
             for text in self.game.weapons:
 
+                img = None
+
                 if text == 'gun':
                     img = self.level.images[0x07]
                 elif text == 'cannon':
@@ -645,8 +648,9 @@ class Weapon(engine.State):
                 screen.blit(img, (pics_x, pics_y))
                 pics_x += 23
 
-
             current_weapon = None
+            player_img = None
+            text = None
 
             if self.weapon == 0:
                 current_weapon = self.level.images[0x07]
@@ -672,13 +676,11 @@ class Weapon(engine.State):
             player_x, player_y = ((SW - self.cursor.get_width()) / 2) - 3 , ((SH - self.cursor.get_height()) / 2) - 4
             screen.blit(player_img, (player_x, player_y))
 
+            green_bg = (2, 65, 2)
+            green_fg = (2, 220, 2,)
 
-
-            black = (0, 0, 0,)
-            white = (255, 255, 255)
-
-            text_img_bg = fnt.render(text,0,black)
-            text_img_fg = fnt.render(text,0,white)
+            text_img_bg = fnt.render(text,0,green_bg)
+            text_img_fg = fnt.render(text,0,green_fg)
 
             text_x, text_y = ((SW - text_img_fg.get_width()) / 2) + 30, ((SH - text_img_fg.get_height()) / 2) - 10
 
