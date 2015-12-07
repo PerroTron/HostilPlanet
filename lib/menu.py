@@ -632,16 +632,18 @@ class Weapon(engine.State):
 
                 x = (SW - img.get_width()) / 2 + 8
                 screen.blit(img, (x, pics_y))
+
                 """
-				img = fnt.render(text,0,(0,0,0))
-				
-				x = (SW-img.get_width())/2 + 20
-				
-				c = (255,255,255)
-				screen.blit(img,(x+2,text_y+2))
-				img = fnt.render(text,0,c)
-				screen.blit(img,(x,text_y))
-				"""
+                img = fnt.render(text,0,(0,0,0))
+
+                x = (SW-img.get_width())/2 + 20
+
+                c = (255,255,255)
+                screen.blit(img,(x+2,text_y+2))
+                img = fnt.render(text,0,c)
+                screen.blit(img,(x,text_y))
+                """
+
                 # text_y += 15
                 pics_y += 24
 

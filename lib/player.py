@@ -96,9 +96,6 @@ def event(g, s, e):
             s.door_pos = s.rect.centerx / TW, s.rect.centery / TH
             # tiles.t_put(g,(x,y), 0x32)
             # tiles.t_put(g,(x,y-1), 0x22)
-            if s.drone is True:
-                s.drone = False
-                s.drone_sprite.active = False
 
 
     if e.type is USEREVENT and e.action == 'shoot':
