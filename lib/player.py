@@ -124,6 +124,14 @@ def event(g, s, e):
         g.game.weapons.append('shootgun')
         g.game.weapons.append('tshoot')
         s.drone = True
+        g.game.drones.append("guarian")
+        g.game.drones.append("defender")
+        g.game.drones.append("killer")
+        s.jetpack = True
+        g.game.jetpacks.append("doble")
+        g.game.jetpacks.append("long")
+        g.game.jetpacks.append("fly")
+
         s.god_mode = True
 
 

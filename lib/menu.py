@@ -586,8 +586,9 @@ class Weapon(engine.State):
     def init(self):
         self.font = self.game.fonts['pause']
         self.bkgr = self.game.screen.convert()
-        self.drone_cursor = pygame.image.load(data.filepath('drone_cursor.png'))
         self.weapon_cursor = pygame.image.load(data.filepath('weapon_cursor.png'))
+        self.drone_cursor = pygame.image.load(data.filepath('drone_cursor.png'))
+        self.jetpack_cursor = pygame.image.load(data.filepath('jetpack_cursor.png'))
         self.window = pygame.image.load(data.filepath('menu.png'))
 
         self.current_menu = "weapon"
@@ -611,18 +612,28 @@ class Weapon(engine.State):
 
         elif e.type is KEYDOWN or (e.type is USEREVENT and e.action in ('up')):
             if self.current_menu == "weapon":
-                self.current_menu = "drone"
+                if len(self.game.drones) > 0:
+                    self.current_menu = "drone"
+
             elif self.current_menu == "drone":
-                self.current_menu = "jetpack"
+                if len(self.game.jetpacks) > 0:
+                    self.current_menu = "jetpack"
+
             elif self.current_menu == "jetpack":
                 self.current_menu = "weapon"
+
         elif e.type is KEYDOWN or (e.type is USEREVENT and e.action in ('down')):
+
             if self.current_menu == "weapon":
-                self.current_menu = "jetpack"
+                if len(self.game.drones) > 0:
+                    self.current_menu = "jetpack"
+
             elif self.current_menu == "drone":
                 self.current_menu = "weapon"
+
             elif self.current_menu == "jetpack":
-                self.current_menu = "drone"
+                if len(self.game.drones) > 0:
+                    self.current_menu = "drone"
 
         elif e.type is KEYDOWN or (e.type is USEREVENT and e.action in ('left')):
             if self.current_menu == "weapon":
@@ -630,27 +641,37 @@ class Weapon(engine.State):
                     self.weapon = len(self.game.weapons)
                 if self.weapon > 0:
                     self.weapon -= 1
+
             elif self.current_menu == "drone":
                 if self.drone == 0:
-                    self.drone = 3 #len(self.game.drones)
+                    self.drone = len(self.game.drones)
                 if self.drone > 0:
                     self.drone -= 1
+
             elif self.current_menu == "jetpack":
-                pass
+                if self.jetpack == 0:
+                    self.jetpack = len(self.game.jetpacks)
+                if self.jetpack > 0:
+                    self.jetpack -= 1
 
         elif e.type is KEYDOWN or (e.type is USEREVENT and e.action in ('right')):
             if self.current_menu == "weapon":
-                if self.weapon == len(self.game.weapons)-1:
+                if self.weapon == len(self.game.weapons) - 1:
                     self.weapon = 0
                 elif self.weapon < len(self.game.weapons) - 1:
                     self.weapon += 1
+
             elif self.current_menu == "drone":
-                if self.drone == 2:
+                if self.drone == len(self.game.drones) - 1:
                     self.drone = 0
-                if self.drone < 3:
+                elif self.drone < len(self.game.drones) - 1:
                     self.drone += 1
+
             elif self.current_menu == "jetpack":
-                pass
+                if self.jetpack == len(self.game.jetpacks) - 1:
+                    self.jetpack = 0
+                elif self.jetpack < len(self.game.jetpacks) - 1:
+                    self.jetpack += 1
 
     def paint(self, screen):
 
@@ -670,7 +691,8 @@ class Weapon(engine.State):
                 screen.blit(self.drone_cursor, (cursor_x, cursor_y))
 
             elif self.current_menu == "jetpack":
-                pass
+                cursor_x, cursor_y = ((SW - self.jetpack_cursor.get_width()) / 2) - 43 + self.jetpack * 11, ((SH - self.jetpack_cursor.get_height()) / 2) - 34
+                screen.blit(self.jetpack_cursor, (cursor_x, cursor_y))
 
             pics_x, pics_y = (SW / 2) - 55, (SH / 2) + 38
 
