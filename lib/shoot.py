@@ -4,7 +4,7 @@ import explosion
 from pid import PID
 
 
-def init(g, r, p, weapon, enemy, projectile=False):
+def init(g, r, p, weapon, enemy):
     if p.canshoot == False:
         return
 
@@ -131,51 +131,40 @@ def init(g, r, p, weapon, enemy, projectile=False):
 
     elif weapon == 'tshoot':
 
-        s = sprite.Sprite3(g, r, 'shoots/%s-tshoot-shoot' % p.facing, (0, 0, 5, 5))
+        s = sprite.Sprite3(g, r, 'shoots/%s-shoot' % p.facing, (0, 0, 6, 3))
 
         s.player = p
         s.facing = s.player.facing
         s.weapon = weapon
         s.enemy = enemy
-        s.cooldown = 1
+        s.cooldown = 50
         s.rect.centerx = r.centerx
         s.rect.centery = r.centery
         s.groups.add('solid')
-        s.groups.add('shoot')
+        s.groups.add('tshoot')
         s.hit_groups.add('enemy')
         s.hit = hit
         g.sprites.append(s)
         s.loop = loop
         s.life = 50
         s.deinit = deinit
-        s.velocityx = 2
+        s.velocityx = 3
         s.velocityy = 1
         s.frame = 0
 
         g.game.weaponsound = 'hit'
 
-        s.strength = 2
+        s.strength = 3
 
+
+        s.vx = 1
         if p.facing == 'left':
             s.vx = -1
-        else:
-            s.vx = 1
+        s.vy = -3
+        s.rect.centerx += s.vx * (6 + s.rect.width / 2)
+        s.rect.centery -= 2
 
-        s.vy = 0
-
-        if projectile == "uptop":
-            s.vy = -2
-        elif projectile == "top":
-            s.vy = -1
-        elif projectile == "mid":
-            s.vy = 0
-        elif projectile == "bot":
-            s.vy = +1
-
-        s.rect.centerx += s.vx * (4 + s.rect.width / 2)
-        s.rect.centery -= 1
-
-        g.game.sfx['laser'].play()
+        g.game.sfx['shoot'].play()
 
     else:
 
@@ -224,6 +213,9 @@ def deinit(g, s):
 
 def loop(g, s):
     s.frame += 1
+
+    if s.weapon == "tshoot":
+        s.vy += 0.2
 
     if s.weapon == "cannon" and s.enemy:
 
@@ -288,6 +280,9 @@ def hit(g, a, b):
     a.active = False
 
     if a.weapon == "cannon":
+        explosion.init(g, a.rect, a)
+
+    if a.weapon == "tshoot":
         explosion.init(g, a.rect, a)
 
     b.strength -= a.strength
