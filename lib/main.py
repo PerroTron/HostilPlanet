@@ -48,6 +48,9 @@ class Game(engine.Game):
         self.powerup = 'gun'
         self.weapons = ['gun']
         self.drone = False
+        self.drones =  []
+        self.jetpack = False
+        self.jetpacks =  []
 
     def init(self):
         self.random = 0
