@@ -591,6 +591,8 @@ class Weapon(engine.State):
         self.window = pygame.image.load(data.filepath('menu.png'))
 
         self.weapon = 0
+        self.drone = -1
+        self.jetpack = -1
 
     def update(self, screen):
         return self.paint(screen)
@@ -601,11 +603,14 @@ class Weapon(engine.State):
             if len(self.game.weapons) > 0:
                 self.game.powerup = self.game.weapons[self.weapon]
                 return self.level
+
         elif e.type is KEYDOWN or (e.type is USEREVENT and e.action in ('exit')):
             return self.level
+
         elif e.type is KEYDOWN or (e.type is USEREVENT and e.action in ('left')):
             if self.weapon > 0:
                 self.weapon -= 1
+
         elif e.type is KEYDOWN or (e.type is USEREVENT and e.action in ('right')):
             if self.weapon < len(self.game.weapons) - 1:
                 self.weapon += 1
@@ -614,7 +619,7 @@ class Weapon(engine.State):
         screen.blit(self.bkgr, (0, 0))
         screen.blit(self.window, ((SW - self.window.get_width()) / 2, (SH - self.window.get_height()) / 2))
 
-        # fnt = self.game.fonts['help']
+        fnt = self.game.fonts['help']
 
         if self.game.weapons:
 
@@ -622,7 +627,7 @@ class Weapon(engine.State):
 
             screen.blit(self.cursor, (cursor_x, cursor_y))
 
-            pics_x = (SW / 2) - 55
+            pics_x, pics_y = (SW / 2) - 55, (SH / 2) + 38
 
             for text in self.game.weapons:
 
@@ -634,45 +639,51 @@ class Weapon(engine.State):
                     img = self.level.images[0x18]
                 elif text == 'shootgun':
                     img = self.level.images[0x28]
+                elif text == 'tshoot':
+                    img = self.level.images[0x28]
 
-                pics_y = ((SH / 2) - (img.get_width() / 2)) + 47
                 screen.blit(img, (pics_x, pics_y))
-
-                """
-                img = fnt.render(text,0,(0,0,0))
-
-                x = (SW-img.get_width())/2 + 20
-
-                c = (255,255,255)
-                screen.blit(img,(x+2,text_y+2))
-                img = fnt.render(text,0,c)
-                screen.blit(img,(x,text_y))
-                """
-
-                # text_y += 15
                 pics_x += 23
+
 
             current_weapon = None
 
             if self.weapon == 0:
                 current_weapon = self.level.images[0x07]
                 player_img = pygame.image.load(data.filepath(os.path.join('images', 'player', 'right.png')))
+                text = "gun"
             elif self.weapon == 1:
                 current_weapon = self.level.images[0x08]
                 player_img = pygame.image.load(data.filepath(os.path.join('images', 'cannon', 'right.png')))
+                text = "cannon"
             elif self.weapon == 2:
                 current_weapon = self.level.images[0x18]
                 player_img = pygame.image.load(data.filepath(os.path.join('images', 'laser', 'right.png')))
+                text = "laser"
             elif self.weapon == 3:
                 current_weapon = self.level.images[0x28]
                 player_img = pygame.image.load(data.filepath(os.path.join('images', 'shootgun', 'right.png')))
+                text = "shootgun"
             elif self.weapon == 4:
                 current_weapon = self.level.images[0x28]
                 player_img = pygame.image.load(data.filepath(os.path.join('images', 'shootgun', 'right.png')))
-
+                text = "tshoot"
 
             player_x, player_y = ((SW - self.cursor.get_width()) / 2) - 3 , ((SH - self.cursor.get_height()) / 2) - 4
             screen.blit(player_img, (player_x, player_y))
+
+
+
+            black = (0, 0, 0,)
+            white = (255, 255, 255)
+
+            text_img_bg = fnt.render(text,0,black)
+            text_img_fg = fnt.render(text,0,white)
+
+            text_x, text_y = ((SW - text_img_fg.get_width()) / 2) + 30, ((SH - text_img_fg.get_height()) / 2) - 10
+
+            screen.blit(text_img_bg,(text_x + 2, text_y + 2))
+            screen.blit(text_img_fg,(text_x, text_y))
 
             weapon_x, weapon_y = ((SW - self.cursor.get_width()) / 2) + 32 , ((SH - self.cursor.get_height()) / 2) + 8
             screen.blit(current_weapon, (weapon_x, weapon_y))
