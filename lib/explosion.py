@@ -19,7 +19,7 @@ def init(g, r, p):
     s.counter = 0
     s.frame = 0
     s.strength = 1
-    s.damage = 1
+    s.damage = 4
 
     s.rect.centerx += (s.rect.width / 2) - 16
     s.rect.centery -= (s.rect.height / 2) - 16

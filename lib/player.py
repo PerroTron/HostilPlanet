@@ -117,16 +117,19 @@ def event(g, s, e):
 
 
     if e.type is KEYDOWN and e.key == K_F10:
+
         g.game.weapons = []
         g.game.weapons.append('gun')
         g.game.weapons.append('cannon')
         g.game.weapons.append('laser')
         g.game.weapons.append('shootgun')
         g.game.weapons.append('tshoot')
+
         s.drone = True
         g.game.drones.append("guarian")
         g.game.drones.append("defender")
         g.game.drones.append("killer")
+
         s.jetpack = True
         g.game.jetpacks.append("doble")
         g.game.jetpacks.append("long")

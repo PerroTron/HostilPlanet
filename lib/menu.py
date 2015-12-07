@@ -639,18 +639,21 @@ class Weapon(engine.State):
             if self.current_menu == "weapon":
                 if self.weapon == 0:
                     self.weapon = len(self.game.weapons)
+
                 if self.weapon > 0:
                     self.weapon -= 1
 
             elif self.current_menu == "drone":
                 if self.drone == 0:
                     self.drone = len(self.game.drones)
+
                 if self.drone > 0:
                     self.drone -= 1
 
             elif self.current_menu == "jetpack":
                 if self.jetpack == 0:
                     self.jetpack = len(self.game.jetpacks)
+
                 if self.jetpack > 0:
                     self.jetpack -= 1
 
@@ -658,18 +661,21 @@ class Weapon(engine.State):
             if self.current_menu == "weapon":
                 if self.weapon == len(self.game.weapons) - 1:
                     self.weapon = 0
+
                 elif self.weapon < len(self.game.weapons) - 1:
                     self.weapon += 1
 
             elif self.current_menu == "drone":
                 if self.drone == len(self.game.drones) - 1:
                     self.drone = 0
+
                 elif self.drone < len(self.game.drones) - 1:
                     self.drone += 1
 
             elif self.current_menu == "jetpack":
                 if self.jetpack == len(self.game.jetpacks) - 1:
                     self.jetpack = 0
+
                 elif self.jetpack < len(self.game.jetpacks) - 1:
                     self.jetpack += 1
 
