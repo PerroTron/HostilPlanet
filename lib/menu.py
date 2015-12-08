@@ -714,8 +714,8 @@ class Weapon(engine.State):
                     img = self.level.images[0x18]
                 elif text == 'shootgun':
                     img = self.level.images[0x28]
-                elif text == 'tshoot':
-                    img = self.level.images[0x28]
+                elif text == 'granadelauncher':
+                    img = self.level.images[0x38]
 
                 screen.blit(img, (pics_x, pics_y))
                 pics_x += 23
@@ -742,8 +742,8 @@ class Weapon(engine.State):
                 text = "shootgun"
             elif self.weapon == 4:
                 current_weapon = self.level.images[0x28]
-                player_img = pygame.image.load(data.filepath(os.path.join('images', 'shootgun', 'right.png')))
-                text = "tshoot"
+                player_img = pygame.image.load(data.filepath(os.path.join('images', 'granadelauncher', 'right.png')))
+                text = "granadelauncher"
 
             player_x, player_y = ((SW - player_img.get_width()) / 2) - 4, ((SH - player_img.get_height()) / 2) + 4
             screen.blit(player_img, (player_x, player_y))
