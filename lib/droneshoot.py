@@ -60,8 +60,8 @@ def loop(g, s):
     s.vy = min(s.max_speed_y, s.vy)
     s.vy = max(-s.max_speed_y, s.vy)
 
-    s.rect.x += s.vx
-    s.rect.y += s.vy
+    s.rect.x += s.vx * 0.5
+    s.rect.y += s.vy * 0.5
 
     if s.vx == 0 and s.vy == 0:
         s.active = False

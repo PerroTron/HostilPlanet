@@ -98,9 +98,6 @@ def event(g, s, e):
             s.door_pos = s.rect.centerx / TW, s.rect.centery / TH
             # tiles.t_put(g,(x,y), 0x32)
             # tiles.t_put(g,(x,y-1), 0x22)
-            if s.drone is True:
-                s.drone = False
-                s.drone_sprite.active = False
 
 
     if e.type is USEREVENT and e.action == 'shoot':
@@ -120,13 +117,24 @@ def event(g, s, e):
 
 
     if e.type is KEYDOWN and e.key == K_F10:
+
         g.game.weapons = []
         g.game.weapons.append('gun')
         g.game.weapons.append('cannon')
         g.game.weapons.append('laser')
         g.game.weapons.append('shootgun')
         g.game.weapons.append('tshoot')
+
         s.drone = True
+        g.game.drones.append("guarian")
+        g.game.drones.append("defender")
+        g.game.drones.append("killer")
+
+        s.jetpack = True
+        g.game.jetpacks.append("doble")
+        g.game.jetpacks.append("long")
+        g.game.jetpacks.append("fly")
+
         s.god_mode = True
 
 
