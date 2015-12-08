@@ -47,8 +47,10 @@ class Game(engine.Game):
         self.strength = 10
         self.powerup = 'gun'
         self.weapons = ['gun']
+
         self.drone = False
         self.drones =  []
+
         self.jetpack = False
         self.jetpacks =  []
 

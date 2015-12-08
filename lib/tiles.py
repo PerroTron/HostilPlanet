@@ -25,11 +25,21 @@ TILES = {
 
     # powerups and bonus items ...
 
+    0x17: [t_init, ['player'], tiles_basic.hit_drone, 'guardian'],  # drone guardian
+    0x27: [t_init, ['player'], tiles_basic.hit_drone, 'defender'],  # drone defender
+    0x37: [t_init, ['player'], tiles_basic.hit_drone, 'killer'],  # drone killer
+
+    0x26: [t_init, ['player'], tiles_basic.hit_jetpack, 'doblejump'],  # doblejump
+    0x36: [t_init, ['player'], tiles_basic.hit_jetpack, 'fly'],  # fly
+
     0x08: [t_init, ['player'], tiles_basic.hit_power, 'cannon'],  # cannon
     0x18: [t_init, ['player'], tiles_basic.hit_power, 'laser'],  # laser
     0x28: [t_init, ['player'], tiles_basic.hit_power, 'shootgun'],  # shootgun
+    0x38: [t_init, ['player'], tiles_basic.hit_power, 'granadelauncher'],  # shootgun
+
     0x0C: [t_init, ['player'], tiles_basic.hit_life, ],  # extra-life
     0x1C: [t_init, ['player'], tiles_basic.hit_def, ],  # extra-def
+
     0x2C: [t_init, ['player'], tiles_basic.hit_chip, 1, ],  # chip
     0x2D: [t_init, ['player'], tiles_basic.hit_chip, 2, ],  # chip
     0x2E: [t_init, ['player'], tiles_basic.hit_chip, 3, ],  # chip
@@ -88,6 +98,7 @@ TANIMATE = [
     (0x08, [int(v) for v in '00000000000000000000000111222333']),  # cannon
     (0x18, [int(v) for v in '00000000000000000000000111222333']),  # laser
     (0x28, [int(v) for v in '00000000000000000000000111222333']),  # shootgun
+    (0x38, [int(v) for v in '00000000000000000000000111222333']),  # granadelauncher
 
 
 

@@ -44,7 +44,7 @@ def init(g, r, n, *params):
     s.jump_timer = 0
     s.keep_jump = False
 
-
+    s.jetpack = g.game.jetpack
     s.drone = g.game.drone
     s.drone_sprite = None
 
@@ -63,7 +63,6 @@ def init(g, r, n, *params):
         s.strength = g.game.strength
 
     return s
-
 
 def event(g, s, e):
     # print 'player.event',e
@@ -111,7 +110,7 @@ def event(g, s, e):
             s.canshoot = False
 
     if e.type is USEREVENT and e.action == 'stop-shoot':
-        if s.powered_up == "tshoot" and s.shoot.active is True:
+        if s.powered_up == "granadelauncher" and s.shoot.active is True:
             explosion.init(g, s.shoot.rect, s.shoot)
             s.shoot.active = False
 
@@ -123,16 +122,16 @@ def event(g, s, e):
         g.game.weapons.append('cannon')
         g.game.weapons.append('laser')
         g.game.weapons.append('shootgun')
-        g.game.weapons.append('tshoot')
+        g.game.weapons.append('granadelauncher')
 
-        s.drone = True
+        s.drone = "guardian"
         g.game.drones.append("guarian")
         g.game.drones.append("defender")
         g.game.drones.append("killer")
 
         s.jetpack = True
-        g.game.jetpacks.append("doble")
-        g.game.jetpacks.append("long")
+        g.game.jetpacks.append("jump")
+        g.game.jetpacks.append("doblejump")
         g.game.jetpacks.append("fly")
 
         s.god_mode = True
@@ -147,6 +146,8 @@ def loop(g, s):
         s.weapon = 'shootgun'
     elif s.powered_up == 'laser':
         s.weapon = 'laser'
+    elif s.powered_up == 'granadelauncher':
+        s.weapon = 'granadelauncher'
     else:
         s.weapon = 'player'
 
@@ -326,12 +327,12 @@ def loop(g, s):
         if s.shoot.cooldown == 0:
             s.canshoot = True
 
-    if s.drone is True and g.game.drone is False:
-        g.game.drone = True
-        s.drone_sprite = sprites.drone.init(g, s.rect, s,)
+    if s.drone and g.game.drone != s.drone:
+        g.game.drone = s.drone
+        s.drone_sprite = sprites.drone.init(g, s.rect, s, s.drone)
     elif s.drone is False and g.game.drone is True:
         s.drone = True
-        s.drone_sprite = sprites.drone.init(g, s.rect, s,)
+        s.drone_sprite = sprites.drone.init(g, s.rect, s, s.drone)
 
     s.strength = g.game.strength
     s.powered_up = g.game.powerup

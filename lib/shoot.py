@@ -36,11 +36,11 @@ def init(g, r, p, weapon, enemy):
         s.loop = loop
         s.life = 500
         s.deinit = deinit
-        s.auto_velocityx = 1.0
-        s.auto_velocityy = 1.0
+        s.auto_velocityx = 2.0
+        s.auto_velocityy = 2.0
         s.start_following = 20
         s.frame = 0
-        s.velocityx = 1.0
+        s.velocityx = 2.0
         s.velocityy = 0.0
 
         g.game.weaponsound = 'sboom'
@@ -129,7 +129,7 @@ def init(g, r, p, weapon, enemy):
 
         g.game.sfx['laser'].play()
 
-    elif weapon == 'tshoot':
+    elif weapon == 'granadelauncher':
 
         s = sprite.Sprite3(g, r, 'shoots/%s-shoot' % p.facing, (0, 0, 6, 3))
 
@@ -141,7 +141,7 @@ def init(g, r, p, weapon, enemy):
         s.rect.centerx = r.centerx
         s.rect.centery = r.centery
         s.groups.add('solid')
-        s.groups.add('tshoot')
+        s.groups.add('granadelauncher')
         s.hit_groups.add('enemy')
         s.hit = hit
         g.sprites.append(s)
@@ -161,8 +161,8 @@ def init(g, r, p, weapon, enemy):
         if p.facing == 'left':
             s.vx = -1
         s.vy = -3
-        s.rect.centerx += s.vx * (6 + s.rect.width / 2)
-        s.rect.centery -= 2
+        s.rect.centerx += s.vx * (4 + s.rect.width / 2)
+        s.rect.centery -= 7
 
         g.game.sfx['shoot'].play()
 
@@ -214,7 +214,7 @@ def deinit(g, s):
 def loop(g, s):
     s.frame += 1
 
-    if s.weapon == "tshoot":
+    if s.weapon == "granadelauncher":
         s.vy += 0.2
 
     if s.weapon == "cannon" and s.enemy:
@@ -282,7 +282,7 @@ def hit(g, a, b):
     if a.weapon == "cannon":
         explosion.init(g, a.rect, a)
 
-    if a.weapon == "tshoot":
+    if a.weapon == "granadelauncher":
         explosion.init(g, a.rect, a)
 
     b.strength -= a.strength

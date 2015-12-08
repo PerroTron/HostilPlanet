@@ -39,7 +39,7 @@ def hit_block(g, a, b, top=1, right=1, bottom=1, left=1):
         sprites.explosion.init(g, b.rect, b)
         b.active = False
 
-    if got_hit and 'tshoot' in b.groups:
+    if got_hit and 'granadelauncher' in b.groups:
         sprites.shoot.sound(g)
         sprites.explosion.init(g, b.rect, b)
         b.active = False
@@ -195,6 +195,23 @@ def hit_power(g, a, b, weapon):
     player.powerup(g, b, weapon)
     tile_explode(g, a)
 
+def hit_drone(g, a, b, drone):
+    if not tile_close(g, a, b): return
+
+    g.game.sfx['powerup'].play()
+    # print '+ power'
+    b.drone = drone
+    g.game.drones.append(drone)
+    tile_explode(g, a)
+
+def hit_jetpack(g, a, b, jetpack):
+    if not tile_close(g, a, b): return
+
+    g.game.sfx['powerup'].play()
+    # print '+ power'
+    b.jetpack = jetpack
+    g.game.jetpacks.append(jetpack)
+    tile_explode(g, a)
 
 def tile_close(g, a, b):
     r1 = pygame.Rect(a.rect)

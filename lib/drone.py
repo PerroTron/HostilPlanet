@@ -5,9 +5,10 @@ from pid import PID
 import sprite
 import droneshoot
 
-def init(g, r, n):
-    s = sprite.Sprite3(g, r, "drone/drone-0", (0, 0, 7, 7))
+def init(g, r, n, drone):
+    s = sprite.Sprite3(g, r, "drone/%s-0" % drone, (0, 0, 8, 8))
 
+    s.drone = drone
     s.rect.bottom = r.bottom - 32
     s.rect.centerx = r.centerx
 
@@ -39,10 +40,50 @@ def init(g, r, n):
 
 def loop(g, s):
 
+
+
+    if s.drone == "duardian":
+
+        sprites = g.sprites[:]
+
+        for enemy in sprites:
+            if "enemy" in enemy.groups:
+                if s.shoot == 0:
+                    shot = droneshoot.init(g, s.rect, s, enemy)
+                    s.shoot = 100
+                    s.shooting = 5
+
+                if s.shooting > 0:
+                    s.shooting -= 1
+
+                s.shoot -= 1
+
+    elif s.drone == "defnder":
+
+        pass
+
+    elif s.drone == "killer":
+
+        sprites = g.sprites[:]
+
+        for enemy in sprites:
+            if "enemy" in enemy.groups:
+                if s.shoot == 0:
+                    shot = droneshoot.init(g, s.rect, s, enemy)
+                    s.shoot = 100
+                    s.shooting = 5
+
+                if s.shooting > 0:
+                    s.shooting -= 1
+
+                s.shoot -= 1
+
     if g.frame & 30 == 0:
-        s.image = "drone/drone-1"
+        s.image = "drone/%s-1" % s.drone
     else:
-        s.image = "drone/drone-0"
+        s.image = "drone/%s-0" % s.drone
+
+
 
     sprite.apply_standing(g, s)
     s._prev = pygame.Rect(s.rect)
@@ -70,16 +111,3 @@ def loop(g, s):
     else:
         s.facing = "left"
 
-    sprites = g.sprites[:]
-
-    for enemy in sprites:
-        if "enemy" in enemy.groups:
-            if s.shoot == 0:
-                shot = droneshoot.init(g, s.rect, s, enemy)
-                s.shoot = 100
-                s.shooting = 5
-
-            if s.shooting > 0:
-                s.shooting -= 1
-
-            s.shoot -= 1
