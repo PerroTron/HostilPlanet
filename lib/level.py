@@ -402,7 +402,7 @@ class Level:
             border = self.get_border(DEINIT_BORDER)
             for s in sprites:
                 if s.auto_gc and not border.colliderect(s.rect):
-                    if s.image == "drone/drone-0":
+                    if hasattr(s, "drone"):
                         self.player.drone = False
                     s.active = False
                 if not s.active:
