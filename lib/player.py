@@ -48,6 +48,8 @@ def init(g, r, n, *params):
     s.drone = g.game.drone
     s.drone_sprite = None
 
+    s.shield = False
+
     s._prev = pygame.Rect(s.rect)
     s._prev2 = pygame.Rect(s.rect)
     s.looking = False
@@ -337,6 +339,10 @@ def loop(g, s):
         if hasattr(s.drone_sprite, "active"):
             s.drone_sprite.active = False
         s.drone_sprite = sprites.drone.init(g, s.rect, s, s.drone)
+
+        if s.drone == "defender":
+            sprites.shield.init(g, s.rect, s)
+            s.shield = True
 
     elif s.drone is False and g.game.drone is not False:
         s.drone = g.game.drone
