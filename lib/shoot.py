@@ -36,11 +36,11 @@ def init(g, r, p, weapon, enemy):
         s.loop = loop
         s.life = 500
         s.deinit = deinit
-        s.auto_velocityx = 2.0
-        s.auto_velocityy = 2.0
+        s.auto_velocityx = 1.0
+        s.auto_velocityy = 1.0
         s.start_following = 20
         s.frame = 0
-        s.velocityx = 2.0
+        s.velocityx = 1.0
         s.velocityy = 0.0
 
         g.game.weaponsound = 'sboom'
@@ -131,7 +131,7 @@ def init(g, r, p, weapon, enemy):
 
     elif weapon == 'granadelauncher':
 
-        s = sprite.Sprite3(g, r, 'shoots/%s-shoot' % p.facing, (0, 0, 6, 3))
+        s = sprite.Sprite3(g, r, 'shoots/%s-granadelauncher-shoot' % p.facing, (0, 0, 6, 3))
 
         s.player = p
         s.facing = s.player.facing
