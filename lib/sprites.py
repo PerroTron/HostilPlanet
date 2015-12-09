@@ -30,3 +30,4 @@ import rock
 import raider
 import explosion
 import drone
+import shield
