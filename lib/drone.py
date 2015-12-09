@@ -6,7 +6,7 @@ import sprite
 import droneshoot
 
 def init(g, r, n, drone):
-    s = sprite.Sprite3(g, r, "drone/%s-0" % drone, (0, 0, 8, 8))
+    s = sprite.Sprite3(g, r, "drone/%s-0" % drone, (0, 0, 7, 8))
 
     s.drone = drone
     s.player = n
@@ -58,10 +58,6 @@ def loop(g, s):
                     s.shooting -= 1
 
                 s.shoot -= 1
-
-    elif s.drone == "defnder":
-
-        pass
 
     elif s.drone == "killer":
 

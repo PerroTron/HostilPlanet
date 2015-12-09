@@ -494,23 +494,26 @@ class Level:
 
         if self.game.chips[0] == True:
             img = self.green  # green chip
-            x, y = (SW / 2 - img.get_width() / 2) - 15, 4
+            x, y = (SW / 2 - img.get_width() / 2) - 14, 4
             blit(img, (x, y))
 
         if self.game.chips[1] == True:
             img = self.yellow  # yellow chip
-            x, y = (SW / 2 - img.get_width() / 2) - 5, 4
+            x, y = (SW / 2 - img.get_width() / 2) - 4, 4
             blit(img, (x, y))
 
         if self.game.chips[2] == True:
             img = self.red  # red chip
-            x, y = (SW / 2 - img.get_width() / 2) + 5, 4
+            x, y = (SW / 2 - img.get_width() / 2) + 6, 4
             blit(img, (x, y))
 
         if self.game.chips[3] == True:
             img = self.blue  # blue chip
-            x, y = (SW / 2 - img.get_width() / 2) + 15, 4
+            x, y = (SW / 2 - img.get_width() / 2) + 16, 4
             blit(img, (x, y))
+
+
+
 
         """
         text = '%05d'%self.game.score
@@ -530,7 +533,7 @@ class Level:
             x,y = SW-1.05*img.get_width()*i - img.get_width() - pad, pad
             blit(img, (x, y))
             """
-
+        """
         text = '%01d' % self.game.lives
         c = (0, 64, 0)
         img = fnt.render(text, 0, c)
@@ -543,6 +546,7 @@ class Level:
 
         img = self.lives
         blit(img, (114, 7))
+        """
 
         for i in xrange(self.game.strength):
             img = self.shield  # shield
@@ -568,7 +572,30 @@ class Level:
         img = fnt.render(text,1,c)
         blit(img,(x,y))
         """
+        # display current drone
+        drone = self.game.drone
 
+        if drone:
+            if drone == 'guardian':
+                img = self.images[0x17]
+            elif drone == 'defender':
+                img = self.images[0x27]
+            elif drone == 'killer':
+                img = self.images[0x37]
+            blit(img, (115, 5))
+
+
+        # display current jetpack
+        jetpack = self.game.jetpack
+
+        if jetpack:
+            if jetpack == 'jump':
+                img = self.images[0x16]
+            elif jetpack == 'doblejump':
+                img = self.images[0x26]
+            elif jetpack == 'fly':
+                img = self.images[0x36]
+            blit(img, (100, 5))
         # textheight = img.get_height()
 
         # display current weapon
