@@ -9,6 +9,7 @@ def init(g, r, n, drone):
     s = sprite.Sprite3(g, r, "drone/%s-0" % drone, (0, 0, 8, 8))
 
     s.drone = drone
+    s.player = n
     s.rect.bottom = r.bottom - 32
     s.rect.centerx = r.centerx
 
@@ -40,7 +41,7 @@ def init(g, r, n, drone):
 
 def loop(g, s):
 
-
+    #s.drone = s.player.drone
 
     if s.drone == "duardian":
 

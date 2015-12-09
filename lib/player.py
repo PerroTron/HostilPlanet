@@ -125,11 +125,13 @@ def event(g, s, e):
         g.game.weapons.append('granadelauncher')
 
         s.drone = "guardian"
+        g.game.drones = []
         g.game.drones.append("guarian")
         g.game.drones.append("defender")
         g.game.drones.append("killer")
 
         s.jetpack = True
+        g.game.jetpacks = []
         g.game.jetpacks.append("jump")
         g.game.jetpacks.append("doblejump")
         g.game.jetpacks.append("fly")
@@ -322,16 +324,21 @@ def loop(g, s):
             # pygame.mixer.music.load("
             # g.game.music.play('finish',1)
 
-    if hasattr(s, 'shoot'):
+    if hasattr(s, "shoot"):
         s.shoot.cooldown -= 1
         if s.shoot.cooldown == 0:
             s.canshoot = True
 
     if s.drone and g.game.drone != s.drone:
         g.game.drone = s.drone
+
+        if hasattr(s.drone_sprite, "active"):
+            s.drone_sprite.active = False
+
         s.drone_sprite = sprites.drone.init(g, s.rect, s, s.drone)
-    elif s.drone is False and g.game.drone is True:
-        s.drone = True
+
+    elif s.drone is False and g.game.drone is not False:
+        s.drone = g.game.drone
         s.drone_sprite = sprites.drone.init(g, s.rect, s, s.drone)
 
     s.strength = g.game.strength
