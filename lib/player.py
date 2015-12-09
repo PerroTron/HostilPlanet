@@ -335,6 +335,7 @@ def loop(g, s):
         if hasattr(s.drone_sprite, "active"):
             s.drone_sprite.active = False
 
+        g.game.drones.append(s.drone)
         s.drone_sprite = sprites.drone.init(g, s.rect, s, s.drone)
 
     elif s.drone is False and g.game.drone is not False:
