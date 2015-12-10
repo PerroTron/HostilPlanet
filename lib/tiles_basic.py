@@ -200,7 +200,7 @@ def hit_drone(g, a, b, drone):
 
     g.game.sfx['powerup'].play()
     # print '+ power'
-    b.drone = drone
+    g.game.drone = drone
     g.game.drones.append(drone)
     tile_explode(g, a)
 
@@ -209,7 +209,7 @@ def hit_jetpack(g, a, b, jetpack):
 
     g.game.sfx['powerup'].play()
     # print '+ power'
-    b.jetpack = jetpack
+    g.game.jetpack = jetpack
     g.game.jetpacks.append(jetpack)
     tile_explode(g, a)
 

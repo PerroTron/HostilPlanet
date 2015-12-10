@@ -45,7 +45,7 @@ def init(g, r, n, *params):
     s.keep_jump = False
 
     s.jetpack = g.game.jetpack
-    s.drone = g.game.drone
+    s.drone = None
     s.drone_sprite = None
 
     s._prev = pygame.Rect(s.rect)
@@ -124,7 +124,7 @@ def event(g, s, e):
         g.game.weapons.append('shootgun')
         g.game.weapons.append('granadelauncher')
 
-        s.drone = "guardian"
+        g.game.drone = "guardian"
 
         g.game.drones = []
         g.game.drones.append("guardian")
@@ -331,15 +331,11 @@ def loop(g, s):
         if s.shoot.cooldown == 0:
             s.canshoot = True
 
-    if s.drone and g.game.drone != s.drone:
-        g.game.drone = s.drone
+    if g.game.drone is not None and s.drone != g.game.drone:
+        s.drone = g.game.drone
 
         if hasattr(s.drone_sprite, "active"):
             s.drone_sprite.active = False
-        s.drone_sprite = sprites.drone.init(g, s.rect, s, s.drone)
-
-    elif s.drone is False and g.game.drone is not False:
-        s.drone = g.game.drone
         s.drone_sprite = sprites.drone.init(g, s.rect, s, s.drone)
 
     s.strength = g.game.strength

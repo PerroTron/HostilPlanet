@@ -48,10 +48,10 @@ class Game(engine.Game):
         self.powerup = 'gun'
         self.weapons = ['gun']
 
-        self.drone = False
+        self.drone = None
         self.drones =  []
 
-        self.jetpack = False
+        self.jetpack = "jump"
         self.jetpacks =  []
 
     def init(self):
