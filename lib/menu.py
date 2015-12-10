@@ -686,9 +686,8 @@ class Weapon(engine.State):
 
         fnt = self.game.fonts['help']
 
-
         if self.current_menu == "weapon":
-            cursor_x, cursor_y = ((SW - self.weapon_cursor.get_width()) / 2) - 46 + self.weapon * 23, ((SH - self.weapon_cursor.get_height()) / 2) + 47
+            cursor_x, cursor_y = ((SW - self.weapon_cursor.get_width()) / 2) - 46 + self.weapon * 23, ((SH - self.weapon_cursor.get_height()) / 2) + 54
             screen.blit(self.weapon_cursor, (cursor_x, cursor_y))
 
         elif self.current_menu == "drone":
@@ -701,7 +700,7 @@ class Weapon(engine.State):
 
         # Weapons
 
-        pics_x, pics_y = (SW / 2) - 55, (SH / 2) + 38
+        pics_x, pics_y = (SW / 2) - 55, (SH / 2) + 45
 
         for text in self.game.weapons:
 
@@ -721,29 +720,33 @@ class Weapon(engine.State):
             screen.blit(img, (pics_x, pics_y))
             pics_x += 23
 
-        current_weapon = None
+        #current_weapon = None
 
         if self.weapon == 0:
-            current_weapon = self.level.images[0x07]
+            #current_weapon = self.level.images[0x07]
             player_img = pygame.image.load(data.filepath(os.path.join('images', 'player', 'right.png')))
         elif self.weapon == 1:
-            current_weapon = self.level.images[0x08]
+            #current_weapon = self.level.images[0x08]
             player_img = pygame.image.load(data.filepath(os.path.join('images', 'cannon', 'right.png')))
         elif self.weapon == 2:
-            current_weapon = self.level.images[0x18]
+            #current_weapon = self.level.images[0x18]
             player_img = pygame.image.load(data.filepath(os.path.join('images', 'laser', 'right.png')))
         elif self.weapon == 3:
-            current_weapon = self.level.images[0x28]
+            #current_weapon = self.level.images[0x28]
             player_img = pygame.image.load(data.filepath(os.path.join('images', 'shootgun', 'right.png')))
         elif self.weapon == 4:
-            current_weapon = self.level.images[0x38]
+            #current_weapon = self.level.images[0x38]
             player_img = pygame.image.load(data.filepath(os.path.join('images', 'granadelauncher', 'right.png')))
 
-        player_x, player_y = ((SW - player_img.get_width()) / 2) - 4, ((SH - player_img.get_height()) / 2) + 4
+        w = 40
+
+        player_img = pygame.transform.scale(player_img, (w, player_img.get_height() * w / player_img.get_width()))
+        player_x, player_y = ((SW - player_img.get_width()) / 2) + 5 , ((SH - player_img.get_height()) / 2) - 10
+
         screen.blit(player_img, (player_x, player_y))
 
-        weapon_x, weapon_y = ((SW - current_weapon.get_width()) / 2) + 29 , ((SH - current_weapon.get_height()) / 2) + 8
-        screen.blit(current_weapon, (weapon_x, weapon_y))
+        #weapon_x, weapon_y = ((SW - current_weapon.get_width()) / 2) + 29 , ((SH - current_weapon.get_height()) / 2) + 8
+        #screen.blit(current_weapon, (weapon_x, weapon_y))
 
         # Drones
 
