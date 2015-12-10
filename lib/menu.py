@@ -741,7 +741,7 @@ class Weapon(engine.State):
             current_weapon = self.level.images[0x28]
             player_img = pygame.image.load(data.filepath(os.path.join('images', 'shootgun', 'right.png')))
         elif self.weapon == 4:
-            current_weapon = self.level.images[0x28]
+            current_weapon = self.level.images[0x38]
             player_img = pygame.image.load(data.filepath(os.path.join('images', 'granadelauncher', 'right.png')))
 
         player_x, player_y = ((SW - player_img.get_width()) / 2) - 4, ((SH - player_img.get_height()) / 2) + 4
