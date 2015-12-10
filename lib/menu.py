@@ -604,13 +604,10 @@ class Weapon(engine.State):
     def event(self, e):
         if e.type is KEYDOWN or (e.type is USEREVENT and e.action in ('menu')):
 
-            if self.current_menu == "weapon":
-                self.game.powerup = self.game.weapons[self.weapon]
-                return self.level
-
-            elif self.current_menu == "drone":
+            self.game.powerup = self.game.weapons[self.weapon]
+            if len(self.game.drones) > 0:
                 self.game.drone = self.game.drones[self.drone]
-                return self.level
+            return self.level
 
         elif e.type is KEYDOWN or (e.type is USEREVENT and e.action in ('exit')):
             return self.level

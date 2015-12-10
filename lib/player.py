@@ -49,6 +49,7 @@ def init(g, r, n, *params):
     s.drone_sprite = None
 
     s.shield = False
+    s.shield_sprite = None
 
     s._prev = pygame.Rect(s.rect)
     s._prev2 = pygame.Rect(s.rect)
@@ -340,8 +341,8 @@ def loop(g, s):
             s.drone_sprite.active = False
         s.drone_sprite = sprites.drone.init(g, s.rect, s, s.drone)
 
-        if s.drone == "defender":
-            sprites.shield.init(g, s.rect, s)
+        if s.drone == "defender" and s.shield is False:
+            s.shield_sprite = sprites.shield.init(g, s.rect, s)
             s.shield = True
 
     s.strength = g.game.strength
@@ -389,9 +390,17 @@ def powerup(g, s, weapon):
 
 
 def damage(g, s, a):
-    if s.god_mode: return
+    if s.god_mode:
+        return
 
     if s.door_timer is not None:
+        return
+
+    if s.shield is True:
+        s.shield = False
+        s.shield_sprite.active = False
+        g.game.sfx['hit'].play()
+        s.damaged_transition = 100
         return
 
     if s.damaged_transition == 0 and s.strength > 0:
