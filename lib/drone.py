@@ -43,7 +43,7 @@ def loop(g, s):
 
     #s.drone = s.player.drone
 
-    if s.drone == "duardian":
+    if s.drone == "guardian":
 
         sprites = g.sprites[:]
 
