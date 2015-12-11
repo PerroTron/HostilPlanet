@@ -45,10 +45,11 @@ def init(g, r, n, *params):
     s.keep_jump = False
 
     s.jetpack = g.game.jetpack
-    s.drone = g.game.drone
+    s.drone = None
     s.drone_sprite = None
 
     s.shield = False
+    s.shield_sprite = None
 
     s._prev = pygame.Rect(s.rect)
     s._prev2 = pygame.Rect(s.rect)
@@ -126,7 +127,7 @@ def event(g, s, e):
         g.game.weapons.append('shootgun')
         g.game.weapons.append('granadelauncher')
 
-        s.drone = "guardian"
+        g.game.drone = "guardian"
 
         g.game.drones = []
         g.game.drones.append("guardian")
@@ -333,20 +334,16 @@ def loop(g, s):
         if s.shoot.cooldown == 0:
             s.canshoot = True
 
-    if s.drone and g.game.drone != s.drone:
-        g.game.drone = s.drone
+    if g.game.drone is not None and s.drone != g.game.drone:
+        s.drone = g.game.drone
 
         if hasattr(s.drone_sprite, "active"):
             s.drone_sprite.active = False
         s.drone_sprite = sprites.drone.init(g, s.rect, s, s.drone)
 
-        if s.drone == "defender":
-            sprites.shield.init(g, s.rect, s)
+        if s.drone == "defender" and s.shield is False:
+            s.shield_sprite = sprites.shield.init(g, s.rect, s)
             s.shield = True
-
-    elif s.drone is False and g.game.drone is not False:
-        s.drone = g.game.drone
-        s.drone_sprite = sprites.drone.init(g, s.rect, s, s.drone)
 
     s.strength = g.game.strength
     s.powered_up = g.game.powerup
@@ -393,9 +390,17 @@ def powerup(g, s, weapon):
 
 
 def damage(g, s, a):
-    if s.god_mode: return
+    if s.god_mode:
+        return
 
     if s.door_timer is not None:
+        return
+
+    if s.shield is True:
+        s.shield = False
+        s.shield_sprite.active = False
+        g.game.sfx['hit'].play()
+        s.damaged_transition = 100
         return
 
     if s.damaged_transition == 0 and s.strength > 0:
