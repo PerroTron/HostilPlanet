@@ -687,20 +687,20 @@ class Weapon(engine.State):
         fnt = self.game.fonts['help']
 
         if self.current_menu == "weapon":
-            cursor_x, cursor_y = ((SW - self.weapon_cursor.get_width()) / 2) - 46 + self.weapon * 23, ((SH - self.weapon_cursor.get_height()) / 2) + 54
+            cursor_x, cursor_y = ((SW - self.weapon_cursor.get_width()) / 2) - 46 + self.weapon * 23, ((SH - self.weapon_cursor.get_height()) / 2) + 56
             screen.blit(self.weapon_cursor, (cursor_x, cursor_y))
 
         elif self.current_menu == "drone":
-            cursor_x, cursor_y = ((SW - self.drone_cursor.get_width()) / 2) - 13 + self.drone * 13, ((SH - self.drone_cursor.get_height()) / 2) - 48
+            cursor_x, cursor_y = ((SW - self.drone_cursor.get_width()) / 2) + 6 + self.drone * 13, ((SH - self.drone_cursor.get_height()) / 2) - 58
             screen.blit(self.drone_cursor, (cursor_x, cursor_y))
 
         elif self.current_menu == "jetpack":
-            cursor_x, cursor_y = ((SW - self.jetpack_cursor.get_width()) / 2) - 43 + self.jetpack * 11, ((SH - self.jetpack_cursor.get_height()) / 2) - 34
+            cursor_x, cursor_y = ((SW - self.jetpack_cursor.get_width()) / 2) - 52 + self.jetpack * 11, ((SH - self.jetpack_cursor.get_height()) / 2) - 24
             screen.blit(self.jetpack_cursor, (cursor_x, cursor_y))
 
         # Weapons
 
-        pics_x, pics_y = (SW / 2) - 55, (SH / 2) + 45
+        pics_x, pics_y = (SW / 2) - 55, (SH / 2) + 47
 
         for text in self.game.weapons:
 
@@ -752,7 +752,7 @@ class Weapon(engine.State):
 
         if self.game.drone:
 
-            pics_x, pics_y = (SW / 2) - 21, (SH / 2) - 57
+            pics_x, pics_y = (SW / 2) - 2, (SH / 2) - 67
 
             for text in self.game.drones:
 
@@ -777,7 +777,7 @@ class Weapon(engine.State):
             elif self.drone == 2:
                 current_drone = self.level.images[0x37]
 
-            drone_x, drone_y = ((SW - current_drone.get_width()) / 2) , ((SH - current_drone.get_height()) / 2) - 25
+            drone_x, drone_y = ((SW - current_drone.get_width()) / 2 + 19) , ((SH - current_drone.get_height()) / 2) - 32
             screen.blit(current_drone, (drone_x, drone_y))
 
         # Jetpacks
