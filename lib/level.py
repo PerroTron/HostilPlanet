@@ -582,7 +582,7 @@ class Level:
                 img = self.images[0x27]
             elif drone == 'killer':
                 img = self.images[0x37]
-            blit(img, (115, 5))
+            blit(img, (115, 4))
 
 
         # display current jetpack

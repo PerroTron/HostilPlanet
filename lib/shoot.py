@@ -4,7 +4,7 @@ import explosion
 from pid import PID
 
 
-def init(g, r, p, weapon, enemy):
+def init(g, r, p, weapon, enemy, granade=0):
     if p.canshoot == False:
         return
 
@@ -36,11 +36,11 @@ def init(g, r, p, weapon, enemy):
         s.loop = loop
         s.life = 500
         s.deinit = deinit
-        s.auto_velocityx = 1.0
-        s.auto_velocityy = 1.0
-        s.start_following = 20
+        s.auto_velocityx = 2.0
+        s.auto_velocityy = 2.0
+        s.start_following = 15
         s.frame = 0
-        s.velocityx = 1.0
+        s.velocityx = 2.0
         s.velocityy = 0.0
 
         g.game.weaponsound = 'sboom'
@@ -134,6 +134,7 @@ def init(g, r, p, weapon, enemy):
         s = sprite.Sprite3(g, r, 'shoots/%s-granadelauncher-shoot' % p.facing, (0, 0, 6, 3))
 
         s.player = p
+        s.granade = granade
         s.facing = s.player.facing
         s.weapon = weapon
         s.enemy = enemy
@@ -215,7 +216,12 @@ def loop(g, s):
     s.frame += 1
 
     if s.weapon == "granadelauncher":
-        s.vy += 0.2
+        if s.granade == 1:
+            s.vy += 0.4
+        elif s.granade == 2:
+            s.vy += 0.28
+        elif s.granade == 3:
+            s.vy += 0.18
 
     if s.weapon == "cannon" and s.enemy:
 
