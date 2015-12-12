@@ -607,12 +607,13 @@ class Weapon(engine.State):
             self.game.powerup = self.game.weapons[self.weapon]
             if len(self.game.drones) > 0:
                 self.game.drone = self.game.drones[self.drone]
+            self.game.jetpack = self.game.jetpacks[self.jetpack]
             return self.level
 
         elif e.type is KEYDOWN or (e.type is USEREVENT and e.action in ('exit')):
             return self.level
 
-        elif e.type is KEYDOWN or (e.type is USEREVENT and e.action in ('up')):
+        elif e.type is KEYDOWN or (e.type is USEREVENT and e.action in ('down')):
             if self.current_menu == "weapon":
                 if len(self.game.drones) > 0:
                     self.current_menu = "drone"
@@ -624,7 +625,7 @@ class Weapon(engine.State):
             elif self.current_menu == "jetpack":
                 self.current_menu = "weapon"
 
-        elif e.type is KEYDOWN or (e.type is USEREVENT and e.action in ('down')):
+        elif e.type is KEYDOWN or (e.type is USEREVENT and e.action in ('up')):
 
             if self.current_menu == "weapon":
                 if len(self.game.drones) > 0:
@@ -688,22 +689,21 @@ class Weapon(engine.State):
 
         fnt = self.game.fonts['help']
 
-
         if self.current_menu == "weapon":
-            cursor_x, cursor_y = ((SW - self.weapon_cursor.get_width()) / 2) - 46 + self.weapon * 23, ((SH - self.weapon_cursor.get_height()) / 2) + 47
+            cursor_x, cursor_y = ((SW - self.weapon_cursor.get_width()) / 2) - 46 + self.weapon * 23, ((SH - self.weapon_cursor.get_height()) / 2) + 56
             screen.blit(self.weapon_cursor, (cursor_x, cursor_y))
 
         elif self.current_menu == "drone":
-            cursor_x, cursor_y = ((SW - self.drone_cursor.get_width()) / 2) - 13 + self.drone * 13, ((SH - self.drone_cursor.get_height()) / 2) - 48
+            cursor_x, cursor_y = ((SW - self.drone_cursor.get_width()) / 2) + 6 + self.drone * 13, ((SH - self.drone_cursor.get_height()) / 2) - 58
             screen.blit(self.drone_cursor, (cursor_x, cursor_y))
 
         elif self.current_menu == "jetpack":
-            cursor_x, cursor_y = ((SW - self.jetpack_cursor.get_width()) / 2) - 43 + self.jetpack * 11, ((SH - self.jetpack_cursor.get_height()) / 2) - 34
+            cursor_x, cursor_y = ((SW - self.jetpack_cursor.get_width()) / 2) - 52 + self.jetpack * 11, ((SH - self.jetpack_cursor.get_height()) / 2) - 24
             screen.blit(self.jetpack_cursor, (cursor_x, cursor_y))
 
         # Weapons
 
-        pics_x, pics_y = (SW / 2) - 55, (SH / 2) + 38
+        pics_x, pics_y = (SW / 2) - 55, (SH / 2) + 47
 
         for text in self.game.weapons:
 
@@ -723,35 +723,39 @@ class Weapon(engine.State):
             screen.blit(img, (pics_x, pics_y))
             pics_x += 23
 
-        current_weapon = None
+        #current_weapon = None
 
         if self.weapon == 0:
-            current_weapon = self.level.images[0x07]
+            #current_weapon = self.level.images[0x07]
             player_img = pygame.image.load(data.filepath(os.path.join('images', 'player', 'right.png')))
         elif self.weapon == 1:
-            current_weapon = self.level.images[0x08]
+            #current_weapon = self.level.images[0x08]
             player_img = pygame.image.load(data.filepath(os.path.join('images', 'cannon', 'right.png')))
         elif self.weapon == 2:
-            current_weapon = self.level.images[0x18]
+            #current_weapon = self.level.images[0x18]
             player_img = pygame.image.load(data.filepath(os.path.join('images', 'laser', 'right.png')))
         elif self.weapon == 3:
-            current_weapon = self.level.images[0x28]
+            #current_weapon = self.level.images[0x28]
             player_img = pygame.image.load(data.filepath(os.path.join('images', 'shootgun', 'right.png')))
         elif self.weapon == 4:
-            current_weapon = self.level.images[0x38]
+            #current_weapon = self.level.images[0x38]
             player_img = pygame.image.load(data.filepath(os.path.join('images', 'granadelauncher', 'right.png')))
 
-        player_x, player_y = ((SW - player_img.get_width()) / 2) - 4, ((SH - player_img.get_height()) / 2) + 4
+        w = 40
+
+        player_img = pygame.transform.scale(player_img, (w, player_img.get_height() * w / player_img.get_width()))
+        player_x, player_y = ((SW - player_img.get_width()) / 2) + 5 , ((SH - player_img.get_height()) / 2) - 10
+
         screen.blit(player_img, (player_x, player_y))
 
-        weapon_x, weapon_y = ((SW - current_weapon.get_width()) / 2) + 29 , ((SH - current_weapon.get_height()) / 2) + 8
-        screen.blit(current_weapon, (weapon_x, weapon_y))
+        #weapon_x, weapon_y = ((SW - current_weapon.get_width()) / 2) + 29 , ((SH - current_weapon.get_height()) / 2) + 8
+        #screen.blit(current_weapon, (weapon_x, weapon_y))
 
         # Drones
 
         if self.game.drone:
 
-            pics_x, pics_y = (SW / 2) - 21, (SH / 2) - 57
+            pics_x, pics_y = (SW / 2) - 2, (SH / 2) - 67
 
             for text in self.game.drones:
 
@@ -777,9 +781,42 @@ class Weapon(engine.State):
             elif self.drone == 2:
                 current_drone = self.level.images[0x37]
 
-            drone_x, drone_y = ((SW - current_drone.get_width()) / 2) , ((SH - current_drone.get_height()) / 2) - 25
-            screen.blit(current_drone, (drone_x, drone_y))
+            w = 28
+
+            drone_img = pygame.transform.scale(current_drone, (w, current_drone.get_height() * w / current_drone.get_width()))
+            drone_x, drone_y = ((SW - drone_img.get_width()) / 2 + 19) , ((SH - drone_img.get_height()) / 2) - 33
+            screen.blit(drone_img, (drone_x, drone_y))
 
         # Jetpacks
+
+        pics_x, pics_y = (SW / 2) - 58, (SH / 2) - 30
+
+        for text in self.game.jetpacks:
+
+            img = None
+
+            if text == 'jump':
+                img = self.level.images[0x16]
+            elif text == 'doblejump':
+                img = self.level.images[0x26]
+            elif text == 'fly':
+                img = self.level.images[0x36]
+
+            screen.blit(img, (pics_x, pics_y))
+            pics_x += 10
+
+        x,y = 5,10
+        w = 40
+
+        if self.jetpack == 1:
+            jetpack_img = pygame.image.load(data.filepath(os.path.join('images', 'jetpack', 'doblejump.png')))
+            jetpack_img = pygame.transform.scale(jetpack_img, (w, jetpack_img.get_height() * w / jetpack_img.get_width()))
+            jetpack_x, jetpack_y = ((SW - jetpack_img.get_width()) / 2 + x) , ((SH - jetpack_img.get_height()) / 2) - y
+            screen.blit(jetpack_img, (jetpack_x, jetpack_y))
+        elif self.jetpack == 2:
+            jetpack_img = pygame.image.load(data.filepath(os.path.join('images', 'jetpack', 'fly.png')))
+            jetpack_img = pygame.transform.scale(jetpack_img, (w, jetpack_img.get_height() * w / jetpack_img.get_width()))
+            jetpack_x, jetpack_y = ((SW - jetpack_img.get_width()) / 2 + x) , ((SH - jetpack_img.get_height()) / 2) - y
+            screen.blit(jetpack_img, (jetpack_x, jetpack_y))
 
         self.game.flip()
