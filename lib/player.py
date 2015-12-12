@@ -44,7 +44,7 @@ def init(g, r, n, *params):
     s.jump_timer = 0
     s.keep_jump = False
 
-    s.jetpack = g.game.jetpack
+    s.jetpack = "jump"
 
     s.drone = None
     s.drone_sprite = None
@@ -81,12 +81,27 @@ def event(g, s, e):
     if s.death_counter >= 0:
         return
 
-    if e.type is USEREVENT and e.action == 'jump' and s.standing is not None and s.jumping == 0 and s.vy == 0:
-        sprite.stop_standing(g, s)
+    if s.jetpack == "doblejump":
+        if e.type is USEREVENT and e.action == 'jump' and s.jumping == 0 and s.vy == 0:
+            sprite.stop_standing(g, s)
 
-        # s.vy = 0
-        s.jumping = 1.21
-        g.game.sfx['jump'].play()
+            # s.vy = 0
+            s.jumping = 1.21
+            g.game.sfx['jump'].play()
+    elif s.jetpack == "fly":
+        if e.type is USEREVENT and e.action == 'jump':
+            sprite.stop_standing(g, s)
+
+            # s.vy = 0
+            s.jumping = 1.21
+            g.game.sfx['jump'].play()
+    else:
+        if e.type is USEREVENT and e.action == 'jump' and s.standing is not None and s.jumping == 0 and s.vy == 0:
+            sprite.stop_standing(g, s)
+
+            # s.vy = 0
+            s.jumping = 1.21
+            g.game.sfx['jump'].play()
 
     if e.type is USEREVENT and e.action == 'stop-jump':
         s.jumping = 0
@@ -363,6 +378,7 @@ def loop(g, s):
                 s.shield_sprite = sprites.shield.init(g, s.rect, s)
                 s.shield = True
 
+    s.jetpack = g.game.jetpack
     s.strength = g.game.strength
     s.powered_up = g.game.powerup
 
