@@ -44,12 +44,15 @@ def init(g, r, n, *params):
     s.jump_timer = 0
     s.keep_jump = False
 
-    s.jetpack = g.game.jetpack
+    s.jetpack = "jump"
+
     s.drone = None
     s.drone_sprite = None
 
     s.shield = False
     s.shield_sprite = None
+    s.shield_countdown = 5*30
+    s.shield_counter = 0
 
     s._prev = pygame.Rect(s.rect)
     s._prev2 = pygame.Rect(s.rect)
@@ -78,12 +81,27 @@ def event(g, s, e):
     if s.death_counter >= 0:
         return
 
-    if e.type is USEREVENT and e.action == 'jump' and s.standing is not None and s.jumping == 0 and s.vy == 0:
-        sprite.stop_standing(g, s)
+    if s.jetpack == "doblejump":
+        if e.type is USEREVENT and e.action == 'jump' and s.jumping == 0 and s.vy == 0:
+            sprite.stop_standing(g, s)
 
-        # s.vy = 0
-        s.jumping = 1.21
-        g.game.sfx['jump'].play()
+            # s.vy = 0
+            s.jumping = 1.21
+            g.game.sfx['jump'].play()
+    elif s.jetpack == "fly":
+        if e.type is USEREVENT and e.action == 'jump':
+            sprite.stop_standing(g, s)
+
+            # s.vy = 0
+            s.jumping = 1.21
+            g.game.sfx['jump'].play()
+    else:
+        if e.type is USEREVENT and e.action == 'jump' and s.standing is not None and s.jumping == 0 and s.vy == 0:
+            sprite.stop_standing(g, s)
+
+            # s.vy = 0
+            s.jumping = 1.21
+            g.game.sfx['jump'].play()
 
     if e.type is USEREVENT and e.action == 'stop-jump':
         s.jumping = 0
@@ -350,6 +368,17 @@ def loop(g, s):
             s.shield_sprite = sprites.shield.init(g, s.rect, s)
             s.shield = True
 
+    if s.shield is False and s.shield_counter:
+        if s.shield_counter > 1:
+            s.shield_counter -= 1
+        else:
+            print("InitiShield")
+            s.shield_counter = 0
+            if s.drone == "defender" and s.shield is False:
+                s.shield_sprite = sprites.shield.init(g, s.rect, s)
+                s.shield = True
+
+    s.jetpack = g.game.jetpack
     s.strength = g.game.strength
     s.powered_up = g.game.powerup
 
@@ -406,6 +435,7 @@ def damage(g, s, a):
         s.shield_sprite.active = False
         g.game.sfx['hit'].play()
         s.damaged_transition = 100
+        s.shield_counter = s.shield_countdown
         return
 
     if s.damaged_transition == 0 and s.strength > 0:

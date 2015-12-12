@@ -21,6 +21,9 @@ def init(g, r, n):
 
     s.standing = None
 
+    s.rect.x = s.player.rect.x - 10
+    s.rect.y = s.player.rect.y - 2
+
     return s
 
 
