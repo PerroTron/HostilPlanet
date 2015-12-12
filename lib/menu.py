@@ -607,6 +607,7 @@ class Weapon(engine.State):
             self.game.powerup = self.game.weapons[self.weapon]
             if len(self.game.drones) > 0:
                 self.game.drone = self.game.drones[self.drone]
+            self.game.jetpack = self.game.jetpacks[self.jetpack]
             return self.level
 
         elif e.type is KEYDOWN or (e.type is USEREVENT and e.action in ('exit')):
@@ -780,9 +781,42 @@ class Weapon(engine.State):
             elif self.drone == 2:
                 current_drone = self.level.images[0x37]
 
-            drone_x, drone_y = ((SW - current_drone.get_width()) / 2 + 19) , ((SH - current_drone.get_height()) / 2) - 32
-            screen.blit(current_drone, (drone_x, drone_y))
+            w = 28
+
+            drone_img = pygame.transform.scale(current_drone, (w, current_drone.get_height() * w / current_drone.get_width()))
+            drone_x, drone_y = ((SW - drone_img.get_width()) / 2 + 19) , ((SH - drone_img.get_height()) / 2) - 33
+            screen.blit(drone_img, (drone_x, drone_y))
 
         # Jetpacks
+
+        pics_x, pics_y = (SW / 2) - 58, (SH / 2) - 30
+
+        for text in self.game.jetpacks:
+
+            img = None
+
+            if text == 'jump':
+                img = self.level.images[0x16]
+            elif text == 'doblejump':
+                img = self.level.images[0x26]
+            elif text == 'fly':
+                img = self.level.images[0x36]
+
+            screen.blit(img, (pics_x, pics_y))
+            pics_x += 10
+
+        x,y = 5,10
+        w = 40
+
+        if self.jetpack == 1:
+            jetpack_img = pygame.image.load(data.filepath(os.path.join('images', 'jetpack', 'doblejump.png')))
+            jetpack_img = pygame.transform.scale(jetpack_img, (w, jetpack_img.get_height() * w / jetpack_img.get_width()))
+            jetpack_x, jetpack_y = ((SW - jetpack_img.get_width()) / 2 + x) , ((SH - jetpack_img.get_height()) / 2) - y
+            screen.blit(jetpack_img, (jetpack_x, jetpack_y))
+        elif self.jetpack == 2:
+            jetpack_img = pygame.image.load(data.filepath(os.path.join('images', 'jetpack', 'fly.png')))
+            jetpack_img = pygame.transform.scale(jetpack_img, (w, jetpack_img.get_height() * w / jetpack_img.get_width()))
+            jetpack_x, jetpack_y = ((SW - jetpack_img.get_width()) / 2 + x) , ((SH - jetpack_img.get_height()) / 2) - y
+            screen.blit(jetpack_img, (jetpack_x, jetpack_y))
 
         self.game.flip()

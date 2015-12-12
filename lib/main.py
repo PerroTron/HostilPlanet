@@ -51,8 +51,8 @@ class Game(engine.Game):
         self.drone = None
         self.drones =  []
 
-        self.jetpack = 'fly'
-        self.jetpacks =  ['fly']
+        self.jetpack = 'jump'
+        self.jetpacks =  ['jump']
 
     def init(self):
         self.random = 0
