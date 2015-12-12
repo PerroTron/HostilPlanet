@@ -9,7 +9,7 @@ def init(g, r, n):
     s.rect.bottom = r.bottom
     s.rect.centerx = r.centerx
 
-    s.groups.add('solid')
+    #s.groups.add('solid')
     g.sprites.append(s)
 
     s.loop = loop

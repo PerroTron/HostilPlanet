@@ -603,9 +603,11 @@ class Weapon(engine.State):
 
     def event(self, e):
         if e.type is KEYDOWN or (e.type is USEREVENT and e.action in ('menu')):
-            if len(self.game.weapons) > 0:
-                self.game.powerup = self.game.weapons[self.weapon]
-                return self.level
+
+            self.game.powerup = self.game.weapons[self.weapon]
+            if len(self.game.drones) > 0:
+                self.game.drone = self.game.drones[self.drone]
+            return self.level
 
         elif e.type is KEYDOWN or (e.type is USEREVENT and e.action in ('exit')):
             return self.level
@@ -766,6 +768,7 @@ class Weapon(engine.State):
                     img = self.level.images[0x37]
 
                 screen.blit(img, (pics_x, pics_y))
+
                 pics_x += 13
 
             current_drone = None
