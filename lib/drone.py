@@ -5,7 +5,7 @@ import droneshoot
 
 
 def init(g, r, n, drone):
-    s = sprite.Sprite3(g, r, "drone/%s-0" % drone, (0, 0, 7, 8))
+    s = sprite.Sprite3(g, r, "drone/%s-0" % drone, (0, 0, 7, 7))
 
     s.drone = drone
 

@@ -107,15 +107,20 @@ def event(g, s, e):
             if "enemy" in enemy.groups:
                 enemy_objective = enemy
         if s.canshoot:
-            s.shoot = sprites.shoot.init(g, s.rect, s, s.powered_up, enemy_objective)
+            if s.powered_up == 'granadelauncher':
+                s.shoot = sprites.shoot.init(g, s.rect, s, s.powered_up, enemy_objective, granade=1)
+                s.shoot = sprites.shoot.init(g, s.rect, s, s.powered_up, enemy_objective, granade=2)
+                s.shoot = sprites.shoot.init(g, s.rect, s, s.powered_up, enemy_objective, granade=3)
+            else:
+                s.shoot = sprites.shoot.init(g, s.rect, s, s.powered_up, enemy_objective)
             s.shooting = 10
             s.canshoot = False
-
+    """
     if e.type is USEREVENT and e.action == 'stop-shoot':
         if s.powered_up == "granadelauncher" and s.shoot.active is True:
             explosion.init(g, s.shoot.rect, s.shoot)
             s.shoot.active = False
-
+    """
 
     if e.type is KEYDOWN and e.key == K_F10:
 

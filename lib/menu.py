@@ -610,7 +610,7 @@ class Weapon(engine.State):
         elif e.type is KEYDOWN or (e.type is USEREVENT and e.action in ('exit')):
             return self.level
 
-        elif e.type is KEYDOWN or (e.type is USEREVENT and e.action in ('up')):
+        elif e.type is KEYDOWN or (e.type is USEREVENT and e.action in ('down')):
             if self.current_menu == "weapon":
                 if len(self.game.drones) > 0:
                     self.current_menu = "drone"
@@ -622,7 +622,7 @@ class Weapon(engine.State):
             elif self.current_menu == "jetpack":
                 self.current_menu = "weapon"
 
-        elif e.type is KEYDOWN or (e.type is USEREVENT and e.action in ('down')):
+        elif e.type is KEYDOWN or (e.type is USEREVENT and e.action in ('up')):
 
             if self.current_menu == "weapon":
                 if len(self.game.drones) > 0:
