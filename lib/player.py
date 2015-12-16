@@ -93,7 +93,7 @@ def event(g, s, e):
             sprite.stop_standing(g, s)
 
             # s.vy = 0
-            s.jumping = 1.21
+            s.jumping = 1
             g.game.sfx['jump'].play()
     else:
         if e.type is USEREVENT and e.action == 'jump' and s.standing is not None and s.jumping == 0 and s.vy == 0:
@@ -281,8 +281,10 @@ def loop(g, s):
         s.jump_timer += 2
         # print s.vy
         s.vy -= s.jumping
-
-        s.jumping = max(0, s.jumping - 0.2)
+        if s.jetpack == 'fly':
+            s.jumping = max(0, s.jumping - 0.1)
+        else:
+            s.jumping = max(0, s.jumping - 0.2)
 
     if s.jump_timer and not s.jumping:
         s.jump_timer -= 1
@@ -307,6 +309,7 @@ def loop(g, s):
         vx, vy = s.vx, s.vy
         s.rect.x += vx
         s.rect.y += sprite.myinc(g.frame, s.vy)
+
 
     # if keys[K_UP]: vy -= 1
     # if keys[K_DOWN]: vy += 1
