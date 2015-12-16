@@ -20,6 +20,7 @@ def init(g, r, n, *params):
     s.vy = 0
     s.walk_frame = 1
     s.jumping = 0
+    s.double_jumping = 0
     s.facing = 'right'
     s.flash_counter = 0
     s.flash_timer = 0
@@ -82,14 +83,21 @@ def event(g, s, e):
         return
 
     if s.jetpack == "doblejump":
-        if e.type is USEREVENT and e.action == 'jump' and s.jumping == 0 and s.vy == 0:
+        if e.type is USEREVENT and e.action == 'jump' and s.double_jumping < 1:
             sprite.stop_standing(g, s)
+            s.double_jumping += 1
 
-            # s.vy = 0
             s.jumping = 1.21
             g.game.sfx['jump'].play()
+        elif e.type is USEREVENT and e.action == 'jump' and s.standing and s.jumping == 0 and s.vy == 0:
+            sprite.stop_standing(g, s)
+            s.double_jumping = 0
+
+            s.jumping = 1.21
+            g.game.sfx['jump'].play()
+
     elif s.jetpack == "fly":
-        if e.type is USEREVENT and e.action == 'jump':
+        if e.type is USEREVENT and e.action == 'jump' and s.jumping == 0:
             sprite.stop_standing(g, s)
 
             # s.vy = 0
@@ -372,7 +380,6 @@ def loop(g, s):
         if s.shield_counter > 1:
             s.shield_counter -= 1
         else:
-            print("InitiShield")
             s.shield_counter = 0
             if s.drone == "defender" and s.shield is False:
                 s.shield_sprite = sprites.shield.init(g, s.rect, s)
