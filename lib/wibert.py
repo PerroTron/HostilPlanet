@@ -1,13 +1,13 @@
 import pygame
-
-import player
 import sprite
+import player
 import wibertshoot
+import random
 from cnst import *
 
 
 def init(g, r, n, facing='left', *params):
-    s = sprite.Sprite3(g, r, 'wibert/wibert-%s-0' % facing, (0, 0, 15, 19))
+    s = sprite.Sprite3(g, r, 'wibert/wibert-%s-0' % (facing), (0, 0, 15, 19))
     s.rect.bottom = r.bottom
     s.rect.centerx = r.centerx
     s.groups.add('solid')
@@ -19,7 +19,16 @@ def init(g, r, n, facing='left', *params):
     s.facing = facing
 
     s.shoot = 100
+    s.shoot_reload = 200
     s.shooting = 0
+
+    s.frame = 0
+    s.moving = 0
+    s.speed = 2
+    s.vx = s.speed
+    s.idling = random.randint(20, 40)
+
+    s.frame = 0
 
     if s.facing == 'left':
         s.vx = -1.0
@@ -36,11 +45,11 @@ def init(g, r, n, facing='left', *params):
 
 
 def loop(g, s):
-    sprite.apply_gravity(g, s)
+    sprite.apply_gravity(g,s)
     sprite.apply_standing(g, s)
 
     # if s.rect.x == s._prev.x: # or sprite.get_code(g,s,sign(s.vx),0) == CODE_WIBERT_TURN:
-    #	s.vx = -s.vx
+    #   s.vx = -s.vx
 
     s._prev = pygame.Rect(s.rect)
 
@@ -61,10 +70,41 @@ def loop(g, s):
     s.vx = min(1.0, s.vx)
     s.vx = max(-1.0, s.vx)
 
+    if s.idling > 0:
+        if s.idling % 40 > 20:
+            s.facing = 'left'
+        else:
+            s.facing = 'right'
+        s.idling -= 1
+        if s.idling == 0:
+            s.moving = 90
+            # if g.game.random % 2 == 0:
+            if random.randint(0, 1):
+                s.vx = -s.speed
+                s.facing = 'left'
+            else:
+                s.vx = s.speed
+                s.facing = 'right'
+    elif s.moving > 0:
+        s.moving -= 1
+        if s.moving == 0:
+            s.idling = 80
+            s.vx = 0
+    else:
+        s.idling = 80
+
+    if s.vx < 0:
+        s.facing = 'left'
+    else:
+        s.facing = 'right'
+
+    s.image = 'wibert/wibert-%s-%s' % (s.facing, (s.frame / 5) % 2)
+    s.frame += 1
+
     if s.shoot == 0:
         shot = wibertshoot.init(g, s.rect, s)
         # g.sprites.append(shot)
-        s.shoot = 100
+        s.shoot = s.shoot_reload
         s.shooting = 5
 
     if s.shooting > 0:

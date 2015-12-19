@@ -19,9 +19,9 @@ def init(g, r, p):
     s.strength = 1
     s.damage = 1
 
-    s.vx = 1
+    s.vx = 2
     if p.facing == 'left':
-        s.vx = -1
+        s.vx = -2
     s.vy = 0
     s.rect.centerx += s.vx * (4 + s.rect.width / 2)
     s.rect.centery -= 0
