@@ -727,19 +727,19 @@ class Weapon(engine.State):
 
         if self.weapon == 0:
             #current_weapon = self.level.images[0x07]
-            player_img = pygame.image.load(data.filepath(os.path.join('images', 'player', 'right.png')))
+            player_img = pygame.image.load(data.filepath(os.path.join('images', 'jump', 'player', 'right.png')))
         elif self.weapon == 1:
             #current_weapon = self.level.images[0x08]
-            player_img = pygame.image.load(data.filepath(os.path.join('images', 'cannon', 'right.png')))
+            player_img = pygame.image.load(data.filepath(os.path.join('images', 'jump',  'cannon', 'right.png')))
         elif self.weapon == 2:
             #current_weapon = self.level.images[0x18]
-            player_img = pygame.image.load(data.filepath(os.path.join('images', 'laser', 'right.png')))
+            player_img = pygame.image.load(data.filepath(os.path.join('images', 'jump',  'laser', 'right.png')))
         elif self.weapon == 3:
             #current_weapon = self.level.images[0x28]
-            player_img = pygame.image.load(data.filepath(os.path.join('images', 'shootgun', 'right.png')))
+            player_img = pygame.image.load(data.filepath(os.path.join('images', 'jump',  'shootgun', 'right.png')))
         elif self.weapon == 4:
             #current_weapon = self.level.images[0x38]
-            player_img = pygame.image.load(data.filepath(os.path.join('images', 'granadelauncher', 'right.png')))
+            player_img = pygame.image.load(data.filepath(os.path.join('images', 'jump',  'granadelauncher', 'right.png')))
 
         w = 40
 
@@ -797,7 +797,7 @@ class Weapon(engine.State):
 
             if text == 'jump':
                 img = self.level.images[0x16]
-            elif text == 'doblejump':
+            elif text == 'double_jump':
                 img = self.level.images[0x26]
             elif text == 'fly':
                 img = self.level.images[0x36]
@@ -809,7 +809,7 @@ class Weapon(engine.State):
         w = 40
 
         if self.jetpack == 1:
-            jetpack_img = pygame.image.load(data.filepath(os.path.join('images', 'jetpack', 'doblejump.png')))
+            jetpack_img = pygame.image.load(data.filepath(os.path.join('images', 'jetpack', 'double_jump.png')))
             jetpack_img = pygame.transform.scale(jetpack_img, (w, jetpack_img.get_height() * w / jetpack_img.get_width()))
             jetpack_x, jetpack_y = ((SW - jetpack_img.get_width()) / 2 + x) , ((SH - jetpack_img.get_height()) / 2) - y
             screen.blit(jetpack_img, (jetpack_x, jetpack_y))
