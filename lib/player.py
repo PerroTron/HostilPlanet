@@ -83,26 +83,27 @@ def event(g, s, e):
         return
 
     if s.jetpack == "doblejump":
-        if e.type is USEREVENT and e.action == 'jump' and s.double_jumping < 1:
+        if e.type is USEREVENT and e.action == 'jump' and s.standing is not None and s.jumping == 0 and s.vy == 0:
             sprite.stop_standing(g, s)
-            s.double_jumping += 1
+            s.double_jumping = 1
 
             s.jumping = 1.21
             g.game.sfx['jump'].play()
-        elif e.type is USEREVENT and e.action == 'jump' and s.standing and s.jumping == 0 and s.vy == 0:
+        elif e.type is USEREVENT and e.action == 'jump' and s.double_jumping == 1:
             sprite.stop_standing(g, s)
             s.double_jumping = 0
 
-            s.jumping = 1.21
+            s.jumping = 1.41
             g.game.sfx['jump'].play()
 
     elif s.jetpack == "fly":
-        if e.type is USEREVENT and e.action == 'jump' and s.jumping == 0:
+        if e.type is USEREVENT and e.action == 'jump':
             sprite.stop_standing(g, s)
 
             # s.vy = 0
-            s.jumping = 1
+            s.jumping = 0.4
             g.game.sfx['jump'].play()
+
     else:
         if e.type is USEREVENT and e.action == 'jump' and s.standing is not None and s.jumping == 0 and s.vy == 0:
             sprite.stop_standing(g, s)
@@ -286,12 +287,18 @@ def loop(g, s):
     # keys = pygame.key.get_pressed()
 
     if s.jumping:
-        s.jump_timer += 2
         # print s.vy
         s.vy -= s.jumping
-        if s.jetpack == 'fly':
-            s.jumping = max(0, s.jumping - 0.1)
+
+        if s.jetpack == "doblejump":
+            s.jump_timer += 2
+            s.jumping = max(0, s.jumping - 0.2)
+
+        elif s.jetpack == 'fly':
+            s.jumping = max(0, s.jumping)
+
         else:
+            s.jump_timer += 2
             s.jumping = max(0, s.jumping - 0.2)
 
     if s.jump_timer and not s.jumping:
@@ -378,6 +385,10 @@ def loop(g, s):
         if s.drone == "defender" and s.shield is False:
             s.shield_sprite = sprites.shield.init(g, s.rect, s)
             s.shield = True
+
+    if s.drone != "defender" and s.shield is True:
+        s.shield_sprite.active = False
+        s.shield = False
 
     if s.shield is False and s.shield_counter:
         if s.shield_counter > 1:
