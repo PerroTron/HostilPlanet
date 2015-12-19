@@ -29,7 +29,7 @@ TILES = {
     0x27: [t_init, ['player'], tiles_basic.hit_drone, 'defender'],  # drone defender
     0x37: [t_init, ['player'], tiles_basic.hit_drone, 'killer'],  # drone killer
 
-    0x26: [t_init, ['player'], tiles_basic.hit_jetpack, 'doblejump'],  # doblejump
+    0x26: [t_init, ['player'], tiles_basic.hit_jetpack, 'double_jump'],  # double_jump
     0x36: [t_init, ['player'], tiles_basic.hit_jetpack, 'fly'],  # fly
 
     0x08: [t_init, ['player'], tiles_basic.hit_power, 'cannon'],  # cannon
