@@ -386,6 +386,10 @@ def loop(g, s):
             s.shield_sprite = sprites.shield.init(g, s.rect, s)
             s.shield = True
 
+    if s.drone != "defender" and s.shield is True:
+        s.shield_sprite.active = False
+        s.shield = False
+
     if s.shield is False and s.shield_counter:
         if s.shield_counter > 1:
             s.shield_counter -= 1
