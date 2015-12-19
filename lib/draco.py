@@ -6,7 +6,7 @@ import sprite
 
 
 def init(g, r, n, facing='left', *params):
-    s = sprite.Sprite3(g, r, 'draco/draco-%s.png' % (facing), (0, 0, 10, 16))
+    s = sprite.Sprite3(g, r, 'draco/draco-%s' % (facing), (0, 0, 10, 16))
     s.rect.bottom = r.bottom
     s.rect.centerx = r.centerx
     s.groups.add('solid')

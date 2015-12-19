@@ -7,7 +7,7 @@ from cnst import *
 
 
 def init(g, r, n, facing='left', *params):
-    s = sprite.Sprite3(g, r, 'wibert/wibert-%s-0.png' % facing, (0, 0, 15, 19))
+    s = sprite.Sprite3(g, r, 'wibert/wibert-%s-0' % facing, (0, 0, 15, 19))
     s.rect.bottom = r.bottom
     s.rect.centerx = r.centerx
     s.groups.add('solid')
