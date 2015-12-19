@@ -12,7 +12,7 @@ import sentinel
 import tentactul
 import tentactulshoot
 import brobo
-import laser
+import guardianshoot
 import points
 import blob
 import guardian
