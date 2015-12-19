@@ -591,7 +591,7 @@ class Level:
         if jetpack:
             if jetpack == 'jump':
                 img = self.images[0x16]
-            elif jetpack == 'doblejump':
+            elif jetpack == 'double_jump':
                 img = self.images[0x26]
             elif jetpack == 'fly':
                 img = self.images[0x36]

@@ -168,7 +168,7 @@ def event(g, s, e):
         g.game.drones.append("defender")
         g.game.drones.append("killer")
 
-        s.jetpack = True
+        s.jetpack = "jump"
 
         g.game.jetpacks = []
         g.game.jetpacks.append("jump")
@@ -208,7 +208,7 @@ def loop(g, s):
         if s.walk_frame > 4:
             s.walk_frame = 1
     else:
-        s.image = s.weapon + '/%s' % s.facing
+        s.image = s.jetpack + "/" + s.weapon + '/%s' % s.facing
     if s.vx > 0:
         s.facing = 'right'
     elif s.vx < 0:
