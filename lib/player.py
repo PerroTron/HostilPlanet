@@ -84,7 +84,7 @@ def event(g, s, e):
     if s.death_counter >= 0:
         return
 
-    if s.jetpack == "doblejump":
+    if s.jetpack == "double_jump":
         if e.type is USEREVENT and e.action == 'jump' and s.standing is not None and s.jumping == 0 and s.vy == 0:
             sprite.stop_standing(g, s)
             s.double_jumping = 1
@@ -172,7 +172,7 @@ def event(g, s, e):
 
         g.game.jetpacks = []
         g.game.jetpacks.append("jump")
-        g.game.jetpacks.append("doblejump")
+        g.game.jetpacks.append("double_jump")
         g.game.jetpacks.append("fly")
 
         s.god_mode = True
@@ -195,15 +195,15 @@ def loop(g, s):
     inpt = g.game.input
 
     if s.vy < 0:
-        s.image = s.weapon + '/%s-jump' % s.facing
+        s.image = s.jetpack + "/" + s.weapon + '/%s-jump' % s.facing
     elif s.shooting > 0:
         if s.shooting > 5:
-            s.image = s.weapon + '/%s-shoot-1' % s.facing
+            s.image = s.jetpack + "/" + s.weapon + '/%s-shoot-1' % s.facing
         else:
-            s.image = s.weapon + '/%s-shoot-2' % s.facing
+            s.image = s.jetpack + "/" + s.weapon + '/%s-shoot-2' % s.facing
         s.shooting -= 1
     elif inpt.right or inpt.left and s.standing:
-        s.image = s.weapon + '/%s-walk-%s' % (s.facing, int(s.walk_frame))
+        s.image = s.jetpack + "/" + s.weapon + '/%s-walk-%s' % (s.facing, int(s.walk_frame))
         s.walk_frame += 0.2
         if s.walk_frame > 4:
             s.walk_frame = 1
@@ -220,12 +220,12 @@ def loop(g, s):
                 s.image = None
             else:
                 if s.vy < 0:
-                    s.image = s.weapon + '/%s-jump' % s.facing
+                    s.image = s.jetpack + "/" + s.weapon + '/%s-jump' % s.facing
 
                 elif inpt.right or inpt.left and s.standing:
-                    s.image = s.weapon + '/%s-walk-%s' % (s.facing, int(s.walk_frame))
+                    s.image = s.jetpack + "/" + s.weapon + '/%s-walk-%s' % (s.facing, int(s.walk_frame))
                 else:
-                    s.image = s.weapon + '/%s' % (s.facing)
+                    s.image = s.jetpack + "/" + s.weapon + '/%s' % (s.facing)
 
             s.damaged_transition -= 1
         """
@@ -292,7 +292,7 @@ def loop(g, s):
         # print s.vy
         s.vy -= s.jumping
 
-        if s.jetpack == "doblejump":
+        if s.jetpack == "double_jump":
             s.jump_timer += 2
             s.jumping = max(0, s.jumping - 0.2)
 
