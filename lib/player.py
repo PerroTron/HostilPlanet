@@ -64,6 +64,8 @@ def init(g, r, n, *params):
     sprite.init_codes(g, s)
     s.no_explode = False
 
+    s.view_counter = 0
+
     s.speed = 1
 
     if hasattr(g.game, 'strength'):
@@ -340,11 +342,18 @@ def loop(g, s):
     s.looking = False
 
     if inpt.up:
-        g.view.y -= 2
-        s.looking = True
-    if inpt.down:
-        g.view.y += 2
-        s.looking = True
+        s.view_counter += 1
+        if s.view_counter >= 60:
+            g.view.y -= 2
+            s.looking = True
+
+    elif inpt.down:
+        s.view_counter += 1
+        if s.view_counter >= 60:
+            g.view.y += 2
+            s.looking = True
+    else:
+        s.view_counter = 0
 
     n = sprite.get_code(g, s, 0, 0)
     if n == CODE_EXIT and (g.game.chips[0] and g.game.chips[1] and g.game.chips[2] and g.game.chips[3]):
