@@ -593,7 +593,17 @@ class Weapon(engine.State):
 
         self.current_menu = "weapon"
 
-        self.weapon = 0
+        if self.game.powerup == "gun":
+            self.weapon = 0
+        elif self.game.powerup == "shootgun":
+            self.weapon = 1
+        elif self.game.powerup == "cannon":
+            self.weapon = 2
+        elif self.game.powerup == "granadelauncher":
+            self.weapon = 3
+        elif self.game.powerup == "laser":
+            self.weapon = 4
+        
         self.drone = 0
         self.jetpack = 0
 
@@ -739,7 +749,7 @@ class Weapon(engine.State):
             img = self.level.images[0x18]
             screen.blit(img, (pics_x + 23 * 4, pics_y))
 
-        """
+
         player_img = None
 
         if self.weapon == 0:
@@ -759,7 +769,7 @@ class Weapon(engine.State):
         player_x, player_y = ((SW - player_img.get_width()) / 2) + 5 , ((SH - player_img.get_height()) / 2) - 10
 
         screen.blit(player_img, (player_x, player_y))
-        """
+
 
         # Drones
 
