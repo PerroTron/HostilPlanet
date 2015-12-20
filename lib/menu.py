@@ -275,7 +275,7 @@ class Intro2(engine.State):
 
     def init(self):
         self.moon = pygame.image.load(data.filepath(os.path.join('intro', 'intro.png'))).convert()
-        img = pygame.image.load(data.filepath(os.path.join('images', 'player', 'right.png')))
+        img = pygame.image.load(data.filepath(os.path.join('images', 'jump', 'player', 'right.png')))
         w = 160
         self.player = pygame.transform.scale(img, (w, img.get_height() * w / img.get_width()))
 
