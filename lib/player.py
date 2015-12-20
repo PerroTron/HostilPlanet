@@ -130,7 +130,6 @@ def event(g, s, e):
             # tiles.t_put(g,(x,y), 0x32)
             # tiles.t_put(g,(x,y-1), 0x22)
 
-
     if e.type is USEREVENT and e.action == 'shoot':
         enemy_objective = None
         for enemy in enemy_sprites:
@@ -154,12 +153,11 @@ def event(g, s, e):
 
     if e.type is KEYDOWN and e.key == K_F10:
 
-        g.game.weapons = []
-        g.game.weapons.append('gun')
-        g.game.weapons.append('cannon')
-        g.game.weapons.append('laser')
-        g.game.weapons.append('shootgun')
-        g.game.weapons.append('granadelauncher')
+        g.game.weapons[0] = 'gun'
+        g.game.weapons[1] = 'shootgun'
+        g.game.weapons[2] = 'cannon'
+        g.game.weapons[3] = 'granadelauncher'
+        g.game.weapons[4] = 'laser'
 
         g.game.drone = "guardian"
 
@@ -444,13 +442,7 @@ def pan_screen(g, s):
 
 
 def powerup(g, s, weapon):
-    s.powerup_transition = 100
     s.powered_up = weapon
-    if hasattr(g.game, 'powerup'):
-        g.game.powerup = weapon
-
-    if weapon not in g.game.weapons:
-        g.game.weapons.append(weapon)
 
 
 def damage(g, s, a):

@@ -194,6 +194,19 @@ def hit_power(g, a, b, weapon):
 
     g.game.sfx['powerup'].play()
     # print '+ power'
+
+    g.game.weapon = weapon
+
+    if weapon == "shootgun":
+        g.game.weapons[1] = weapon
+    elif weapon == "cannon":
+        g.game.weapons[2] = weapon
+    elif weapon == "granadelauncher":
+        g.game.weapons[3] = weapon
+    elif weapon == "laser":
+        g.game.weapons[4] = weapon
+
+
     player.powerup(g, b, weapon)
     tile_explode(g, a)
 
