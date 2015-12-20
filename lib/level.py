@@ -402,8 +402,10 @@ class Level:
             border = self.get_border(DEINIT_BORDER)
             for s in sprites:
                 if s.auto_gc and not border.colliderect(s.rect):
+
                     if hasattr(s, "drone"):
                         self.player.drone = False
+
                     s.active = False
                 if not s.active:
                     self.sprites.remove(s)  # this removes 'em from the real list!
@@ -573,6 +575,7 @@ class Level:
         blit(img,(x,y))
         """
         # display current drone
+
         drone = self.game.drone
 
         if drone:

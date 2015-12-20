@@ -206,7 +206,6 @@ def hit_power(g, a, b, weapon):
     elif weapon == "laser":
         g.game.weapons[4] = weapon
 
-
     player.powerup(g, b, weapon)
     tile_explode(g, a)
 
@@ -216,7 +215,14 @@ def hit_drone(g, a, b, drone):
     g.game.sfx['powerup'].play()
     # print '+ power'
     g.game.drone = drone
-    g.game.drones.append(drone)
+
+    if drone == "guardian":
+        g.game.drones[0] = drone
+    elif drone == "defender":
+        g.game.drones[1] = drone
+    elif drone == "killer":
+        g.game.drones[2] = drone
+
     tile_explode(g, a)
 
 def hit_jetpack(g, a, b, jetpack):

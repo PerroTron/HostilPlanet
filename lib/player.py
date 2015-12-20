@@ -161,10 +161,9 @@ def event(g, s, e):
 
         g.game.drone = "guardian"
 
-        g.game.drones = []
-        g.game.drones.append("guardian")
-        g.game.drones.append("defender")
-        g.game.drones.append("killer")
+        g.game.drones[0] = "guardian"
+        g.game.drones[1] = "defender"
+        g.game.drones[2] = "killer"
 
         s.jetpack = "jump"
 

@@ -40,7 +40,6 @@ def init(g, r, n, drone):
 
 
 def loop(g, s):
-    # s.drone = s.player.drone
 
     if s.drone == "guardian":
 

@@ -593,6 +593,8 @@ class Weapon(engine.State):
 
         self.current_menu = "weapon"
 
+        self.weapon = 0
+
         if self.game.powerup == "gun":
             self.weapon = 0
         elif self.game.powerup == "shootgun":
@@ -605,6 +607,14 @@ class Weapon(engine.State):
             self.weapon = 4
         
         self.drone = 0
+
+        if self.game.drone == "guardian":
+            self.drone = 0
+        elif self.game.drone == "defender":
+            self.drone = 1
+        elif self.game.drone == "killer":
+            self.drone = 2
+
         self.jetpack = 0
 
     def update(self, screen):
@@ -615,7 +625,7 @@ class Weapon(engine.State):
         if e.type is KEYDOWN or (e.type is USEREVENT and e.action in ('menu')):
 
             self.game.powerup = self.game.weapons[self.weapon]
-            if len(self.game.drones) > 0:
+            if self.game.drone is not None:
                 self.game.drone = self.game.drones[self.drone]
             self.game.jetpack = self.game.jetpacks[self.jetpack]
             return self.level
@@ -625,12 +635,13 @@ class Weapon(engine.State):
 
         elif e.type is KEYDOWN or (e.type is USEREVENT and e.action in ('down')):
             if self.current_menu == "weapon":
-                if len(self.game.drones) > 0:
+                if self.game.drone is not None:
                     self.current_menu = "drone"
+                else:
+                    self.current_menu = "jetpack"
 
             elif self.current_menu == "drone":
-                if len(self.game.jetpacks) > 0:
-                    self.current_menu = "jetpack"
+                self.current_menu = "jetpack"
 
             elif self.current_menu == "jetpack":
                 self.current_menu = "weapon"
@@ -638,15 +649,16 @@ class Weapon(engine.State):
         elif e.type is KEYDOWN or (e.type is USEREVENT and e.action in ('up')):
 
             if self.current_menu == "weapon":
-                if len(self.game.drones) > 0:
-                    self.current_menu = "jetpack"
+                self.current_menu = "jetpack"
 
             elif self.current_menu == "drone":
                 self.current_menu = "weapon"
 
             elif self.current_menu == "jetpack":
-                if len(self.game.drones) > 0:
+                if self.game.drone is not None:
                     self.current_menu = "drone"
+                else:
+                    self.current_menu = "weapon"
 
         elif e.type is KEYDOWN or (e.type is USEREVENT and e.action in ('left')):
             if self.current_menu == "weapon":
@@ -665,9 +677,15 @@ class Weapon(engine.State):
             elif self.current_menu == "drone":
                 if self.drone == 0:
                     self.drone = len(self.game.drones)
+                    for drone in reversed(self.game.drones):
+                        if self.game.drones[self.drone -1] == '':
+                            self.drone -= 1
 
                 if self.drone > 0:
                     self.drone -= 1
+                    for drone in self.game.drones:
+                        if self.game.drones[self.drone] == '':
+                            self.drone -= 1
 
             elif self.current_menu == "jetpack":
                 if self.jetpack == 0:
@@ -695,9 +713,17 @@ class Weapon(engine.State):
             elif self.current_menu == "drone":
                 if self.drone == len(self.game.drones) - 1:
                     self.drone = 0
+                    for drone in self.game.drones:
+                        if self.game.drones[self.drone - 1] == '':
+                            self.drone += 1
 
                 elif self.drone < len(self.game.drones) - 1:
                     self.drone += 1
+                    for drone in reversed(self.game.drones):
+                        if self.drone > len(self.game.drones) - 1:
+                            self.drone = 0
+                        if self.game.drones[self.drone] == '':
+                            self.drone += 1
 
             elif self.current_menu == "jetpack":
                 if self.jetpack == len(self.game.jetpacks) - 1:
@@ -776,20 +802,17 @@ class Weapon(engine.State):
         if self.game.drone:
             pics_x, pics_y = (SW / 2) - 2, (SH / 2) - 67
 
-            for text in self.game.drones:
+            img = None
 
-                img = None
-
-                if text == 'guardian':
-                    img = self.level.images[0x17]
-                elif text == 'defender':
-                    img = self.level.images[0x27]
-                elif text == 'killer':
-                    img = self.level.images[0x37]
-
-                screen.blit(img, (pics_x, pics_y))
-
-                pics_x += 13
+            if self.game.drones[0] == 'guardian':
+                img = self.level.images[0x17]
+                screen.blit(img, (pics_x + 13 *0, pics_y))
+            if self.game.drones[1] == 'defender':
+                img = self.level.images[0x27]
+                screen.blit(img, (pics_x + 13 *1, pics_y))
+            if self.game.drones[2] == 'killer':
+                img = self.level.images[0x37]
+                screen.blit(img, (pics_x + 13 *2, pics_y))
 
             current_drone = None
 
