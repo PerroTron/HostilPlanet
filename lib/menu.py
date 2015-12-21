@@ -617,6 +617,13 @@ class Weapon(engine.State):
 
         self.jetpack = 0
 
+        if self.game.jetpack == "jump":
+            self.jetpack = 0
+        elif self.game.jetpack == "double_jump":
+            self.jetpack = 1
+        elif self.game.jetpack == "fly":
+            self.jetpack = 2
+
     def update(self, screen):
         return self.paint(screen)
         pass
