@@ -231,7 +231,12 @@ def hit_jetpack(g, a, b, jetpack):
     g.game.sfx['powerup'].play()
     # print '+ power'
     g.game.jetpack = jetpack
-    g.game.jetpacks.append(jetpack)
+
+    if jetpack == "double_jump":
+        g.game.jetpacks[1] = jetpack
+    elif jetpack == "fly":
+        g.game.jetpacks[2] = jetpack
+
     tile_explode(g, a)
 
 def tile_close(g, a, b):

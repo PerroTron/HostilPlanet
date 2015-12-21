@@ -167,10 +167,9 @@ def event(g, s, e):
 
         s.jetpack = "jump"
 
-        g.game.jetpacks = []
-        g.game.jetpacks.append("jump")
-        g.game.jetpacks.append("double_jump")
-        g.game.jetpacks.append("fly")
+        g.game.jetpacks[0] = "jump"
+        g.game.jetpacks[1] = "double_jump"
+        g.game.jetpacks[2] = "fly"
 
         s.god_mode = True
 

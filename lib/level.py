@@ -514,9 +514,6 @@ class Level:
             x, y = (SW / 2 - img.get_width() / 2) + 16, 4
             blit(img, (x, y))
 
-
-
-
         """
         text = '%05d'%self.game.score
         c = (0,64,0)
@@ -529,12 +526,14 @@ class Level:
         blit(img,(x,y)) ; blit(img,(x,y))
         """
         # text = 'LIVES: %d'%self.game.lives
+
         """
         for i in xrange(self.game.lives):
             img = self.images[0x0C] # the extra life tile
             x,y = SW-1.05*img.get_width()*i - img.get_width() - pad, pad
             blit(img, (x, y))
-            """
+        """
+
         """
         text = '%01d' % self.game.lives
         c = (0, 64, 0)
@@ -564,6 +563,7 @@ class Level:
         # c = (255,255,255)
         # img = fnt.render(text,1,c)
         # blit(img,(x,y)) ; blit(img,(x,y))
+
         """
         text = '%02d'%self.game.coins
         c = (0,0,0)
@@ -574,6 +574,7 @@ class Level:
         img = fnt.render(text,1,c)
         blit(img,(x,y))
         """
+
         # display current drone
 
         drone = self.game.drone
@@ -587,8 +588,8 @@ class Level:
                 img = self.images[0x37]
             blit(img, (115, 4))
 
-
         # display current jetpack
+
         jetpack = self.game.jetpack
 
         if jetpack:
