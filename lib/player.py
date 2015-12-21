@@ -153,19 +153,23 @@ def event(g, s, e):
 
     if e.type is KEYDOWN and e.key == K_F10:
 
+        g.game.chips = [True, True, True, True]
+
+        g.game.powerup = "laser"
+
         g.game.weapons[0] = 'gun'
         g.game.weapons[1] = 'shootgun'
         g.game.weapons[2] = 'cannon'
         g.game.weapons[3] = 'granadelauncher'
         g.game.weapons[4] = 'laser'
 
-        g.game.drone = "guardian"
+        g.game.drone = "killer"
 
         g.game.drones[0] = "guardian"
         g.game.drones[1] = "defender"
         g.game.drones[2] = "killer"
 
-        s.jetpack = "jump"
+        g.game.jetpack = "fly"
 
         g.game.jetpacks[0] = "jump"
         g.game.jetpacks[1] = "double_jump"
