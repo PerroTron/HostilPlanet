@@ -227,7 +227,7 @@ class Intro(engine.State):
             return Transition(self.game, Intro2(self.game, self.next))
 
     def event(self, e):
-        if e.type is KEYDOWN or (e.type is USEREVENT and e.action in ('jump', 'bubble', 'menu', 'exit')):
+        if e.type is KEYDOWN or (e.type is USEREVENT and e.action in ('jump', 'shoot', 'menu', 'exit')):
             return Transition(self.game, self.next)
 
     def paint(self, screen):
@@ -289,7 +289,7 @@ class Intro2(engine.State):
             return Transition(self.game, self.next)
 
     def event(self, e):
-        if e.type is KEYDOWN or (e.type is USEREVENT and e.action in ('jump', 'bubble', 'menu', 'exit')):
+        if e.type is KEYDOWN or (e.type is USEREVENT and e.action in ('jump', 'shoot', 'menu', 'exit')):
             return Transition(self.game, self.next)
 
     def paint(self, screen):
@@ -379,7 +379,7 @@ class Ending(engine.State):
         #	return Transition(self.game,self.next)
 
     def event(self, e):
-        if e.type is KEYDOWN or (e.type is USEREVENT and e.action in ('jump', 'bubble', 'menu', 'exit')):
+        if e.type is KEYDOWN or (e.type is USEREVENT and e.action in ('jump', 'shoot', 'menu', 'exit')):
             return Transition(self.game, self.next)
 
     def paint(self, screen):
@@ -496,7 +496,7 @@ class Credits(engine.State):
     # return Transition(self.game,Intro2(self.game,self.next))
 
     def event(self, e):
-        if e.type is KEYDOWN or (e.type is USEREVENT and e.action in ('jump', 'bubble', 'menu', 'exit')):
+        if e.type is KEYDOWN or (e.type is USEREVENT and e.action in ('jump', 'shoot', 'menu', 'exit')):
             return Transition(self.game, self.next)
 
     def paint(self, screen):
@@ -549,7 +549,7 @@ class Help(engine.State):
     # return Transition(self.game,Intro2(self.game,self.next))
 
     def event(self, e):
-        if e.type is KEYDOWN or (e.type is USEREVENT and e.action in ('jump', 'bubble', 'menu', 'exit')):
+        if e.type is KEYDOWN or (e.type is USEREVENT and e.action in ('jump', 'shoot', 'menu', 'exit')):
             return Transition(self.game, self.next)
 
     def paint(self, screen):
@@ -629,7 +629,7 @@ class Weapon(engine.State):
         pass
 
     def event(self, e):
-        if e.type is KEYDOWN or (e.type is USEREVENT and e.action in ('menu')):
+        if e.type is USEREVENT and e.action in ('menu', 'jump'):
 
             self.game.powerup = self.game.weapons[self.weapon]
             if self.game.drone is not None:
@@ -637,10 +637,10 @@ class Weapon(engine.State):
             self.game.jetpack = self.game.jetpacks[self.jetpack]
             return self.level
 
-        elif e.type is KEYDOWN or (e.type is USEREVENT and e.action in ('exit')):
+        elif e.type is USEREVENT and e.action in ('exit', 'shoot'):
             return self.level
 
-        elif e.type is KEYDOWN or (e.type is USEREVENT and e.action in ('down')):
+        elif e.type is USEREVENT and e.action in ('down'):
             if self.current_menu == "weapon":
                 if self.game.drone is not None:
                     self.current_menu = "drone"
@@ -653,7 +653,7 @@ class Weapon(engine.State):
             elif self.current_menu == "jetpack":
                 self.current_menu = "weapon"
 
-        elif e.type is KEYDOWN or (e.type is USEREVENT and e.action in ('up')):
+        elif e.type is USEREVENT and e.action in ('up'):
 
             if self.current_menu == "weapon":
                 self.current_menu = "jetpack"
@@ -667,7 +667,7 @@ class Weapon(engine.State):
                 else:
                     self.current_menu = "weapon"
 
-        elif e.type is KEYDOWN or (e.type is USEREVENT and e.action in ('left')):
+        elif e.type is USEREVENT and e.action in ('left'):
             if self.current_menu == "weapon":
                 if self.weapon == 0:
                     self.weapon = len(self.game.weapons) -1
@@ -707,7 +707,7 @@ class Weapon(engine.State):
                         if self.game.jetpacks[self.jetpack] == '':
                             self.jetpack -= 1
 
-        elif e.type is KEYDOWN or (e.type is USEREVENT and e.action in ('right')):
+        elif e.type is USEREVENT and e.action in ('right'):
             if self.current_menu == "weapon":
                 if self.weapon == len(self.game.weapons) - 1:
                     self.weapon = 0
