@@ -46,13 +46,13 @@ class Game(engine.Game):
         self.chips = [False, False, False, False]
         self.strength = 10
         self.powerup = 'gun'
-        self.weapons = ['gun']
+        self.weapons = ['gun', '', '', '', '']
 
         self.drone = None
-        self.drones =  []
+        self.drones = ['', '', '']
 
         self.jetpack = 'jump'
-        self.jetpacks =  ['jump']
+        self.jetpacks = ['jump', '', '']
 
     def init(self):
         self.random = 0
