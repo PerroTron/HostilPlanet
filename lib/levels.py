@@ -1,7 +1,7 @@
 LEVELS = [
 
     ('cave1.tga',       'Cave - 1', 1,),
-    #('cave2.tga',       'Cave - 2', 1,),
+    ('cave2.tga',       'Cave - 2', 1,),
     #('cave3.tga',       'Cave - 3', 1,),
 
     #('Complex1.tga',      'Complex - 1', '2',),
