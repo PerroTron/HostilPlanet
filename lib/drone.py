@@ -73,7 +73,7 @@ def loop(g, s):
 
                 s.shoot -= 1
 
-    if g.frame & 30 == 0:
+    if g.frame % 30 == 0:
         s.image = "drone/%s-1" % s.drone
     else:
         s.image = "drone/%s-0" % s.drone

@@ -195,7 +195,7 @@ def hit_power(g, a, b, weapon):
     g.game.sfx['powerup'].play()
     # print '+ power'
 
-    g.game.weapon = weapon
+    g.game.powerup = weapon
 
     if weapon == "shootgun":
         g.game.weapons[1] = weapon

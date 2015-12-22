@@ -31,3 +31,4 @@ import raider
 import explosion
 import drone
 import shield
+import ship
