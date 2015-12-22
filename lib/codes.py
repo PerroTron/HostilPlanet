@@ -137,6 +137,9 @@ CODES = {
     0xF8: [sprites.raider.init, ],
     0xF9: [_pass, ],  # CODE_RAIDER_TURN
 
+    # ship related
+    0xB0: [sprites.ship.init, ],
+
 }
 
 

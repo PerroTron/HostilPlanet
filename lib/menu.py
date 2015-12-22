@@ -227,7 +227,7 @@ class Intro(engine.State):
             return Transition(self.game, Intro2(self.game, self.next))
 
     def event(self, e):
-        if e.type is KEYDOWN or (e.type is USEREVENT and e.action in ('jump', 'bubble', 'menu', 'exit')):
+        if e.type is KEYDOWN or (e.type is USEREVENT and e.action in ('jump', 'shoot', 'menu', 'exit')):
             return Transition(self.game, self.next)
 
     def paint(self, screen):
@@ -275,7 +275,7 @@ class Intro2(engine.State):
 
     def init(self):
         self.moon = pygame.image.load(data.filepath(os.path.join('intro', 'intro.png'))).convert()
-        img = pygame.image.load(data.filepath(os.path.join('images', 'player', 'right.png')))
+        img = pygame.image.load(data.filepath(os.path.join('images', 'jump', 'player', 'right.png')))
         w = 160
         self.player = pygame.transform.scale(img, (w, img.get_height() * w / img.get_width()))
 
@@ -289,7 +289,7 @@ class Intro2(engine.State):
             return Transition(self.game, self.next)
 
     def event(self, e):
-        if e.type is KEYDOWN or (e.type is USEREVENT and e.action in ('jump', 'bubble', 'menu', 'exit')):
+        if e.type is KEYDOWN or (e.type is USEREVENT and e.action in ('jump', 'shoot', 'menu', 'exit')):
             return Transition(self.game, self.next)
 
     def paint(self, screen):
@@ -379,7 +379,7 @@ class Ending(engine.State):
         #	return Transition(self.game,self.next)
 
     def event(self, e):
-        if e.type is KEYDOWN or (e.type is USEREVENT and e.action in ('jump', 'bubble', 'menu', 'exit')):
+        if e.type is KEYDOWN or (e.type is USEREVENT and e.action in ('jump', 'shoot', 'menu', 'exit')):
             return Transition(self.game, self.next)
 
     def paint(self, screen):
@@ -496,7 +496,7 @@ class Credits(engine.State):
     # return Transition(self.game,Intro2(self.game,self.next))
 
     def event(self, e):
-        if e.type is KEYDOWN or (e.type is USEREVENT and e.action in ('jump', 'bubble', 'menu', 'exit')):
+        if e.type is KEYDOWN or (e.type is USEREVENT and e.action in ('jump', 'shoot', 'menu', 'exit')):
             return Transition(self.game, self.next)
 
     def paint(self, screen):
@@ -549,7 +549,7 @@ class Help(engine.State):
     # return Transition(self.game,Intro2(self.game,self.next))
 
     def event(self, e):
-        if e.type is KEYDOWN or (e.type is USEREVENT and e.action in ('jump', 'bubble', 'menu', 'exit')):
+        if e.type is KEYDOWN or (e.type is USEREVENT and e.action in ('jump', 'shoot', 'menu', 'exit')):
             return Transition(self.game, self.next)
 
     def paint(self, screen):
@@ -594,93 +594,164 @@ class Weapon(engine.State):
         self.current_menu = "weapon"
 
         self.weapon = 0
+
+        if self.game.powerup == "gun":
+            self.weapon = 0
+        elif self.game.powerup == "shootgun":
+            self.weapon = 1
+        elif self.game.powerup == "cannon":
+            self.weapon = 2
+        elif self.game.powerup == "granadelauncher":
+            self.weapon = 3
+        elif self.game.powerup == "laser":
+            self.weapon = 4
+        
         self.drone = 0
+
+        if self.game.drone == "guardian":
+            self.drone = 0
+        elif self.game.drone == "defender":
+            self.drone = 1
+        elif self.game.drone == "killer":
+            self.drone = 2
+
         self.jetpack = 0
+
+        if self.game.jetpack == "jump":
+            self.jetpack = 0
+        elif self.game.jetpack == "double_jump":
+            self.jetpack = 1
+        elif self.game.jetpack == "fly":
+            self.jetpack = 2
 
     def update(self, screen):
         return self.paint(screen)
         pass
 
     def event(self, e):
-        if e.type is KEYDOWN or (e.type is USEREVENT and e.action in ('menu')):
+        if e.type is USEREVENT and e.action in ('menu', 'jump'):
 
             self.game.powerup = self.game.weapons[self.weapon]
-            if len(self.game.drones) > 0:
+            if self.game.drone is not None:
                 self.game.drone = self.game.drones[self.drone]
             self.game.jetpack = self.game.jetpacks[self.jetpack]
             return self.level
 
-        elif e.type is KEYDOWN or (e.type is USEREVENT and e.action in ('exit')):
+        elif e.type is USEREVENT and e.action in ('exit', 'shoot'):
             return self.level
 
-        elif e.type is KEYDOWN or (e.type is USEREVENT and e.action in ('down')):
+        elif e.type is USEREVENT and e.action in ('down'):
             if self.current_menu == "weapon":
-                if len(self.game.drones) > 0:
+                if self.game.drone is not None:
                     self.current_menu = "drone"
+                else:
+                    self.current_menu = "jetpack"
 
             elif self.current_menu == "drone":
-                if len(self.game.jetpacks) > 0:
-                    self.current_menu = "jetpack"
+                self.current_menu = "jetpack"
 
             elif self.current_menu == "jetpack":
                 self.current_menu = "weapon"
 
-        elif e.type is KEYDOWN or (e.type is USEREVENT and e.action in ('up')):
+        elif e.type is USEREVENT and e.action in ('up'):
 
             if self.current_menu == "weapon":
-                if len(self.game.drones) > 0:
-                    self.current_menu = "jetpack"
+                self.current_menu = "jetpack"
 
             elif self.current_menu == "drone":
                 self.current_menu = "weapon"
 
             elif self.current_menu == "jetpack":
-                if len(self.game.drones) > 0:
+                if self.game.drone is not None:
                     self.current_menu = "drone"
+                else:
+                    self.current_menu = "weapon"
 
-        elif e.type is KEYDOWN or (e.type is USEREVENT and e.action in ('left')):
+        elif e.type is USEREVENT and e.action in ('left'):
             if self.current_menu == "weapon":
                 if self.weapon == 0:
-                    self.weapon = len(self.game.weapons)
+                    self.weapon = len(self.game.weapons) -1
+                    for weapon in reversed(self.game.weapons):
+                        if self.game.weapons[self.weapon] == '':
+                            self.weapon -= 1
 
-                if self.weapon > 0:
+                elif self.weapon > 0:
                     self.weapon -= 1
+                    for weapon in self.game.weapons:
+                        if self.game.weapons[self.weapon] == '':
+                            self.weapon -= 1
 
             elif self.current_menu == "drone":
                 if self.drone == 0:
                     self.drone = len(self.game.drones)
+                    for drone in reversed(self.game.drones):
+                        if self.game.drones[self.drone -1] == '':
+                            self.drone -= 1
 
                 if self.drone > 0:
                     self.drone -= 1
+                    for drone in self.game.drones:
+                        if self.game.drones[self.drone] == '':
+                            self.drone -= 1
 
             elif self.current_menu == "jetpack":
                 if self.jetpack == 0:
                     self.jetpack = len(self.game.jetpacks)
+                    for jetpack in reversed(self.game.jetpacks):
+                        if self.game.jetpacks[self.jetpack -1] == '':
+                            self.jetpack -= 1
 
                 if self.jetpack > 0:
                     self.jetpack -= 1
+                    for jetpack in self.game.jetpacks:
+                        if self.game.jetpacks[self.jetpack] == '':
+                            self.jetpack -= 1
 
-        elif e.type is KEYDOWN or (e.type is USEREVENT and e.action in ('right')):
+        elif e.type is USEREVENT and e.action in ('right'):
             if self.current_menu == "weapon":
                 if self.weapon == len(self.game.weapons) - 1:
                     self.weapon = 0
+                    for weapon in self.game.weapons:
+                        if self.game.weapons[self.weapon - 1] == '':
+                            self.weapon += 1
 
                 elif self.weapon < len(self.game.weapons) - 1:
                     self.weapon += 1
+                    for weapon in reversed(self.game.weapons):
+                        if self.weapon > len(self.game.weapons) - 1:
+                            self.weapon = 0
+                        if self.game.weapons[self.weapon] == '':
+                            self.weapon += 1
 
             elif self.current_menu == "drone":
                 if self.drone == len(self.game.drones) - 1:
                     self.drone = 0
+                    for drone in self.game.drones:
+                        if self.game.drones[self.drone - 1] == '':
+                            self.drone += 1
 
                 elif self.drone < len(self.game.drones) - 1:
                     self.drone += 1
+                    for drone in reversed(self.game.drones):
+                        if self.drone > len(self.game.drones) - 1:
+                            self.drone = 0
+                        if self.game.drones[self.drone] == '':
+                            self.drone += 1
 
             elif self.current_menu == "jetpack":
                 if self.jetpack == len(self.game.jetpacks) - 1:
                     self.jetpack = 0
+                    for jetpack in self.game.jetpacks:
+                        if self.game.jetpacks[self.jetpack - 1] == '':
+                            self.jetpack += 1
 
                 elif self.jetpack < len(self.game.jetpacks) - 1:
                     self.jetpack += 1
+                    for jetpack in reversed(self.game.jetpacks):
+                        if self.jetpack > len(self.game.jetpacks) - 1:
+                            self.jetpack = 0
+                        if self.game.jetpacks[self.jetpack] == '':
+                            self.jetpack += 1
 
     def paint(self, screen):
 
@@ -705,41 +776,41 @@ class Weapon(engine.State):
 
         pics_x, pics_y = (SW / 2) - 55, (SH / 2) + 47
 
-        for text in self.game.weapons:
+        img = None
 
-            img = None
+        if self.game.weapons[0] == "gun":
+            img = self.level.images[0x07]
+            screen.blit(img, (pics_x + 23 * 0, pics_y))
 
-            if text == 'gun':
-                img = self.level.images[0x07]
-            elif text == 'cannon':
-                img = self.level.images[0x08]
-            elif text == 'laser':
-                img = self.level.images[0x18]
-            elif text == 'shootgun':
-                img = self.level.images[0x28]
-            elif text == 'granadelauncher':
-                img = self.level.images[0x38]
+        if self.game.weapons[1] == "shootgun":
+            img = self.level.images[0x28]
+            screen.blit(img, (pics_x + 23 * 1, pics_y))
 
-            screen.blit(img, (pics_x, pics_y))
-            pics_x += 23
+        if self.game.weapons[2] == "cannon":
+            img = self.level.images[0x08]
+            screen.blit(img, (pics_x + 23 * 2, pics_y))
 
-        #current_weapon = None
+        if self.game.weapons[3] == "granadelauncher":
+            img = self.level.images[0x38]
+            screen.blit(img, (pics_x + 23 * 3, pics_y))
+
+        if self.game.weapons[4] == "laser":
+            img = self.level.images[0x18]
+            screen.blit(img, (pics_x + 23 * 4, pics_y))
+
+
+        player_img = None
 
         if self.weapon == 0:
-            #current_weapon = self.level.images[0x07]
             player_img = pygame.image.load(data.filepath(os.path.join('images', 'jump', 'player', 'right.png')))
         elif self.weapon == 1:
-            #current_weapon = self.level.images[0x08]
-            player_img = pygame.image.load(data.filepath(os.path.join('images', 'jump',  'cannon', 'right.png')))
-        elif self.weapon == 2:
-            #current_weapon = self.level.images[0x18]
-            player_img = pygame.image.load(data.filepath(os.path.join('images', 'jump',  'laser', 'right.png')))
-        elif self.weapon == 3:
-            #current_weapon = self.level.images[0x28]
             player_img = pygame.image.load(data.filepath(os.path.join('images', 'jump',  'shootgun', 'right.png')))
-        elif self.weapon == 4:
-            #current_weapon = self.level.images[0x38]
+        elif self.weapon == 2:
+            player_img = pygame.image.load(data.filepath(os.path.join('images', 'jump',  'cannon', 'right.png')))
+        elif self.weapon == 3:
             player_img = pygame.image.load(data.filepath(os.path.join('images', 'jump',  'granadelauncher', 'right.png')))
+        elif self.weapon == 4:
+            player_img = pygame.image.load(data.filepath(os.path.join('images', 'jump',  'laser', 'right.png')))
 
         w = 40
 
@@ -748,29 +819,23 @@ class Weapon(engine.State):
 
         screen.blit(player_img, (player_x, player_y))
 
-        #weapon_x, weapon_y = ((SW - current_weapon.get_width()) / 2) + 29 , ((SH - current_weapon.get_height()) / 2) + 8
-        #screen.blit(current_weapon, (weapon_x, weapon_y))
 
         # Drones
 
-        if self.game.drone:
-
+        if self.game.drone is not None:
             pics_x, pics_y = (SW / 2) - 2, (SH / 2) - 67
 
-            for text in self.game.drones:
+            img = None
 
-                img = None
-
-                if text == 'guardian':
-                    img = self.level.images[0x17]
-                elif text == 'defender':
-                    img = self.level.images[0x27]
-                elif text == 'killer':
-                    img = self.level.images[0x37]
-
-                screen.blit(img, (pics_x, pics_y))
-
-                pics_x += 13
+            if self.game.drones[0] == 'guardian':
+                img = self.level.images[0x17]
+                screen.blit(img, (pics_x + 13 *0, pics_y))
+            if self.game.drones[1] == 'defender':
+                img = self.level.images[0x27]
+                screen.blit(img, (pics_x + 13 *1, pics_y))
+            if self.game.drones[2] == 'killer':
+                img = self.level.images[0x37]
+                screen.blit(img, (pics_x + 13 *2, pics_y))
 
             current_drone = None
 
@@ -791,21 +856,20 @@ class Weapon(engine.State):
 
         pics_x, pics_y = (SW / 2) - 58, (SH / 2) - 30
 
-        for text in self.game.jetpacks:
+        img = None
 
-            img = None
-
-            if text == 'jump':
-                img = self.level.images[0x16]
-            elif text == 'double_jump':
-                img = self.level.images[0x26]
-            elif text == 'fly':
-                img = self.level.images[0x36]
-
-            screen.blit(img, (pics_x, pics_y))
-            pics_x += 10
+        if self.game.jetpacks[0] == 'jump':
+            img = self.level.images[0x16]
+            screen.blit(img, (pics_x + 10 * 0, pics_y))
+        if self.game.jetpacks[1] == 'double_jump':
+            img = self.level.images[0x26]
+            screen.blit(img, (pics_x + 10 * 1, pics_y))
+        if self.game.jetpacks[2] == 'fly':
+            img = self.level.images[0x36]
+            screen.blit(img, (pics_x + 10 * 2, pics_y))
 
         x,y = 5,10
+
         w = 40
 
         if self.jetpack == 1:
@@ -813,6 +877,7 @@ class Weapon(engine.State):
             jetpack_img = pygame.transform.scale(jetpack_img, (w, jetpack_img.get_height() * w / jetpack_img.get_width()))
             jetpack_x, jetpack_y = ((SW - jetpack_img.get_width()) / 2 + x) , ((SH - jetpack_img.get_height()) / 2) - y
             screen.blit(jetpack_img, (jetpack_x, jetpack_y))
+
         elif self.jetpack == 2:
             jetpack_img = pygame.image.load(data.filepath(os.path.join('images', 'jetpack', 'fly.png')))
             jetpack_img = pygame.transform.scale(jetpack_img, (w, jetpack_img.get_height() * w / jetpack_img.get_width()))

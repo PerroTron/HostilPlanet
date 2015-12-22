@@ -27,7 +27,6 @@ def init(g, r, p, enemy):
 
     g.game.weaponsound = 'hit'
 
-
     s.max_speed_x = 2.0
     s.max_speed_y = 2.0
 
