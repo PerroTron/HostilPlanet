@@ -292,6 +292,9 @@ def loop(g, s):
         # print s.vy
         s.vy -= s.jumping
 
+        if s.vy < -4:
+            s.vy = -4
+
         if s.jetpack == "double_jump":
             s.jump_timer += 2
             s.jumping = max(0, s.jumping - 0.2)
