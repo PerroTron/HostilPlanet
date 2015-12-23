@@ -87,17 +87,29 @@ def event(g, s, e):
     if s.jetpack == "double_jump":
         if e.type is USEREVENT and e.action == 'jump' and s.standing is not None and s.jumping == 0 and s.vy == 0:
             sprite.stop_standing(g, s)
+
             s.double_jumping = 1
 
-            s.jumping = 1.21
+            s.jumping = 1.18
+
             g.game.sfx['jump'].play()
         elif e.type is USEREVENT and e.action == 'jump' and s.double_jumping == 1:
             sprite.stop_standing(g, s)
+
             s.double_jumping = 0
+
             if s.vy > 0:
-                s.jumping = 1.55
+                #print("Down timer = %d" % s.jump_timer)
+                if s.jump_timer >= 8:
+                    s.jumping = 1.20
+                elif 8 > s.jump_timer >= 2:
+                    s.jumping = 1.25
+                elif s.jump_timer < 2:
+                    s.jumping = 1.60
             else:
-                s.jumping = 0.65
+                #print("UP timer = %d" % s.jump_timer)
+                s.jumping = 0.60
+
             g.game.sfx['jump'].play()
 
     elif s.jetpack == "fly":
@@ -298,7 +310,7 @@ def loop(g, s):
             s.vy = -4
 
         if s.jetpack == "double_jump":
-            s.jump_timer += 4
+            s.jump_timer += 5
             s.jumping = max(0, s.jumping - 0.2)
 
         elif s.jetpack == 'fly':
