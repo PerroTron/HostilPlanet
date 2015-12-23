@@ -94,9 +94,10 @@ def event(g, s, e):
         elif e.type is USEREVENT and e.action == 'jump' and s.double_jumping == 1:
             sprite.stop_standing(g, s)
             s.double_jumping = 0
-            print(s.jump_timer)
-
-            s.jumping = 1.41
+            if s.vy > 0:
+                s.jumping = 1.55
+            else:
+                s.jumping = 0.65
             g.game.sfx['jump'].play()
 
     elif s.jetpack == "fly":

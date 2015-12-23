@@ -5,7 +5,7 @@ import sprite
 
 def init(g, r, n, *params):
 
-    s = sprite.Sprite3(g, r, 'ship/ship-0', (0, 0, 80, 120))
+    s = sprite.Sprite3(g, r, 'ship/ship-0', (0, 0, 48, 64))
     s.rect.centerx = r.centerx
     s.rect.centery = r.centery - (32 - 16) / 2
     s.loop = loop
