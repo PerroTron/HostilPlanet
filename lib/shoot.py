@@ -47,8 +47,8 @@ def init(g, r, p, weapon, enemy, granade=0):
 
         s.strength = 4
 
-        s.x_pid = PID(3.0, 0.4, 1.2)
-        s.y_pid = PID(3.0, 0.4, 1.2)
+        s.x_pid = PID(0.5, 0.1, 0.2)
+        s.y_pid = PID(0.5, 0.1, 0.2)
 
         s.vx = 0
         s.vy = 0
