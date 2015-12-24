@@ -35,6 +35,7 @@ def loop(g, s):
 
     s.rect.x += s.vx * 3
     s.rect.y += s.vy
+
     s.life -= 1
     if s.life == 0:
         s.active = False
