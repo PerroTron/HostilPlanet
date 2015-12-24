@@ -47,11 +47,14 @@ def init(g, r, p, weapon, enemy, granade=0):
 
         s.strength = 4
 
-        s.x_pid = PID(3.0, 0.4, 1.2)
-        s.y_pid = PID(3.0, 0.4, 1.2)
+        s.x_pid = PID(50, 0.5, 0.5)
+        s.y_pid = PID(50, 0.5, 0.5)
 
-        s.vx = 0
+        s.vx = 1
+        if p.facing == 'left':
+            s.vx = -1
         s.vy = 0
+
         s.rect.centerx += s.vx * (10 + s.rect.width / 2)
         s.rect.centery -= 2
 
@@ -88,6 +91,7 @@ def init(g, r, p, weapon, enemy, granade=0):
         if p.facing == 'left':
             s.vx = -1
         s.vy = 0
+
         s.rect.centerx += s.vx * (8 + s.rect.width / 2)
         s.rect.centery -= 2
 
@@ -124,6 +128,7 @@ def init(g, r, p, weapon, enemy, granade=0):
         if p.facing == 'left':
             s.vx = -1
         s.vy = 0
+
         s.rect.centerx += s.vx * (4 + s.rect.width / 2)
         s.rect.centery -= 1
 

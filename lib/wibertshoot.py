@@ -30,8 +30,12 @@ def init(g, r, p):
 
 
 def loop(g, s):
+
+    s.vy += 0.2
+
     s.rect.x += s.vx * 3
     s.rect.y += s.vy
+
     s.life -= 1
     if s.life == 0:
         s.active = False
