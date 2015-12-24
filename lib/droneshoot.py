@@ -3,41 +3,84 @@ from pid import PID
 
 
 def init(g, r, p, enemy):
-    s = sprite.Sprite3(g, r, 'shoots/right-drone-shoot', (0, 0, 4, 2))
 
-    s.rect.centerx = r.centerx
-    s.rect.centery = r.centery
+    s = None
 
-    s.groups.add('solid')
-    s.groups.add('shoot')
-    s.hit_groups.add('enemy')
+    if p.drone == "guardian":
 
-    s.hit = hit
-    g.sprites.append(s)
-    s.loop = loop
-    s.life = 180
-    s.strength = 1
-    s.damage = 1
-    s.frame = 0
+        s = sprite.Sprite3(g, r, 'shoots/right-drone-guardian-shoot', (0, 0, 4, 2))
 
-    s.x_pid = PID(3.0, 0.4, 1.2)
-    s.y_pid = PID(3.0, 0.4, 1.2)
+        s.rect.centerx = r.centerx
+        s.rect.centery = r.centery
 
-    s.enemy = enemy
+        s.groups.add('solid')
+        s.groups.add('shoot')
+        s.hit_groups.add('enemy')
 
-    g.game.weaponsound = 'hit'
+        s.hit = hit
+        g.sprites.append(s)
+        s.loop = loop
+        s.life = 180
+        s.strength = 1
+        s.damage = 1
+        s.frame = 0
 
-    s.max_speed_x = 2.0
-    s.max_speed_y = 2.0
+        s.x_pid = PID(3.0, 0.4, 1.2)
+        s.y_pid = PID(3.0, 0.4, 1.2)
 
-    if p.facing == "right":
-        s.vx = s.max_speed_x
-    else:
-        s.vx = -s.max_speed_x
-    s.vy = 0
+        s.enemy = enemy
 
-    s.rect.centerx += s.vx * (s.rect.width / 2) -2
-    s.rect.centery -= 0
+        g.game.weaponsound = 'hit'
+
+        s.max_speed_x = 2.0
+        s.max_speed_y = 2.0
+
+        if p.facing == "right":
+            s.vx = s.max_speed_x
+        else:
+            s.vx = -s.max_speed_x
+        s.vy = 0
+
+        s.rect.centerx += s.vx * (s.rect.width / 2) -2
+        s.rect.centery -= 0
+
+    elif p.drone == "killer":
+
+        s = sprite.Sprite3(g, r, 'shoots/right-drone-killer-shoot', (0, 0, 4, 2))
+
+        s.rect.centerx = r.centerx
+        s.rect.centery = r.centery
+
+        s.groups.add('solid')
+        s.groups.add('shoot')
+        s.hit_groups.add('enemy')
+
+        s.hit = hit
+        g.sprites.append(s)
+        s.loop = loop
+        s.life = 180
+        s.strength = 1
+        s.damage = 2
+        s.frame = 0
+
+        s.x_pid = PID(3.0, 0.4, 1.2)
+        s.y_pid = PID(3.0, 0.4, 1.2)
+
+        s.enemy = enemy
+
+        g.game.weaponsound = 'hit'
+
+        s.max_speed_x = 3.0
+        s.max_speed_y = 3.0
+
+        if p.facing == "right":
+            s.vx = s.max_speed_x
+        else:
+            s.vx = -s.max_speed_x
+        s.vy = 0
+
+        s.rect.centerx += s.vx * (s.rect.width / 2) -2
+        s.rect.centery -= 0
 
     return s
 
