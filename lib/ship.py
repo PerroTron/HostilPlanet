@@ -18,5 +18,9 @@ def init(g, r, n, *params):
 def loop(g, s):
     if g.frame % 30 == 0:
         s.image = "ship/ship-1"
+    elif g.frame % 32 == 0:
+        s.image = "ship/ship-2"
+    elif g.frame % 34 == 0:
+        s.image = "ship/ship-3"
     else:
         s.image = "ship/ship-0"
